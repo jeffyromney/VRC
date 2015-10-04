@@ -1,0 +1,17 @@
+<html>
+<head><title>{% block title %}VRC{% endblock %}</title></head>
+
+<body>
+<a href="/">Home</a>
+<a href="/addVolunteer">Add Volunteer</a>
+<a href="/addOrganization">Add Organization</a>
+<a href="/addJob">Add Job</a>
+<h1>VRC Administration</h1>
+    {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.
+    {% endblock %}
+    {% block footer %}
+    <hr>
+    <p>Thanks for Volunteering!.</p>
+    {% endblock %}
+</body>
+</html>
