@@ -1,7 +1,9 @@
 IN ORDER
 
+*  migrate old database
+*  fix months available field and check volunteers for other fields
+*  complete organization and job tables
 *  Create Search Page
 *  when object is selected from search page, give option to modify, view, or delete
 *  Add security
-*  migrate old database
 *  Create checkoff pages

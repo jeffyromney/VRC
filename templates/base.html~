@@ -6,6 +6,12 @@
 <a href="/addVolunteer">Add Volunteer</a>
 <a href="/addOrganization">Add Organization</a>
 <a href="/addJob">Add Job</a>
+<a href="/modifyVolunteer"></a>
+<a href="/modifyOrganization"></a>
+<a href="/modifyJob"></a>
+<a href="/Safety"></a>
+<a href="/Maps"></a>
+<a href="/Assignment"></a>
 <h1>VRC Administration</h1>
     {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.
     {% endblock %}

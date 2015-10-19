@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title%}Search{% endblock %}
+
+{% block content %}
+    {{id}}
+    {{name}}
+    {% if volunteer %}
+    {{volunteer.0.values}}
+        <table>
+            <tr>
+                {% for field in volunteer.0 %}
+                    <td>{{field}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                {% for field in volunteer.0.values %}
+                    <td>{{field}}</td>
+                {% endfor %}
+            </tr>
+
+        </table>
+    {% else %}
+        <h3 class='error'>NO VOLUNTEER</h3>
+    {% endif %}
+{% endblock %}

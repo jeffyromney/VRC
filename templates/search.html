@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title%}Search{% endblock %}
+
+{% block content %}
+        <form method="get" action="/search/">
+            Search:<input type="text" name="q" id="id_q" value="{{ query }}"/>
+            Type:<input type="text" name="type" id="id_type" value=""/>
+            <input type="submit" value="Search" />
+        </form>
+    {% if results %}
+        <table>
+        <tr><td>ID</td><td>Name</td><td>Birthday</td><td>Address</td><td>City</td>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.name }}</td>
+                <td>{{ result.birthday }}</td>
+                <td>{{ result.address }}</td>
+                <td>{{ result.city }}</td>
+                <td><a href="/Volunteer/view/{{ result.id }}">View</a></td>
+                {% if perms.VRC.change_volunteer %}<td><a href="/Volunteer/modify/{{ result.id }}">Modify</a></td>{% endif %}
+                {% if perms.VRC.delete_volunteer %}<td><a href="/Volunteer/delete/{{ result.id }}">Delete</a></td>{% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h3 class='error'>Please enter a valid search term. Search can be all or part of a name or ID#.</h3>
+    {% endif %}
+{% endblock %}
