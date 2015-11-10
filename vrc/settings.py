@@ -27,7 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIRS = (
-    '/home/jefferson/djcode/vrc/templates',
+    'templates',
 )
 
 # Application definition
