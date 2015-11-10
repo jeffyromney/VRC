@@ -1,9 +1,10 @@
-IN ORDER
-
-*  migrate old database
 *  fix months available field and check volunteers for other fields
-*  complete organization and job tables
-*  Create Search Page
-*  when object is selected from search page, give option to modify, view, or delete
-*  Add security
-*  Create checkoff pages
+    -Jefferson
+*  Create checkboxes to search page based on permissions
+*  Add modify and delete functionality
+*  Format forms to match paper forms
+*  seperated day,mon,year fields in date fields
+*  add date selector
+*  Add CSS
+*  create database cleaner program (seperate)
+*  
