@@ -4,6 +4,8 @@ from django.template.loader import get_template
 from django.shortcuts import render
 from VRC.forms import *
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 @permission_required('VRC.add_volunteer')
@@ -21,6 +23,7 @@ def addVolunteer(request):
         return render(request, 'add.html', {'form': form, 'type': "Volunteer"})
 
 
+@permission_required('VRC.add_organization')
 def addOrganization(request):
     if request.method == 'POST':
         form = OrganizationForm(request.POST)
@@ -34,6 +37,7 @@ def addOrganization(request):
         form = OrganizationForm()
         return render(request, 'add.html', {'form': form, 'type': "Organization"})
 
+@permission_required('VRC.add_job')
 def addJob(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
@@ -51,7 +55,7 @@ def addJob(request):
 def welcome(request):
     return render(request, 'base.html', {})
 
-#@permission_required('VRC.change_volunteer')
+
 def loginSuccess(request):
     permissions = request.user.get_all_permissions()
     return render(request, 'registration/success.html', {'permissions':permissions})
@@ -113,7 +117,7 @@ def search(request):
                           context_instance=RequestContext(request))
 
 
-    
+@permission_required('VRC.change_volunteer')
 def view(request,dbID):
     volunteer = Volunteer.objects.filter(get_query(dbID, ['id'])).order_by('name')
     volunteer = volunteer.values()
