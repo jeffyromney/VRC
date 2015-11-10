@@ -18,9 +18,9 @@
                 <td>{{ result.birthday }}</td>
                 <td>{{ result.address }}</td>
                 <td>{{ result.city }}</td>
-                <td><a href="/Volunteer/view/{{ result.id }}">View</a></td>
-                {% if perms.VRC.change_volunteer %}<td><a href="/Volunteer/modify/{{ result.id }}">Modify</a></td>{% endif %}
-                {% if perms.VRC.delete_volunteer %}<td><a href="/Volunteer/delete/{{ result.id }}">Delete</a></td>{% endif %}
+                <td><button onClick="window.location='/Volunteer/view/{{ result.id }}'">View</button></td>
+                {% if perms.VRC.change_volunteer %}<td><button onClick="window.location='/Volunteer/modify/{{ result.id }}'">Modify</button></td>{% endif %}
+                {% if perms.VRC.delete_volunteer %}<td><button onClick="window.location='/Volunteer/delete/{{ result.id }}'">Delete</button></td>{% endif %}
             </tr>
         {% endfor %}
         </table>
