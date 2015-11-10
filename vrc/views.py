@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 
-@permission_required('VRC.add_volunteer')
+#@permission_required('VRC.add_volunteer')
 def addVolunteer(request):
     if request.method == 'POST':
         form = VolunteerForm(request.POST)
@@ -101,7 +101,7 @@ def get_query(query_string, search_fields):
 
 
 
-@permission_required('VRC.change_volunteer')
+#@permission_required('VRC.change_volunteer')
 def search(request):
     query_string = ''
     found_entries = None

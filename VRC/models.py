@@ -26,10 +26,10 @@ class Job(models.Model):
     skills = models.CharField(blank=True, null=True, max_length=200)
     other = models.CharField(blank=True, null=True, max_length=500)
     
-#    class Meta:
-#        permissions = (
-#            ("Phone_Bank", "Can search, view, and add jobs and organizations"),
-#        )
+    class Meta:
+        permissions = (
+            ("Phone_Bank", "Phone_Bank"),
+        )
     
 #    agencies (tdate, sdate, edate, event, agency, title, contact, address, phone, ext, duties, weight, drive, number, whenNeeded, age, skills, other)
 
