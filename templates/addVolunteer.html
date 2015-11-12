@@ -4,9 +4,154 @@
 
 {% block content %}
     <form action="" method="post">
-    This is some text for the Add Volunteer 
+        Name {{ form.name }} Birthday {{ form.birthday }} Day phone {{ form.dayPhone }} <br>
+        Email Address {{ form.email }} Cell Phone {{ form.cellPhone }}<br>
+        Home Address {{ form.address }} City {{ form.city }} State {{ form.state_province }} ZIP ((Missing form)) <br>
+        Emergency Contact {{ form.emergencyContact }} Relationship {{ form.relationship }} Emergency Phone {{ form.emergencyPhone }}<br>
+        Your Occupation {{ form.occupation }} Employer {{ form.employer }}<br>
+        Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
+        Do you have any limitations? {{ form.limitations }} <br>
+        I am willing to volunteer in:<br>
+        This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br>
+        Are you currently affiliated with a disaster relief agency? {{ form.affiliatedAgency }}<br>
+        Special skills and/or vocational/disaster training: {{ form.skillsTraining }}<br><br>
+        <h3>Skills: Please check all that apply</h3>
+        <u>Medical</u><br>
         <table>
+        <tr><td>{{ form.doctor }}Doctor - Specialty {{ form.dSpecialty }}</td><td>{{ form.mental }}Mental Health Counseling</td></tr>
+        <tr><td>{{ form.nurse }}Nurse - Specialty {{ form.dSpecialty }}</td><td>{{ form.vet }}Veterinarian</td></tr>
+        <tr><td>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.vetTech }}Veterinary Technician</td></tr>
+        </table>
+        <br>
+        <u>Communication</u><br>
+        <table>
+        <tr><td>{{ form.cbHam }}CB/ham operator</td><td>{{ form.hotline }}Hotline operator</td><td>{{ form.satphone }}Satellite Phone - #{{ form.satnum }}</td></tr>
+        <tr><td>{{ form.publicRelations }}Public Relations</td><td>{{ form.webpage }}Web page design</td><td>{{ form.publicSpeaker }}Public Speaker</td></tr>
+        </table>
+        <br>
+        <u>Languages</u><br>
+        {{ form.french }}French&nbsp;&nbsp;{{ form.german }}German&nbsp;&nbsp;{{ form.italian }}Italian&nbsp;&nbsp;{{ form.spanish }}Spanish&nbsp;&nbsp;{{ form.russian }}Russian&nbsp;&nbsp;{{ form.creole }}Creole&nbsp;&nbsp;{{ form.otherLang }}Other:{{ form.lang }}<br>
+        <br>
+        <u>Office Support</u><br>
+        {{ form.clerical }}Clerical - filing&nbsp;&nbsp;{{ form.dataEntry }}Data Entry - Software:{{ form.software }}&nbsp;&nbsp;{{ form.receptionist }}Phone Receptionist<br>
+        <br>
+        <u>Services</u><br>
+        <table>
+        <tr><td>{{ form.food }}Food</td><td>{{ form.elderly }}Assistance to elderly</td><td>{{ form.childCare }}Child Care</td><td>{{ form.spiritual }}Spiritual Counseling</td></tr>
+        <tr><td>{{ form.social }}Social Work</td><td>{{ form.searchRescue }}Search and Rescue</td><td>{{ form.autoRepair }}Auto repair/towing</td><td>{{ form.traffic }}Traffic control</td></tr>
+        <tr><td>{{ form.crimeWatch }}Crime Watch</td><td>{{ form.animalRescue }}Animal Rescue</td><td>{{ form.animalCare }}Animal Care</td><td>{{ form.runner }}Runner</td></tr>
+        <tr><td>{{ form.functional }}Functional Needs Support</td><td>{{ form.fneeds }}</td><td></td><td></td></tr>
+        </table>
+        <table>
+         <tr><td>
+<!--     
+       X  Name:  
+       X  Street Address:        
+       X  City:  
+       X  State or Province:     
+         Country:       
+       X  Email Address: 
+       X  Birth Date:    
+         Assigned Job:  
+       X  Day Phone:     
+       X  Cell Phone:    
+       X  Emergency Contact:     
+       X  Relationship:  
+       X  Emergency Phone:       
+       X  Occupation:    
+       X  Employer:      
+       X  Year-round Resident:   
+       X  Months Available:      
+       X  Limitations:   
+       X  This County:   
+       X  A Neighboring County:  
+       X  Anywhere in the State: 
+       X  Anywhere in the US:    
+       X  Affiliated Agency:     
+       X  Special Skills and/or Disaster Training:       
+       X  Doctor:        
+       X  Specialty:     
+       X  Nurse: 
+       X  Specialty:     
+       X  Emergency Medical Cert.        
+       X  Mental Health Counseling:      
+       X  Vetrinarian:   
+       X  Vetrinary Technician:  
+       X  CB/ham Operator:       
+       X  Hotline Operator:      
+       X  Satellite Phone:       
+       X  #:     
+       X  Public Relations:      
+       X  Web Page Design:       
+       X  Public Speaker:        
+       X  French:        
+       X  German:        
+       X  Italian:       
+       X  Spanish:       
+       X  Russian:       
+       X  Creole:        
+       X  Other: 
+       X  Languages:     
+       X  Clerical-filing, copying:      
+       X  Data Entry:    
+       X  Software:      
+       X  Phone Receptionist:    
+       X  Food:  
+       X  Assistance to elderly: 
+       X  Child Care:    
+       X  Spiritual Counseling:  
+       X  Social Work:   
+       X  Search and Rescue:     
+       X  Auto repair/towing:    
+       X  Traffic Control:       
+       X  Crime watch:   
+       X  Animal Rescue: 
+       X  Animal Care:   
+       X  Runner:        
+       X  Functional needs support:      
+
+         Damage Assesment:      
+         Metal Construction:    
+         Wood Construction:     
+         Block Construction:    
+         Plumbing:      
+         Electrical:    
+         Roofing:       
+         Car:   
+         Minivan:       
+         Maxi-van:      
+         Capacity:      
+         ATV:   
+         Own off-road veh/4WD:  
+         Own Truck:     
+         Description:   
+         Own Boat:      
+         Capacity & Type:       
+         Commercial Driver License:     
+         Class & Number:        
+         Camper/RV:     
+         Capacity & Type:       
+         Wheelchair Transport:  
+         Loading/Shipping:      
+         Sorting/Packing:       
+         Cleanup:       
+         Operate Equipment:     
+         Types: 
+         Have Experience Supervising Others:    
+         Chainsaw:      
+         Backhoe:       
+         Generator:     
+         Other: 
+         Notes: 
+         Waiver Signed: 
+         ID Check:      
+         Data Check Station:    
+         Interview Station:     
+         Safety Station:        
+         ID Station:    
+         Map Station -->
             {{ form.as_table }}
+            </td></tr>
         </table>
         {% csrf_token %}
         <input type="submit" value="Submit">

@@ -20,7 +20,7 @@ def addVolunteer(request):
             return HttpResponse("Form not Valid")
     else:
         form = VolunteerForm()
-        return render(request, 'add.html', {'form': form, 'type': "Volunteer"})
+        return render(request, 'addVolunteer.html', {'form': form, 'type': "Volunteer"})
 
 
 @permission_required('VRC.add_organization')
@@ -35,7 +35,7 @@ def addOrganization(request):
             return HttpResponse("Form not Valid")
     else:
         form = OrganizationForm()
-        return render(request, 'add.html', {'form': form, 'type': "Organization"})
+        return render(request, 'addOrganization.html', {'form': form, 'type': "Organization"})
 
 @permission_required('VRC.add_job')
 def addJob(request):
@@ -49,7 +49,7 @@ def addJob(request):
             return HttpResponse("Form not Valid")
     else:
         form = JobForm()
-        return render(request, 'add.html', {'form': form, 'type': "Job"})
+        return render(request, 'addJob.html', {'form': form, 'type': "Job"})
 
 
 def welcome(request):
