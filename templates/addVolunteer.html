@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
 {% block title%}Add Volunteer{% endblock %}
-
+ID and BACKGROUND CHECK WILL BE PERFORMED
 {% block content %}
     <form action="" method="post">
-        Name {{ form.name }} Birthday {{ form.birthday }} Day phone {{ form.dayPhone }} <br>
-        Email Address {{ form.email }} Cell Phone {{ form.cellPhone }}<br>
-        Home Address {{ form.address }} City {{ form.city }} State {{ form.state_province }} ZIP ((Missing form)) <br>
-        Emergency Contact {{ form.emergencyContact }} Relationship {{ form.relationship }} Emergency Phone {{ form.emergencyPhone }}<br>
-        Your Occupation {{ form.occupation }} Employer {{ form.employer }}<br>
+      <table><tr><td>
+        Name {{ form.name }}<br>
+        Birthday {{ form.birthday }}<br>
+        Home Address {{ form.address }}<br>
+        City {{ form.city }}<br>
+        State {{ form.state_province }}<br>
+        ZIP ((Missing form))<br>
+        Occupation {{ form.occupation }}<br>
+        Employer {{ form.employer }}<br>
+      </td><td>
+        Day phone {{ form.dayPhone }}<br>
+        Cell Phone {{ form.cellPhone }}<br>
+        Email Address {{ form.email }}<br>
+        <br>
+        Emergency Contact {{ form.emergencyContact }}<br>
+        Emergency Phone {{ form.emergencyPhone }}<br>
+        Relationship {{ form.relationship }}<br>
+        <br>
+      </td></tr></table>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
         Do you have any limitations? {{ form.limitations }} <br>
         I am willing to volunteer in:<br>
