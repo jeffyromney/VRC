@@ -110,20 +110,36 @@ def search(request):
         
         entry_query = get_query(query_string, ['name', 'id','cellPhone', 'dayPhone'])
         
-        found_entries = Volunteer.objects.filter(entry_query).order_by('name')
+        found_entries = Volunteer.objects.filter(entry_query).order_by('id')
 
-    return render(request,'search.html',
-                          { 'query': query_string, 'results': found_entries },
-                          context_instance=RequestContext(request))
+    return render(request,'search.html', { 'query': query_string, 'results': found_entries }, context_instance=RequestContext(request))
 
 
 @permission_required('VRC.change_volunteer')
+def modify(request,dbID):
+    volunteer = Volunteer.objects.get(id=dbID)
+    if request.method == 'POST':
+        form = VolunteerForm(request.POST,instance=volunteer)
+        if form.is_valid():
+            cd = form.cleaned_data
+            new_Volunteer = form.save()
+            return HttpResponse("Form Valid" + str(cd) + str(new_Volunteer))
+        else:
+            return HttpResponse("Form not Valid")
+    else:
+        form = VolunteerForm(instance=volunteer)
+        return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'type': form['name']})
+
+@permission_required('VRC.change_volunteer')
 def view(request,dbID):
-    volunteer = Volunteer.objects.filter(get_query(dbID, ['id'])).order_by('name')
-    volunteer = volunteer.values()
-    return render(request, 'view.html', {'volunteer': volunteer})
-    
-    
+    volunteer = Volunteer.objects.get(id=dbID)
+    form = VolunteerForm(instance=volunteer)
+    return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'type': form['name']})
+
+def delete(request, dbID):
+    volunteer = Volunteer.objects.get(id=dbID)
+    volunteer.delete()
+    return render(request, 'deleted.html')
     
     
     

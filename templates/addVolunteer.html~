@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title%}Add Volunteer{% endblock %}
+{% block content %}
+    <form action="" method="post">
+      <hr>
+      <h3>Biographical Information</h3>
+ID and BACKGROUND CHECK WILL BE PERFORMED
+      <table><tr><td align=right>
+        Name<br>
+        Birthday<br><br>
+        Home Address<br>
+        City<br>
+        State<br>
+        ZIP<br><br>
+        Occupation<br>
+        Employer<br>
+        </td><td align=left>
+        {{ form.name }}<br>
+        {{ form.birthday }}<br><br>
+        {{ form.address }}<br>
+        {{ form.city }}<br>
+        {{ form.state_province }}<br>
+        {{ form.zip_code }}<br><br>
+        {{ form.occupation }}<br>
+        {{ form.employer }}<br>
+      </td><td width=40px>
+      </td><td align=right>
+        Day phone<br>
+        Cell Phone<br>
+        Email Address<br>
+        <br>
+        Emergency Contact<br>
+        Emergency Phone<br>
+        Relationship<br>
+        <br>
+        </td><td align=left>
+        {{ form.dayPhone }}<br>
+        {{ form.cellPhone }}<br>
+        {{ form.email }}<br>
+        <br>
+        {{ form.emergencyContact }}<br>
+        {{ form.emergencyPhone }}<br>
+        {{ form.relationship }}<br>
+        <br>
+      </td></tr></table>
+      <hr>
+      <h3>Availability</h3>
+        Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
+        Do you have any limitations? {{ form.limitations }} <br>
+        I am willing to volunteer in:<br>
+        This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br>
+        Are you currently affiliated with a disaster relief agency? {{ form.affiliatedAgency }}<br>
+        Special skills and/or vocational/disaster training: {{ form.skillsTraining }}<br>
+        <hr>
+        <h3>Skills: Please check all that apply</h3>
+        <u>Medical</u><br>
+        <table>
+        <tr><td>{{ form.doctor }}Doctor - Specialty {{ form.dSpecialty }}<br>{{ form.nurse }}Nurse - Specialty {{ form.dSpecialty }}<br>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.mental }}Mental Health Counseling<br>{{ form.vet }}Veterinarian<br>{{ form.vetTech }}Veterinary Technician</td></tr>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr>
+        </table>
+        <br>
+        <u>Communication</u><br>
+        <table>
+        <tr><td>{{ form.cbHam }}CB/ham operator</td><td>{{ form.hotline }}Hotline operator</td><td>{{ form.satphone }}Satellite Phone - #{{ form.satnum }}</td></tr>
+        <tr><td>{{ form.publicRelations }}Public Relations</td><td>{{ form.webpage }}Web page design</td><td>{{ form.publicSpeaker }}Public Speaker</td></tr>
+        </table>
+        <br>
+        <u>Languages</u><br>
+        {{ form.french }}French&nbsp;&nbsp;{{ form.german }}German&nbsp;&nbsp;{{ form.italian }}Italian&nbsp;&nbsp;{{ form.spanish }}Spanish&nbsp;&nbsp;{{ form.russian }}Russian&nbsp;&nbsp;{{ form.creole }}Creole&nbsp;&nbsp;{{ form.otherLang }}Other:{{ form.lang }}<br>
+        <br>
+        <u>Office Support</u><br>
+        {{ form.clerical }}Clerical - filing&nbsp;&nbsp;{{ form.dataEntry }}Data Entry - Software:{{ form.software }}&nbsp;&nbsp;{{ form.receptionist }}Phone Receptionist<br>
+        <br>
+        <u>Services</u><br>
+        <table>
+        <tr><td>{{ form.food }}Food</td><td>{{ form.elderly }}Assistance to elderly</td><td>{{ form.childCare }}Child Care</td><td>{{ form.spiritual }}Spiritual Counseling</td></tr>
+        <tr><td>{{ form.social }}Social Work</td><td>{{ form.searchRescue }}Search and Rescue</td><td>{{ form.autoRepair }}Auto repair/towing</td><td>{{ form.traffic }}Traffic control</td></tr>
+        <tr><td>{{ form.crimeWatch }}Crime Watch</td><td>{{ form.animalRescue }}Animal Rescue</td><td>{{ form.animalCare }}Animal Care</td><td>{{ form.runner }}Runner</td></tr>
+        <tr><td>{{ form.functional }}Functional Needs Support</td><td>{{ form.fneeds }}</td><td></td><td></td></tr>
+        </table>
+        <br>
+        <u>Structural</u>
+        <table>
+        <tr><td>{{ form.damage }}Damage assesment&nbsp;&nbsp;&nbsp;<br>{{ form.metal }}Metal construction</td>
+        <td>{{ form.wood }}Wood construction&nbsp;&nbsp;&nbsp;<br>{{ form.block }}Block construction</td>
+        <td>{{ form.plumbing }}Plumbing&nbsp;&nbsp;&nbsp;<br>{{ form.electric }}Electrical</td>
+        <td>{{ form.roofing }}Roofing<br>&nbsp;</td></tr>
+        </table>
+        <br>
+        <u>Transportation</u>
+        <table>
+        <tr><td>{{ form.car }}Car<br>{{ form.minivan }}Minivan<br>{{ form.atv }}ATV<br>{{ form.offRoad }}Off-road vehicle/4WD<br>{{ form.wheelchair }}Wheelchair Transport</td>
+        <td>{{ form.truck }}Truck - Description {{ form.tdescription }}<br>{{ form.van }}Van - Capacity{{ form.vancap }}<br>{{ form.boat }}Boat - Capacity{{ form.btype }}<br>{{ form.rv }}Camper/RV - Capacity{{ form.rvtype }}<br>{{ form.cdl }}Commercial driver - Class and license #{{ form.cdlnum }}</td></tr>
+        </table>
+        <br>
+        <u>Labor</u>
+        <table>
+         <tr><td>{{ form.loading }}Loading/Shipping<br>{{ form.sorting }}Sorting/Packing</td>
+         <td>{{ form.cleanup }}Clean-up<br>{{ form.supervising }}Supervising experience</td>
+         <td>{{ form.operate }}Operate equipment<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Types{{ form.eqtype }}</td></tr>
+        </table>
+        <br>
+        <u>Equipment</u><br>
+        {{ form.chainsaw }}Chainsaw&nbsp;&nbsp;&nbsp;{{ form.backhoe }}Backhoe&nbsp;&nbsp;&nbsp;{{ form.generator }}Generator&nbsp;&nbsp;&nbsp;Other{{ form.othereq }}<br>
+        <br>
+        Other Notes: {{ form.notes }}<br>
+<!--     
+       X  Name:  
+       X  Street Address:        
+       X  City:  
+       X  State or Province:     
+         Country:       
+         ZIP:
+       X  Email Address: 
+       X  Birth Date:    
+         Assigned Job:  
+       X  Day Phone:     
+       X  Cell Phone:    
+       X  Emergency Contact:     
+       X  Relationship:  
+       X  Emergency Phone:       
+       X  Occupation:    
+       X  Employer:      
+       X  Year-round Resident:   
+       X  Months Available:      
+       X  Limitations:   
+       X  This County:   
+       X  A Neighboring County:  
+       X  Anywhere in the State: 
+       X  Anywhere in the US:    
+       X  Affiliated Agency:     
+       X  Special Skills and/or Disaster Training:       
+       X  Doctor:        
+       X  Specialty:     
+       X  Nurse: 
+       X  Specialty:     
+       X  Emergency Medical Cert.        
+       X  Mental Health Counseling:      
+       X  Vetrinarian:   
+       X  Vetrinary Technician:  
+       X  CB/ham Operator:       
+       X  Hotline Operator:      
+       X  Satellite Phone:       
+       X  #:     
+       X  Public Relations:      
+       X  Web Page Design:       
+       X  Public Speaker:        
+       X  French:        
+       X  German:        
+       X  Italian:       
+       X  Spanish:       
+       X  Russian:       
+       X  Creole:        
+       X  Other: 
+       X  Languages:     
+       X  Clerical-filing, copying:      
+       X  Data Entry:    
+       X  Software:      
+       X  Phone Receptionist:    
+       X  Food:  
+       X  Assistance to elderly: 
+       X  Child Care:    
+       X  Spiritual Counseling:  
+       X  Social Work:   
+       X  Search and Rescue:     
+       X  Auto repair/towing:    
+       X  Traffic Control:       
+       X  Crime watch:   
+       X  Animal Rescue: 
+       X  Animal Care:   
+       X  Runner:        
+       X  Functional needs support:      
+
+       X  Damage Assesment:      
+       X  Metal Construction:    
+       X  Wood Construction:     
+       X  Block Construction:    
+       X  Plumbing:      
+       X  Electrical:    
+       X  Roofing:       
+       X  Car:   
+       X  Minivan:       
+       X  Maxi-van:      
+       X  Capacity:      
+       X  ATV:   
+       X  Own off-road veh/4WD:  
+       X  Own Truck:     
+       X  Description:   
+       X  Own Boat:      
+       X  Capacity & Type:       
+       X  Commercial Driver License:     
+       X  Class & Number:        
+       X  Camper/RV:     
+       X  Capacity & Type:       
+       X  Wheelchair Transport:  
+       X  Loading/Shipping:      
+       X  Sorting/Packing:       
+       X  Cleanup:       
+       X  Operate Equipment:     
+       X  Types: 
+       X  Have Experience Supervising Others:    
+       X  Chainsaw:      
+       X  Backhoe:       
+       X  Generator:     
+       X  Other: 
+       X  Notes: 
+       X  Waiver Signed: 
+         ID Check:      
+         Data Check Station:    
+         Interview Station:     
+         Safety Station:        
+         ID Station:    
+         Map Station 
+            {{ form.as_table }} -->
+        <hr>
+        <h3>Volunteer Release of Liability</h3>
+<p>I, for myself and my heirs, executors, administrators and assigns, hereby release, indemnify, and hold harmless the Volusia COAD, directors, volunteers and workers in the Volunteer Reception Center, local governments, State of Florida, the organizers, sponsors and supervisors of all disaster preparedness, response and recovery from all liability for any and all risk of damage or bodily injury or death that may occur to me (including any injury caused by negligence), in connection with any volunteer disaster effort in which I participate. I likewise hold harmless from liability any person transporting me to or from any disaster relief activity. In addition, disaster relief officials have permission to utilize any photographs or videos taken of me for publicity or training purposes.</p>
+<p>I will abide by all safety instructions and information provided to me during disaster relief efforts. Further, I expressly agree that this release, waiver, and indemnity agreement is intended to be as broad and inclusive as permitted by the State of Florida, and that if any portion thereof is held invalid, it is agreed that the balance shall, notwithstanding, continue in full legal force and effect.</p>
+<p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p>
+<p>{{ form.waiver }} By selecting, you agree to the Volunteer Release of Liability</p>
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

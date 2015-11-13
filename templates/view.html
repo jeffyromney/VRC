@@ -6,7 +6,6 @@
     {{id}}
     {{name}}
     {% if volunteer %}
-    {{volunteer.0.values}}
         <table>
             <tr>
                 {% for field in volunteer.0 %}
@@ -14,11 +13,14 @@
                 {% endfor %}
                 </tr>
                 <tr>
-              
+                {% for value in volunteer.0.values %}
+                    <td>{{value}}</td>
+                {% endfor %}
             </tr>
 
         </table>
     {% else %}
         <h3 class='error'>NO VOLUNTEER</h3>
+        
     {% endif %}
 {% endblock %}
