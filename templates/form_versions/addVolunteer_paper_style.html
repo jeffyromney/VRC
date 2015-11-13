@@ -1,47 +1,29 @@
 {% extends "base.html" %}
 
 {% block title%}Add Volunteer{% endblock %}
+ID and BACKGROUND CHECK WILL BE PERFORMED
 {% block content %}
     <form action="" method="post">
       <hr>
       <h3>Biographical Information</h3>
-ID and BACKGROUND CHECK WILL BE PERFORMED
-      <table><tr><td align=right>
-        Name<br>
-        Birthday<br><br>
-        Home Address<br>
-        City<br>
-        State<br>
-        ZIP<br><br>
-        Occupation<br>
-        Employer<br>
-        </td><td align=left>
-        {{ form.name }}<br>
-        {{ form.birthday }}<br><br>
-        {{ form.address }}<br>
-        {{ form.city }}<br>
-        {{ form.state_province }}<br>
-        {{ form.zip_code }}<br><br>
-        {{ form.occupation }}<br>
-        {{ form.employer }}<br>
+      <table><tr><td>
+        Name {{ form.name }}<br>
+        Birthday {{ form.birthday }}<br>
+        Home Address {{ form.address }}<br>
+        City {{ form.city }}<br>
+        State {{ form.state_province }}<br>
+        ZIP ((Missing form))<br>
+        Occupation {{ form.occupation }}<br>
+        Employer {{ form.employer }}<br>
       </td><td width=40px>
-      </td><td align=right>
-        Day phone<br>
-        Cell Phone<br>
-        Email Address<br>
+      </td><td>
+        Day phone {{ form.dayPhone }}<br>
+        Cell Phone {{ form.cellPhone }}<br>
+        Email Address {{ form.email }}<br>
         <br>
-        Emergency Contact<br>
-        Emergency Phone<br>
-        Relationship<br>
-        <br>
-        </td><td align=left>
-        {{ form.dayPhone }}<br>
-        {{ form.cellPhone }}<br>
-        {{ form.email }}<br>
-        <br>
-        {{ form.emergencyContact }}<br>
-        {{ form.emergencyPhone }}<br>
-        {{ form.relationship }}<br>
+        Emergency Contact {{ form.emergencyContact }}<br>
+        Emergency Phone {{ form.emergencyPhone }}<br>
+        Relationship {{ form.relationship }}<br>
         <br>
       </td></tr></table>
       <hr>
@@ -56,9 +38,9 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         <h3>Skills: Please check all that apply</h3>
         <u>Medical</u><br>
         <table>
-        <tr><td>{{ form.doctor }}Doctor - Specialty {{ form.dSpecialty }}<br>{{ form.nurse }}Nurse - Specialty {{ form.dSpecialty }}<br>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.mental }}Mental Health Counseling<br>{{ form.vet }}Veterinarian<br>{{ form.vetTech }}Veterinary Technician</td></tr>
-        <tr><td></td><td></td></tr>
-        <tr><td></td><td></td></tr>
+        <tr><td>{{ form.doctor }}Doctor - Specialty {{ form.dSpecialty }}</td><td>{{ form.mental }}Mental Health Counseling</td></tr>
+        <tr><td>{{ form.nurse }}Nurse - Specialty {{ form.dSpecialty }}</td><td>{{ form.vet }}Veterinarian</td></tr>
+        <tr><td>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.vetTech }}Veterinary Technician</td></tr>
         </table>
         <br>
         <u>Communication</u><br>

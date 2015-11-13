@@ -38,6 +38,7 @@ class Volunteer(models.Model):
     address = models.CharField(blank=True, null=True, max_length=50, verbose_name="Street Address")
     city = models.CharField(blank=True, null=True, max_length=60, verbose_name="City")
     state_province = models.CharField(blank=True, null=True, max_length=30, verbose_name="State or Province")
+    zip_code = models.CharField(blank=True, null=True, max_length=5, verbose_name="ZIP Code")
     country = models.CharField(blank=True, null=True, max_length=50, verbose_name="Country")
     email = models.EmailField(blank=True, null=True, verbose_name="Email Address")
     birthday = models.DateField(blank=True, null=True, verbose_name="Birth Date")

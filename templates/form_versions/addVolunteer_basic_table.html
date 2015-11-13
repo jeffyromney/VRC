@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title%}Add Volunteer{% endblock %}
+ID and BACKGROUND CHECK WILL BE PERFORMED
+{% block content %}
+    <form action="" method="post">
+            <table><tr><td>
+            {{ form.as_table }}
+            </td></tr></table>
+        <hr>
+        <h3>Volunteer Release of Liability</h3>
+<p>I, for myself and my heirs, executors, administrators and assigns, hereby release, indemnify, and hold harmless the Volusia COAD, directors, volunteers and workers in the Volunteer Reception Center, local governments, State of Florida, the organizers, sponsors and supervisors of all disaster preparedness, response and recovery from all liability for any and all risk of damage or bodily injury or death that may occur to me (including any injury caused by negligence), in connection with any volunteer disaster effort in which I participate. I likewise hold harmless from liability any person transporting me to or from any disaster relief activity. In addition, disaster relief officials have permission to utilize any photographs or videos taken of me for publicity or training purposes.</p>
+<p>I will abide by all safety instructions and information provided to me during disaster relief efforts. Further, I expressly agree that this release, waiver, and indemnity agreement is intended to be as broad and inclusive as permitted by the State of Florida, and that if any portion thereof is held invalid, it is agreed that the balance shall, notwithstanding, continue in full legal force and effect.</p>
+<p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p>
+<p>{{ form.waiver }} By selecting, you agree to the Volunteer Release of Liability</p>
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
