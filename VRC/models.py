@@ -16,7 +16,7 @@ class Job(models.Model):
     edate = models.DateField(blank=True, null=True, )
     event =  models.CharField(blank=True, null=True, max_length=50)
     agency = models.ForeignKey(Organization, blank=True, null=True)
-    title = models.CharField(blank=True, null=True, max_length=40)
+    event_title = models.CharField(blank=True, null=True, max_length=40)
     duties = models.CharField(blank=True, null=True, max_length=500)
     weight = models.IntegerField(blank=True, null=True, )
     drive = models.BooleanField(blank=True)
