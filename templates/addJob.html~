@@ -30,8 +30,8 @@
     Dates/hours needed {{ form.whenneeded }}<br>
     Minimum age {{ form.age }}<br>
     Needed skills{{ form.skills }}<br>
-    Other Notes {{ form.other }}<br>
-    Full {{ form.full }}<br>
+    Other Notes {{ form.other }}
+    Full {{ form.full }}
         {% csrf_token %}
         <input type="submit" value="Submit">
     </form>

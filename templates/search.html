@@ -5,52 +5,94 @@
 {% block content %}
         <form method="get" action="/search/">
             Search:<input type="text" name="q" id="id_q" value="{{ query }}"/>
-            Type:<input type="text" name="type" id="id_type" value=""/>
             <input type="submit" value="Search" />
         </form>
-    {% if results %}
-        {% if perms.VRC.View_data %}
-        <table>
-        <tr><td>ID</td><td>Name</td><td>Birthday</td><td>Address</td><td>City</td>
-        {% for result in results %}
-            <tr>
-                <td>{{ result.id }}</td>
-                <td>{{ result.name }}</td>
-                <td>{{ result.birthday }}</td>
-                <td>{{ result.address }}</td>
-                <td>{{ result.city }}</td>
-                <td><button onClick="window.location='/Volunteer/view/{{ result.id }}'">View</button></td>
-                {% if perms.VRC.change_volunteer %}
-                <td><button onClick="window.location='/Volunteer/modify/{{ result.id }}'">Modify</button></td>
-                {% endif %}
-                {% if perms.VRC.delete_volunteer %}
-                <td><button onClick="window.location='/Volunteer/delete/{{ result.id }}'">Delete</button></td>
-                {% endif %}
-                {% if perms.VRC.Safety %}
-                <td><button onClick="window.location='/Safety/{{ result.id }}'">Safety</button></td>
-                {% endif %}
-                {% if perms.VRC.IDBadge %}
-                <td><button onClick="window.location='/IDBadge/{{ result.id }}'">IDBadge</button></td>
-                {% endif %}
-                {% if perms.VRC.IDCheck %}
-                <td><button onClick="window.location='/IDCheck/{{ result.id }}'">IDCheck</button></td>
-                {% endif %}
-                {% if perms.VRC.Data_Validation %}
-                <td><button onClick="window.location='/Data_Validation/{{ result.id }}'">Data_Validation</button></td>
-                {% endif %}
-                {% if perms.VRC.Maps %}
-                <td><button onClick="window.location='/Maps/{{ result.id }}'">Maps</button></td>
-                {% endif %}
-                {% if perms.VRC.Interview %}
-                <td><button onClick="window.location='/Interview/{{ result.id }}'">Interview</button></td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </table>
-        {% else %}
-        <h3 class='error'>You do not have permission to view Volunteer information</h3>
-        {% endif %}
+    {% if perms.VRC.View_data %}
+    {% if vols %}
+        <div>
+        <h3>Volunteers</h3>
+            <table>
+            <tr><td>ID</td><td>Name</td><td>Birthday</td><td>Address</td><td>City</td><td>Job</td>
+            {% for vol in vols %}
+                <tr>
+                    <td>{{ vol.id }}</td>
+                    <td>{{ vol.name }}</td>
+                    <td>{{ vol.birthday }}</td>
+                    <td>{{ vol.address }}</td>
+                    <td>{{ vol.city }}</td>
+                    <td>{{ vol.job }}</td>
+                    <td><button onClick="window.location='/Volunteer/view/{{ vol.id }}'">View</button></td>
+                    {% if perms.VRC.change_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/modify/{{ vol.id }}'">Modify</button></td>
+                    {% endif %}
+                    {% if perms.VRC.delete_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/delete/{{ vol.id }}'">Delete</button></td>
+                    {% endif %}
+                    {% if perms.VRC.Safety or perms.VRC.IDBadge or perms.VRC.IDCheck or perms.VRC.Data_Validation or perms.VRC.Maps or perms.VRC.Interview %}
+                        <td><button onClick="window.location='/StationsCheck/{{ vol.id }}'">Check Stations</button></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+    
+    
+    {% if jobs %}
+        <div>
+        <h3>Jobs</h3>
+            <table>
+            <tr><td>ID</td><td>Title</td><td>Agency</td><td>Address</td><td>City</td><td>Full</td>
+            {% for job in jobs %}
+                <tr>
+                    <td>{{ job.id }}</td>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.agency }}</td>
+                    <td>{{ job.agency.address }}</td>
+                    <td>{{ job.agency.city }}</td>
+                    <td>{{ job.full}}</td>
+                    <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
+                    {% if perms.VRC.change_volunteer %}
+                        <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
+                    {% endif %}
+                    {% if perms.VRC.delete_volunteer %}
+                        <td><button onClick="window.location='/Job/delete/{{ job.id }}'">Delete</button></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+    
+    
+    {% if orgs %}
+        <div>
+        <h3>Organizations</h3>
+            <table>
+            <tr><td>ID</td><td>Name</td><td>Contact</td><td>Address</td><td>City</td>
+            {% for org in orgs %}
+                <tr>
+                    <td>{{ org.id }}</td>
+                    <td>{{ org.name }}</td>
+                    <td>{{ org.contact }}</td>
+                    <td>{{ org.address }}</td>
+                    <td>{{ org.city }}</td>
+                    <td><button onClick="window.location='/Volunteer/view/{{ org.id }}'">View</button></td>
+                    {% if perms.VRC.change_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/modify/{{ org.id }}'">Modify</button></td>
+                    {% endif %}
+                    {% if perms.VRC.delete_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/delete/{{ org.id }}'">Delete</button></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+    {% if not orgs and not vols and not jobs %}
+        <h2>No Matches Found</h2>
+    {% endif %}
     {% else %}
-        <h3 class='error'>Please enter a valid search term. Search can be all or part of a name or ID#.</h3>
+        <h2>You do not have permission to access these records. Please Login.</h2>
     {% endif %}
 {% endblock %}

@@ -9,14 +9,17 @@ class Organization(models.Model):
     address = models.CharField(blank=True, null=True, max_length=80)
     phone = PhoneNumberField(blank=True, null=True, )
     ext = models.IntegerField(blank=True, null=True, max_length=3)
+    
+    def __unicode__(self):
+        return self.name
 
 class Job(models.Model):
+    title = models.CharField(max_length=40)
     tdate = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     sdate = models.DateField(blank=True, null=True, )
     edate = models.DateField(blank=True, null=True, )
     event =  models.CharField(blank=True, null=True, max_length=50)
     agency = models.ForeignKey(Organization, blank=True, null=True)
-    event_title = models.CharField(blank=True, null=True, max_length=40)
     duties = models.CharField(blank=True, null=True, max_length=500)
     weight = models.IntegerField(blank=True, null=True, )
     drive = models.BooleanField(blank=True)
@@ -25,6 +28,10 @@ class Job(models.Model):
     age = models.IntegerField(blank=True, null=True, max_length=2)
     skills = models.CharField(blank=True, null=True, max_length=200)
     other = models.CharField(blank=True, null=True, max_length=500)
+    full = models.BooleanField()
+    
+    def __unicode__(self):
+        return self.title
     
     class Meta:
         permissions = (
@@ -51,7 +58,7 @@ class Volunteer(models.Model):
     occupation = models.CharField(blank=True, null=True, max_length=30, verbose_name="Occupation")
     employer = models.CharField(blank=True, null=True, max_length=30, verbose_name="Employer")
     resident = models.BooleanField(blank=True, verbose_name="Year-round Resident")
-    monthsAvailable = models.BooleanField(blank=True, verbose_name="Months Available")
+    monthsAvailable = models.CharField(blank=True, null=True, max_length=50, verbose_name="Months Available")
     limitations = models.CharField(blank=True, null=True, max_length=30, verbose_name="Limitations")
     county = models.BooleanField(blank=True, verbose_name="This County")
     neighbor = models.BooleanField(blank=True, verbose_name="A Neighboring County")
@@ -138,13 +145,16 @@ class Volunteer(models.Model):
     notes = models.CharField(blank=True, null=True, max_length=350, verbose_name="Notes")
     waiver = models.BooleanField(blank=True, verbose_name="Waiver Signed")
     created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
-    idCheck = models.BooleanField(blank=True, verbose_name="ID Check")
+    idCheck = models.BooleanField(blank=True, verbose_name="ID Check Station")
     dataValidation = models.BooleanField(blank=True, verbose_name="Data Check Station")
     interview = models.BooleanField(blank=True, verbose_name="Interview Station")
     safety = models.BooleanField(blank=True, verbose_name="Safety Station")
     idbadge = models.BooleanField(blank=True, verbose_name="ID Station")
     maps = models.BooleanField(blank=True, verbose_name="Map Station")
     
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         permissions = (
             ("View_data", "Can search and view user's data"),

@@ -2,11 +2,29 @@
 
 {% block title%}Add Volunteer{% endblock %}
 {% block content %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ field.name }} - {{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+    {% if viewNew %}
+        <h2> **Successfully Added {{ volunteer.name }}**</h2>
+    {% endif %}
     <form action="" method="post">
       <hr>
       <h3>Biographical Information</h3>
 ID and BACKGROUND CHECK WILL BE PERFORMED
       <table><tr><td align=right>
+        {% if form.job.value %}Job<br>{% endif %}
         Name<br>
         Birthday<br><br>
         Home Address<br>
@@ -16,6 +34,7 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         Occupation<br>
         Employer<br>
         </td><td align=left>
+        {% if viewOnly %}{{ form.job.value }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
         {{ form.name }}<br>
         {{ form.birthday }}<br><br>
         {{ form.address }}<br>
@@ -34,7 +53,7 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         Emergency Phone<br>
         Relationship<br>
         <br>
-        </td><td align=left>
+        </td><td align=left style="BORDER-LEFT: black solid;">
         {{ form.dayPhone }}<br>
         {{ form.cellPhone }}<br>
         {{ form.email }}<br>
@@ -221,6 +240,6 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
 <p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p>
 <p>{{ form.waiver }} By selecting, you agree to the Volunteer Release of Liability</p>
         {% csrf_token %}
-        <input type="submit" value="Submit">
+        {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}
     </form>
 {% endblock %}
