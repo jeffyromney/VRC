@@ -7,13 +7,13 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.forms import CheckboxInput
-from itertools import chain
 from django.forms.models import model_to_dict
+from printing import *
 
 #@permission_required('VRC.add_volunteer')
 def addVolunteer(request):
     if request.method == 'POST':
-        form = VolunteerForm(request.POST,request.FILES)
+        form = VolunteerForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             new_Volunteer = form.save()
@@ -34,15 +34,17 @@ def addOrganization(request):
             new_Organization = form.save()
             return HttpResponse("Form Valid" + str(cd))
         else:
-            return HttpResponse("Form not Valid")
+            return render(request, 'addOrganization.html', {'form': form})
     else:
         form = OrganizationForm()
+        print(form)
         return render(request, 'addOrganization.html', {'form': form})
 
 @permission_required('VRC.add_job')
 def addJob(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
+        print(request.POST['title'])
         if form.is_valid():
             cd = form.cleaned_data
             new_Job = form.save()
@@ -55,6 +57,7 @@ def addJob(request):
 
 
 def welcome(request,loggedOut=False):
+    printVolunteer(1)
     return render(request, 'base.html', {'loggedOut':loggedOut, 'request':request})
 
 
@@ -158,6 +161,7 @@ def viewVolunteer(request,dbID,viewNew=False):
     
     
 def viewNewVolunteer(request,dbID):
+    printVolunteer(dbID)
     return viewVolunteer(request,dbID,viewNew=True)
 
 def deleteVolunteer(request, dbID):

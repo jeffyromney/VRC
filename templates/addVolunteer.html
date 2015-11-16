@@ -19,17 +19,13 @@
     {% if viewNew %}
         <h2> **Successfully Added {{ volunteer.name }}**</h2>
     {% endif %}
-    <form action="" method="post" enctype="multipart/form-data" >
+    <form action="" method="post">
       <hr>
       <h3>Biographical Information</h3>
   {% if not form.name.value %}*ID and BACKGROUND CHECK WILL BE PERFORMED{% endif %}
       <table><tr><td align=right>
-<<<<<<< HEAD
         {% if viewOnly or form.job.value%}Job<br>{% endif %}
-=======
-        {% if form.job.value %}Job<br>{% endif %}
         <p style="line-height: 1.3;"><br>
->>>>>>> a1de1af2148e191f9a4f087fe65fb49cfcb07784
         Name<br>
         Birthday<br><br>
         Home Address<br>
@@ -37,13 +33,10 @@
         State<br>
         ZIP<br><br>
         Occupation<br>
-<<<<<<< HEAD
         Employer<br>
         </td><td align=left>
-=======
         Employer</p>
         </td><td align=left style="BORDER-LEFT: black solid;">
->>>>>>> a1de1af2148e191f9a4f087fe65fb49cfcb07784
         {% if viewOnly %}{{ form.job.value }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
         {{ form.name }}<br>
         {{ form.birthday }}<br><br>

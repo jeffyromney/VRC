@@ -28,7 +28,7 @@ class Job(models.Model):
     age = models.IntegerField(blank=True, null=True, max_length=2)
     skills = models.CharField(blank=True, null=True, max_length=200)
     other = models.CharField(blank=True, null=True, max_length=500)
-    full = models.BooleanField()
+    full = models.BooleanField(default=False)
     
     def __unicode__(self):
         return self.title

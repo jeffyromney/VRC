@@ -20,9 +20,9 @@
         <h2> **Successfully Added {{ organization.name }}**</h2>
     {% endif %}
     <form action="" method="post">
-    This is some text for the Add Organization page 
         <table>
             {{ form.as_table }}
+            {% if viewOnly %}{{ form.agency.value }}{% endif %}<br>
         </table>
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}

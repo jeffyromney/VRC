@@ -23,13 +23,14 @@ class VolunteerForm(ModelForm):
         return form
         
 class OrganizationForm(ModelForm):
-    agency = ModelChoiceField(queryset=Organization.objects.all().order_by('id'), to_field_name="name")
+    #agency = ModelChoiceField(queryset=Organization.objects.all().order_by('id'), to_field_name="name")
     class Meta:
         model = Organization
-        fields = '__all__'
+        #fields = '__all__'
+        exclude = ['agency']
     def disabled(_self):
         form = _self
-        form.fields['agency'].widget.attrs['readonly'] = True
+#        form.fields['agency'].widget.attrs['readonly'] = True
         for field in form.fields:
             if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
                 form.fields[field].widget.attrs['disabled'] = True
@@ -40,7 +41,7 @@ class OrganizationForm(ModelForm):
 class JobForm(ModelForm):
     class Meta:
         model = Job
-        fields = '__all__'
+        #fields = '__all__'
         exclude = ['full']
     def disabled(_self):
         form = _self
