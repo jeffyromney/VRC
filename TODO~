@@ -4,10 +4,11 @@ Jefferson
 -  Add modify and delete functionality
 *  create database cleaner program (seperate)
 -  fix redirects for logout, successful add
-*  create interview page
-*  Show ID information in station check page
+-  create interview page
+-  Show ID information in station check page
 *  automatically print form when needed
-*  do not show jobs as available if full
+-  do not show jobs as available if full
+*  make viewOnly in job and organization
 
 
 Michael

@@ -14,7 +14,7 @@ class Organization(models.Model):
         return self.name
 
 class Job(models.Model):
-    title = models.CharField(blank=True, null=True, max_length=40)
+    title = models.CharField(max_length=40)
     tdate = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     sdate = models.DateField(blank=True, null=True, )
     edate = models.DateField(blank=True, null=True, )
@@ -151,6 +151,7 @@ class Volunteer(models.Model):
     safety = models.BooleanField(blank=True, verbose_name="Safety Station")
     idbadge = models.BooleanField(blank=True, verbose_name="ID Station")
     maps = models.BooleanField(blank=True, verbose_name="Map Station")
+    picture = models.ImageField(upload_to='volunteers')
     
     def __unicode__(self):
         return self.name

@@ -8,7 +8,6 @@
         <table>
             <tr>
                 <td align=right>
-                    Job<br>
                     Name<br>
                     Birthday<br><br>
                     Home Address<br>
@@ -18,7 +17,6 @@
                     Occupation<br>
                 </td>
                 <td align=left>
-                    {% if perms.VRC.Interview %}{{ form.job }}{% else %}{{ form.job.value }}{% endif %}<br>
                     {{ form.name.value }}<br>
                     {{ form.birthday.value }}<br><br>
                     {{ form.address.value }}<br>
@@ -38,6 +36,27 @@
         {% if perms.VRC.Maps %} <tr><td> {{ form.maps }} </td><td> {{ form.maps.label_tag }} </td></tr>{% endif %}
         {% csrf_token %}
         </table>
+        <br>
+        <h3>Available Jobs</h3>
+        {% if perms.VRC.Interview %}
+            <div class="radio">
+            <table><tr><td>Job</td><td>duties</td><td>weight</td><td>drive</td><td>age</td><td>skills</td><td>other</td></tr>
+                {% for choice in form.job.field.queryset %}
+                <tr>
+                <td>
+                <label for="{{ form.job.id }}_{{ forloop.counter }}" class="control-label">
+                    <input type="radio" name="job" id="job_{{ choice.id }}" value="{{ choice }}"{% if form.job.value == choice.title %} checked{% endif %}> {{ choice.title }}
+                </label>
+                </td>
+                <td>{{ choice.duties }}</td><td>{{ choice.weight }}</td><td>{{ choice.drive }}</td><td>{{ choice.age }}</td><td>{{ choice.skills }}</td><td>{{ choice.other }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        {% else %}
+            {{ form.job.value }}
+        {% endif %}<br>
+        <input type="submit" value="Submit">
         {% if perms.VRC.Interview %}
             <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
@@ -102,6 +121,5 @@
         Other Notes: {{ form.notes }}<br>
         
         {% endif %}
-        <input type="submit" value="Submit">
     </form>
 {% endblock %}

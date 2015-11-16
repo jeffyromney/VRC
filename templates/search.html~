@@ -42,7 +42,7 @@
         <div>
         <h3>Jobs</h3>
             <table>
-            <tr><td>ID</td><td>Title</td><td>Agency</td><td>Address</td><td>City</td>
+            <tr><td>ID</td><td>Title</td><td>Agency</td><td>Address</td><td>City</td><td>Full</td>
             {% for job in jobs %}
                 <tr>
                     <td>{{ job.id }}</td>
@@ -50,6 +50,7 @@
                     <td>{{ job.agency }}</td>
                     <td>{{ job.agency.address }}</td>
                     <td>{{ job.agency.city }}</td>
+                    <td>{{ job.full}}</td>
                     <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
                     {% if perms.VRC.change_volunteer %}
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
@@ -76,12 +77,12 @@
                     <td>{{ org.contact }}</td>
                     <td>{{ org.address }}</td>
                     <td>{{ org.city }}</td>
-                    <td><button onClick="window.location='/Volunteer/view/{{ org.id }}'">View</button></td>
+                    <td><button onClick="window.location='/Organization/view/{{ org.id }}'">View</button></td>
                     {% if perms.VRC.change_volunteer %}
-                        <td><button onClick="window.location='/Volunteer/modify/{{ org.id }}'">Modify</button></td>
+                        <td><button onClick="window.location='/Organization/modify/{{ org.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_volunteer %}
-                        <td><button onClick="window.location='/Volunteer/delete/{{ org.id }}'">Delete</button></td>
+                        <td><button onClick="window.location='/Organization/delete/{{ org.id }}'">Delete</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title%}Add {{type}}{% endblock %}
+
+{% block content %}
+    <h1>VRC Help</h1>
+        {% if perms.VRC.IDCheck %}
+        <p>Help for Id Check</p>
+        {% endif %}
+        {% if perms.VRC.Data_Validation %}
+        <p>Help for Data Validation</p>
+        {% endif %}
+        {% if perms.VRC.Interview %}
+        <p>Help for Interview</p>
+        {% endif %}
+        {% if perms.VRC.Safety %}
+        <p>Help for Safety</p>
+        {% endif %}
+        {% if perms.VRC.IDBadge %}
+        <p>Help for ID Badge</p>
+        {% endif %}
+        {% if perms.VRC.Maps %}
+        <p>Help for Maps</p>
+        {% endif %}
+{% endblock %}

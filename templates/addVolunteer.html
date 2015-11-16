@@ -19,12 +19,12 @@
     {% if viewNew %}
         <h2> **Successfully Added {{ volunteer.name }}**</h2>
     {% endif %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data" >
       <hr>
       <h3>Biographical Information</h3>
-ID and BACKGROUND CHECK WILL BE PERFORMED
+  {% if not form.name.value %}*ID and BACKGROUND CHECK WILL BE PERFORMED{% endif %}
       <table><tr><td align=right>
-        {% if form.job.value %}Job<br>{% endif %}
+        {% if viewOnly or form.job.value%}Job<br>{% endif %}
         Name<br>
         Birthday<br><br>
         Home Address<br>
@@ -33,7 +33,7 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         ZIP<br><br>
         Occupation<br>
         Employer<br>
-        </td><td align=left style="BORDER-LEFT: black solid;">
+        </td><td align=left>
         {% if viewOnly %}{{ form.job.value }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
         {{ form.name }}<br>
         {{ form.birthday }}<br><br>
@@ -53,7 +53,7 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         Emergency Phone<br>
         Relationship<br>
         <br>
-        </td><td align=left style="BORDER-LEFT: black solid;">
+        </td><td align=left>
         {{ form.dayPhone }}<br>
         {{ form.cellPhone }}<br>
         {{ form.email }}<br>
@@ -62,7 +62,9 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
         {{ form.emergencyPhone }}<br>
         {{ form.relationship }}<br>
         <br>
-      </td></tr></table>
+      </td>
+      <!--<td><img src="{{ MEDIA_URL }}{{ form.picture.value }}"<br>{{ form.picture }} </td>-->
+      </tr></table>
       <hr>
       <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
@@ -233,12 +235,13 @@ ID and BACKGROUND CHECK WILL BE PERFORMED
          ID Station:    
          Map Station 
             {{ form.as_table }} -->
-        <hr>
-        <h3>Volunteer Release of Liability</h3>
+{% if not form.name.value %}<        <hr>
+<!--        <h3>Volunteer Release of Liability</h3>
 <p>I, for myself and my heirs, executors, administrators and assigns, hereby release, indemnify, and hold harmless the Volusia COAD, directors, volunteers and workers in the Volunteer Reception Center, local governments, State of Florida, the organizers, sponsors and supervisors of all disaster preparedness, response and recovery from all liability for any and all risk of damage or bodily injury or death that may occur to me (including any injury caused by negligence), in connection with any volunteer disaster effort in which I participate. I likewise hold harmless from liability any person transporting me to or from any disaster relief activity. In addition, disaster relief officials have permission to utilize any photographs or videos taken of me for publicity or training purposes.</p>
 <p>I will abide by all safety instructions and information provided to me during disaster relief efforts. Further, I expressly agree that this release, waiver, and indemnity agreement is intended to be as broad and inclusive as permitted by the State of Florida, and that if any portion thereof is held invalid, it is agreed that the balance shall, notwithstanding, continue in full legal force and effect.</p>
-<p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p>
-<p>{{ form.waiver }} By selecting, you agree to the Volunteer Release of Liability</p>
+<p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p> -->
+p>This form is not a complete registration. To complete your registration, you must go to the Volunteer Resource Center and verify your registration and follow the instructions given there. You will be required to show ID, sign a waiver of liability and complete a short safety briefing as part of that registration. Depending on your specific assignment, you may also undergo a background check. If your registration is not verified within 72 hours (3 days), it will be removed from the system and you will need to fill out this form again. After pushing the "Submit" button, your data will be saved and you will be given an ID number. We suggest you write this number down for convenience in verification of your registration.</p>
+<p>{{ form.waiver }} I have read and agree to the above conditions<!--By selecting, you agree to the Volunteer Release of Liability--></p>{% endif %}
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}
     </form>

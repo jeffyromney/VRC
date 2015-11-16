@@ -29,7 +29,7 @@
                         <td><button onClick="window.location='/Volunteer/delete/{{ vol.id }}'">Delete</button></td>
                     {% endif %}
                     {% if perms.VRC.Safety or perms.VRC.IDBadge or perms.VRC.IDCheck or perms.VRC.Data_Validation or perms.VRC.Maps or perms.VRC.Interview %}
-                        <td><button onClick="window.location='/StationsCheck/{{ vol.id }}'">Check Stations</button></td>
+                        <td><button onClick="window.location='/Stations/{{ vol.id }}'">Stations</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -77,12 +77,12 @@
                     <td>{{ org.contact }}</td>
                     <td>{{ org.address }}</td>
                     <td>{{ org.city }}</td>
-                    <td><button onClick="window.location='/Volunteer/view/{{ org.id }}'">View</button></td>
+                    <td><button onClick="window.location='/Organization/view/{{ org.id }}'">View</button></td>
                     {% if perms.VRC.change_volunteer %}
-                        <td><button onClick="window.location='/Volunteer/modify/{{ org.id }}'">Modify</button></td>
+                        <td><button onClick="window.location='/Organization/modify/{{ org.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_volunteer %}
-                        <td><button onClick="window.location='/Volunteer/delete/{{ org.id }}'">Delete</button></td>
+                        <td><button onClick="window.location='/Organization/delete/{{ org.id }}'">Delete</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}

@@ -13,13 +13,13 @@ from django.forms.models import model_to_dict
 #@permission_required('VRC.add_volunteer')
 def addVolunteer(request):
     if request.method == 'POST':
-        form = VolunteerForm(request.POST)
+        form = VolunteerForm(request.POST,request.FILES)
         if form.is_valid():
             cd = form.cleaned_data
             new_Volunteer = form.save()
             return HttpResponseRedirect('/Volunteer/viewNew/' + str(new_Volunteer.id))
         else:
-            return HttpResponse("Form not Valid")
+            return render(request, 'addVolunteer.html', {'form': form})
     else:
         form = VolunteerForm()
         return render(request, 'addVolunteer.html', {'form': form})
@@ -60,7 +60,7 @@ def welcome(request,loggedOut=False):
 
 def loginSuccess(request):
     permissions = request.user.get_all_permissions()
-    return render(request, 'registration/success.html', {'permissions':permissions})
+    return render(request, 'registration/success.html')
     
     
 def loggedOut(request):
@@ -133,8 +133,8 @@ def search(request):
 @permission_required('VRC.change_volunteer')
 def modifyVolunteer(request,dbID):
     volunteer = Volunteer.objects.get(id=dbID)
-    form = VolunteerForm(request.POST or None,instance=volunteer)
     if request.method == 'POST':
+        form = VolunteerForm(request.POST, request.FILES, instance=volunteer)
         if form.is_valid():
             cd = form.cleaned_data
             new_Volunteer = form.save()
@@ -143,19 +143,18 @@ def modifyVolunteer(request,dbID):
             return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
             #return HttpResponse("Form not Valid")
     else:
+        form = VolunteerForm(instance=volunteer)
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
 
 
-@permission_required('VRC.View_data')
+#@permission_required('VRC.View_data')
 def viewVolunteer(request,dbID,viewNew=False):
-    volunteer = Volunteer.objects.get(id=dbID)
-    form = VolunteerForm(instance=volunteer)
-    for field in form.fields:
-        if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
-            form.fields[field].widget.attrs['disabled'] = True
-        else:
-            form.fields[field].widget.attrs['readonly'] = True
-    return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
+    if(request.user.has_perm('VRC.View_data') or viewNew):
+        volunteer = Volunteer.objects.get(id=dbID)
+        form = VolunteerForm(instance=volunteer).disabled()
+        return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
+    else:
+        return HttpResponseRedirect('/accounts/login?next=' + request.path)
     
     
 def viewNewVolunteer(request,dbID):
@@ -190,12 +189,7 @@ def modifyJob(request,dbID):
 @permission_required('VRC.View_data')
 def viewJob(request,dbID,viewNew=False):
     job = Job.objects.get(id=dbID)
-    form = JobForm(instance=job)
-    for field in form.fields:
-        if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
-            form.fields[field].widget.attrs['disabled'] = True
-        else:
-            form.fields[field].widget.attrs['readonly'] = True
+    form = JobForm(instance=job).disabled()
     return render(request, 'addJob.html', {'job':job, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
     
     
@@ -231,12 +225,7 @@ def modifyOrganization(request,dbID):
 @permission_required('VRC.View_data')
 def viewOrganization(request,dbID,viewNew=False):
     organization = Organization.objects.get(id=dbID)
-    form = OrganizationForm(instance=organization)
-    for field in form.fields:
-        if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
-            form.fields[field].widget.attrs['disabled'] = True
-        else:
-            form.fields[field].widget.attrs['readonly'] = True
+    form = OrganizationForm(instance=organization).disabled()
     return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
     
     
@@ -251,7 +240,7 @@ def deleteOrganization(request, dbID):
     
     
 
-def StationsCheck(request, dbID):
+def Stations(request, dbID):
     volunteer = Volunteer.objects.get(id=dbID)
     form = VolunteerForm(request.POST or None, instance=volunteer, initial = {'job': volunteer.job })
     if volunteer.job is not None and volunteer.job.full:
@@ -282,6 +271,7 @@ def StationsCheck(request, dbID):
         else:
             return HttpResponse("Form not Valid")
     else:
-        return render(request, 'stationCheck.html', {'volunteer':volunteer, 'form': form})
+        return render(request, 'stations.html', {'volunteer':volunteer, 'form': form})
     
-
+def help(request):
+    return render(request, 'help.html')

@@ -1,16 +1,18 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, url, static
 from vrc import views
 from django.contrib import admin
 admin.autodiscover()
 from django.contrib.auth.views import login, logout
+import settings
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'vrc.views.welcome', name='welcome'),
-    url(r'^addVolunteer/$', 'vrc.views.addVolunteer', name='addVolunteer'),
-    url(r'^addOrganization/$', 'vrc.views.addOrganization', name='addOrganization'),
-    url(r'^addJob/$', 'vrc.views.addJob', name='addJob'),
+    url(r'^$', 'vrc.views.welcome', name='Welcome to VRC'),
+    url(r'^addVolunteer/$', 'vrc.views.addVolunteer', name='Add Volunteer'),
+    url(r'^addOrganization/$', 'vrc.views.addOrganization', name='Add Organization'),
+    url(r'^addJob/$', 'vrc.views.addJob', name='Add Job'),
     url(r'^search/$', 'vrc.views.search', name='Search'),
+    url(r'^help/$', 'vrc.views.help', name='VRC-Help'),
     
     url(r'^Volunteer/view/(\d{1,2})/$', 'vrc.views.viewVolunteer', name='View Volunteer'),
     url(r'^Volunteer/viewNew/(\d{1,2})/$', 'vrc.views.viewNewVolunteer', name='Volunteer Added'),
@@ -27,10 +29,15 @@ urlpatterns = patterns('',
     url(r'^Organization/modify/(\d{1,2})/$', 'vrc.views.modifyOrganization', name='Modify Organization'),
     url(r'^Organization/delete/(\d{1,2})/$', 'vrc.views.deleteOrganization', name='Delete Organization'),
     
-    url(r'^StationsCheck/(\d{1,2})/$', 'vrc.views.StationsCheck', name='StationsCheck'),
+    url(r'^Stations/(\d{1,2})/$', 'vrc.views.Stations', name='Stations'),
     url(r'^accounts/login/$',  login),
     url(r'^accounts/logout/$', logout, {'next_page': '/accounts/loggedOut/'}),
     url(r'^accounts/profile/$', 'vrc.views.loginSuccess'),
     url(r'^accounts/loggedOut/$', 'vrc.views.loggedOut'),
     url(r'^admin/', include(admin.site.urls)),
+    
+    
+    #url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+#    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 )

@@ -151,6 +151,7 @@ class Volunteer(models.Model):
     safety = models.BooleanField(blank=True, verbose_name="Safety Station")
     idbadge = models.BooleanField(blank=True, verbose_name="ID Station")
     maps = models.BooleanField(blank=True, verbose_name="Map Station")
+    picture = models.ImageField(upload_to='volunteers')
     
     def __unicode__(self):
         return self.name

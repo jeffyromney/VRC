@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = "/media/"
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -30,8 +33,14 @@ TEMPLATE_DIRS = (
     'templates',
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static/'),
+)
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
 )
 
 # Application definition

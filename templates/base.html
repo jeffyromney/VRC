@@ -1,21 +1,20 @@
 <html>
-<head><title>{% block title %}VRC{% endblock %}</title></head>
+<head>
+    <title>{% block title %}VRC{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "style.css" %}" />
+</head>
 
 <body>
-<button onClick="window.location='/'">Home</button>&nbsp;
-<button onClick="window.location='/addVolunteer'">Add Volunteer</button>&nbsp;
+<button onClick="window.location='/'">Home</button>
+<button onClick="window.location='/addVolunteer'">Add Volunteer</button>
 {% if perms.VRC.add_organization %}<button onClick="window.location='/addOrganization'">Add Organization</button>&nbsp;{% endif %}
 {% if perms.VRC.add_job %} <button onClick="window.location='/addJob'">Add Job</button>&nbsp; {% endif %}
 {% if perms.VRC.View_data %} <button onClick="window.location='/search'">Search</button>&nbsp; {% endif %}
 {% if user.is_staff %} <button onClick="window.location='/admin'">Admin</button>&nbsp; {% endif %}
 {% if user.is_authenticated %} <button onClick="window.location='/accounts/logout'">Logout</button>&nbsp; 
 {% else %} <button onClick="window.location='/accounts/login'">Login</button>&nbsp; {% endif %}
-<a href="/modifyVolunteer"></a>
-<a href="/modifyOrganization"></a>
-<a href="/modifyJob"></a>
-<a href="/Safety"></a>
-<a href="/Maps"></a>
-<a href="/Assignment"></a>
+<button onClick="window.location='/help'">Help</button>&nbsp;
 <h1>VRC Administration</h1>
     {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.
     {% endblock %}

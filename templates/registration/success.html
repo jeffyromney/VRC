@@ -3,6 +3,5 @@
 {% block title%}Login{% endblock %}
 
 {% block content %}
-<p>User Successfully logged in</p>
-{{permissions}}
+<h3> Welcome {{ user.get_username }}!</h3>
 {% endblock %}

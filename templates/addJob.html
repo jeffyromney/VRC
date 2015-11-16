@@ -2,8 +2,7 @@
 
 {% block title%}Add Jobs{% endblock %}
 
-{% block content %}
-{% if form.errors %}
+{% block content %}{% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
             <div class="alert alert-error">
@@ -17,6 +16,9 @@
         </div>
     {% endfor %}
 {% endif %}
+    {% if viewNew %}
+        <h2> **Successfully Added {{ job.name }}**</h2>
+    {% endif %}
     <form action="" method="post">
     Start date {{ form.sdate }}<br>
     End date {{ form.edate }}<br>
@@ -31,8 +33,7 @@
     Minimum age {{ form.age }}<br>
     Needed skills{{ form.skills }}<br>
     Other Notes {{ form.other }}<br>
-    Full {{ form.full }}<br>
         {% csrf_token %}
-        <input type="submit" value="Submit">
+        {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}
     </form>
 {% endblock %}

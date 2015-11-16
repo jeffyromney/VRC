@@ -4,4 +4,5 @@
 
 {% block content %}
 <p>User Successfully logged in</p>
+<h3> Welcome {{ user.get_username }}!</h3>
 {% endblock %}
