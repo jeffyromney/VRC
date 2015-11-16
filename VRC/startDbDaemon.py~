@@ -1,0 +1,4 @@
+import daemon
+import VRC.dbDaemon
+with daemon.DaemonContext():
+    dbDaemon.run()

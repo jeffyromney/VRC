@@ -19,8 +19,8 @@
     {% if viewNew %}
         <h2> **Successfully Added {{ job.name }}**</h2>
     {% endif %}
-  <!--  <form action="" method="post">
-    Start date {{ form.sdate }}<br>
+    <form action="" method="post">
+  <!--  Start date {{ form.sdate }}<br>
     End date {{ form.edate }}<br>
     Event name {{ form.event }}<br>
     Agency Name {{ form.agency }}<br>
@@ -42,8 +42,8 @@
         Start date
       </td><td align=left>
         {{ form.event }}<br>
-        {{ form.agency }}<br>
-        {{ form.title }}<br>
+        {% if viewOnly %}{{ job.agency.name }} {% else%} {{ form.agency }} {% endif %}<br>
+        {{ form.title }}<br><br>
         {{ form.sdate }} End date {{ form.edate }}
       </td></tr></table>
     <hr>
@@ -52,7 +52,7 @@
         Duties<br>
         Minimum age<br>
         Number of volunteers needed<br>
-        Volunteer must be able to:<br><br>
+        Volunteer must be able to:<br>
       </td><td align=left>
         {{ form.duties }}<br>
         {{ form.age }}<br>

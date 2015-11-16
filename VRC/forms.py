@@ -1,6 +1,8 @@
 from django.forms import ModelForm, ModelChoiceField
 from .models import *
 from django.forms import CheckboxInput
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
 
 
 class VolunteerForm(ModelForm):
@@ -36,6 +38,7 @@ class OrganizationForm(ModelForm):
                 form.fields[field].widget.attrs['disabled'] = True
             else:
                 form.fields[field].widget.attrs['readonly'] = True
+                form.fields[field].widget.attrs['disabled'] = True
         return form
         
 class JobForm(ModelForm):
@@ -50,5 +53,8 @@ class JobForm(ModelForm):
                 form.fields[field].widget.attrs['disabled'] = True
             else:
                 form.fields[field].widget.attrs['readonly'] = True
+                form.fields[field].widget.attrs['disabled'] = True
         return form
-                
+
+
+#class UserForm(UserChangeForm):

@@ -10,12 +10,10 @@
   <h2>Please enter username and password{% if next %} to continue{% endif %}.</h2>
 
   <form action="" method="post">  {% csrf_token %}
-    <label for="username">User name:</label>
-    <input type="text" name="username" value="" id="username">
-    <label for="password">Password:</label>
-    <input type="password" name="password" value="" id="password">
-
-    <input type="submit" value="login" />
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Create User" />
     <input type="hidden" name="next" value="{{ next|escape }}" />
   </form>
 

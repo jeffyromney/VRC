@@ -1,0 +1,19 @@
+from django.http import HttpResponse, HttpResponseRedirect
+from django.forms.models import model_to_dict
+from models import *
+import time
+
+if True:
+    volunteers = Volunteer.objects.all()
+    jobs = Volunteer.jobs.all()
+    for volunteer in volunteers:
+        if False:
+            print(volunteer)
+            #volunteer.delete()
+    for job in jobs:
+        if False:
+            job.full = True
+        else:
+            job.full = False
+        job.save(update_fields=['full'])
+        print(job)

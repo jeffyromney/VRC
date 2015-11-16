@@ -2,7 +2,7 @@ Jefferson
 -  fix months available field and check volunteers for other fields
 -  Create checkboxes to search page based on permissions
 -  Add modify and delete functionality
-*  create database cleaner program (seperate)
+-  create database cleaner program (seperate)
 -  fix redirects for logout, successful add
 -  create interview page
 -  Show ID information in station check page
@@ -10,6 +10,8 @@ Jefferson
 -  do not show jobs as available if full
 -  make viewOnly in job and organization
 -  fix login redirect
+*  If job end date has passed, set to full.
+*  If volunteer has not been to data validation after 24 hours, delete record
 
 
 Michael

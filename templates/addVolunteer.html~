@@ -24,8 +24,8 @@
       <h3>Biographical Information</h3>
   {% if not form.name.value %}*ID and BACKGROUND CHECK WILL BE PERFORMED{% endif %}
       <table><tr><td align=right>
+        <p style="line-height: 1.3;">
         {% if viewOnly or form.job.value%}Job<br>{% endif %}
-        <p style="line-height: 1.3;"><br>
         Name<br>
         Birthday<br><br>
         Home Address<br>
@@ -35,11 +35,9 @@
         Occupation<br>
         Employer<br>
         </td><td align=left>
-=======
-        Employer</p>
+        </p>
         </td><td align=left style="BORDER-LEFT: black solid;">
->>>>>>> a1de1af2148e191f9a4f087fe65fb49cfcb07784
-        {% if viewOnly %}{{ form.job.value }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
+        {% if viewOnly %}{{ volunteer.job.title }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
         {{ form.name }}<br>
         {{ form.birthday }}<br><br>
         {{ form.address }}<br>
