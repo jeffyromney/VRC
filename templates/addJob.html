@@ -18,19 +18,45 @@
     {% endfor %}
 {% endif %}
     <form action="" method="post">
-    Title of Volunteer position {{ form.title }} (How is this different from Event name?)<br>
-    Agency Name {{ form.agency }} Event name {{ form.event }}<br>
-    Start date {{ form.sdate }} End date {{ form.edate }}<br>
+    <table><tr>
+      <td width=180 align=right style="line-height: 1.3;">
+        Event name<br>
+        Agency Name<br>
+        Title of Volunteer position<br>
+        Start date
+      </td><td align=left>
+        {{ form.event }}<br>
+        {{ form.agency }}<br>
+        {{ form.title }}<br>
+        {{ form.sdate }} End date {{ form.edate }}
+      </td></tr></table>
     <hr>
-    Duties {{ form.duties }}<br>
-    Volunteer must be able to:&nbsp;&nbsp;{{ form.drive }}drive&nbsp;&nbsp;&nbsp;lift {{ form.weight }} lbs.<br>
-    Minimum age {{ form.age }}<br>
-    Number of volunteers needed {{ form.number }}<br>
+    <table><tr>
+      <td width=180 align=right style="line-height: 1.3;">
+        Duties<br>
+        Minimum age<br>
+        Number of volunteers needed<br>
+        Volunteer must be able to:<br><br>
+      </td><td align=left>
+        {{ form.duties }}<br>
+        {{ form.age }}<br>
+        {{ form.number }}<br>
+        {{ form.drive }}drive<br>
+        lift {{ form.weight }} lbs.
+      </td></tr></table>
     <hr>
-    Dates/hours needed {{ form.whenneeded }}<br>
-    Needed skills{{ form.skills }}<br>
-    Other Notes {{ form.other }}<br>
-    Full {{ form.full }}<br>
+    <table><tr>
+      <td align=right width=180 style="line-height: 1.3;">
+        Dates/hours needed<br>
+        Needed skills<br>
+        Other Notes<br>
+        Full
+      </td><td align=left>
+        {{ form.whenneeded }}<br>
+        {{ form.skills }}<br>
+        {{ form.other }}<br>
+        {{ form.full }}
+      </td></tr></table>
         {% csrf_token %}
         <input type="submit" value="Submit">
     </form>
