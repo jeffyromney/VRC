@@ -15,11 +15,11 @@ Jefferson
 
 
 Michael
-*  Format forms to match paper forms
+X  Format forms to match paper forms
 *  seperated day,mon,year fields in date fields
 *  add date selector
 *  Add CSS
-*  
+ 
 addVolunteer.html
-*  Add waiver
+X  Add waiver
 *  Field lengths (capacities, notes, etc.)
