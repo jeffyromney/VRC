@@ -190,7 +190,6 @@ def deleteVolunteer(request, dbID):
     
 
 
-
 #@permission_required('VRC.change_job')
 def modifyJob(request,dbID):
     runCleanup()
@@ -227,18 +226,10 @@ def deleteJob(request, dbID):
         job = Job.objects.get(id=dbID)
         title = job.title
         job.delete()
-        return render(request, 'deleted.html', {'title':title})
+        return render(request, 'deleted.html', {'name':title})
     else:
         prevUrl = request.REQUEST.get('next', '')
-        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Job/delete/'+str(dbID)$
-
-
-def deleteJob(request, dbID):
-    runCleanup()
-    job = Job.objects.get(id=dbID)
-    title = job.title
-    job.delete()
-    return render(request, 'deleted.html', {'title':title})
+        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Job/delete/'+str(dbID)+'/'})
 
 
 
@@ -273,12 +264,17 @@ def viewNewOrganization(request,dbID):
     runCleanup()
     return viewOrganization(request,dbID,viewNew=True)
 
+@permission_required('VRC.delete_Volunteer')
 def deleteOrganization(request, dbID):
     runCleanup()
-    organization = Organization.objects.get(id=dbID)
-    name = organization.name
-    organization.delete()
-    return render(request, 'deleted.html', {'name':name})
+    if request.method == 'POST':
+        organization = Organization.objects.get(id=dbID)
+        name = organization.name
+        organization.delete()
+        return render(request, 'deleted.html', {'name':name})
+    else:
+        prevUrl = request.REQUEST.get('next', '')
+        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Organization/delete/'+str(dbID)+'/'})
     
     
 
@@ -293,6 +289,7 @@ def Stations(request, dbID):
             if field not in ['idCheck', 'dataValidation', 'interview', 'safety', 'idbadge', 'maps']:
                 form.fields[field].widget.attrs['disabled'] = True
         elif field != 'job':
+            form.fields[field].widget.attrs['disabled'] = True
             form.fields[field].widget.attrs['readonly'] = True
             
     if request.method == 'POST':

@@ -1,4 +1,5 @@
 from django.forms import *
+from django.forms.extras.widgets import SelectDateWidget
 from .models import *
 from django.forms import CheckboxInput
 from django.contrib.auth.forms import UserChangeForm
@@ -10,6 +11,12 @@ class VolunteerForm(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields["job"].queryset = Job.objects.filter(full=False).order_by('id')
         self.fields['name'].required = True
+        self.fields['vancap'].widget.attrs['required'] = False
+        self.fields['vancap'].widget.attrs['disabled'] = True
+        self.fields['vancap'].widget.attrs['placeholder'] = "Capacity & Type"
+
+
+    birthday = DateField(required=False, widget=SelectDateWidget(years=range(2017,1900,-1)))
     job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)#queryset=Job.objects.filter(full=False).order_by('id'), 
     doctor = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_dSpecialty').disabled = !this.checked"}))
     dSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
@@ -26,15 +33,15 @@ class VolunteerForm(ModelForm):
     truck = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_tdescription').disabled = !this.checked"}))
     tdescription = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Description"}))
     van = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_vancap').disabled = !this.checked"}))
-    vancap = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
+#    vancap = CharField(required=False, widget = NumberInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
     boat = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_btype').disabled = !this.checked"}))
     btype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
     rv = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_rvtype').disabled = !this.checked"}))
     rvtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
     cdl = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_cdlnum').disabled = !this.checked"}))
-    cdlnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Class and License #"}))
+    cdlnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Class and License "}))
     operate = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_eqtype').disabled = !this.checked"}))
-    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
+#    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
     class Meta:
         model = Volunteer
         fields = '__all__'

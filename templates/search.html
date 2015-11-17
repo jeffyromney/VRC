@@ -56,7 +56,7 @@
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_volunteer %}
-                        <td><button onClick="window.location='/Job/delete/{{ job.id }}'">Delete</button></td>
+                        <td><button onClick="window.location='/Job/delete/{{ job.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -82,7 +82,7 @@
                         <td><button onClick="window.location='/Organization/modify/{{ org.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_volunteer %}
-                        <td><button onClick="window.location='/Organization/delete/{{ org.id }}'">Delete</button></td>
+                        <td><button onClick="window.location='/Organization/delete/{{ org.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}

@@ -1,5 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import RegexValidator
 
 # Create your models here.
     
@@ -7,7 +8,7 @@ class Organization(models.Model):
     name = models.CharField(blank=True, null=True, max_length=50)
     contact = models.CharField(blank=True, null=True, max_length=40)
     address = models.CharField(blank=True, null=True, max_length=80)
-    phone = PhoneNumberField(blank=True, null=True, )
+    phone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     ext = models.IntegerField(blank=True, null=True, max_length=3)
     
     def __unicode__(self):
@@ -50,11 +51,11 @@ class Volunteer(models.Model):
     email = models.EmailField(blank=True, null=True, verbose_name="Email Address")
     birthday = models.DateField(blank=True, null=True, verbose_name="Birth Date")
     job = models.ForeignKey(Job,blank=True, null=True, verbose_name="Assigned Job")
-    dayPhone = PhoneNumberField(blank=True, null=True, verbose_name="Day Phone")
-    cellPhone = PhoneNumberField(blank=True, null=True, verbose_name="Cell Phone")
+    dayPhone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
+    cellPhone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     emergencyContact =  models.CharField(blank=True, null=True, max_length=30, verbose_name="Emergency Contact")
     relationship =  models.CharField(blank=True, null=True, max_length=30, verbose_name="Relationship")
-    emergencyPhone = PhoneNumberField(blank=True, null=True, verbose_name="Emergency Phone")
+    emergencyPhone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     occupation = models.CharField(blank=True, null=True, max_length=30, verbose_name="Occupation")
     employer = models.CharField(blank=True, null=True, max_length=30, verbose_name="Employer")
     resident = models.BooleanField(blank=True, verbose_name="Year-round Resident")
