@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import *
 from .models import *
 from django.forms import CheckboxInput
 from django.contrib.auth.forms import UserChangeForm
@@ -9,11 +9,37 @@ class VolunteerForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields["job"].queryset = Job.objects.filter(full=False).order_by('id')
+        self.fields['name'].required = True
     job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)#queryset=Job.objects.filter(full=False).order_by('id'), 
+    doctor = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_dSpecialty').disabled = !this.checked"}))
+    dSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
+    nurse = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_nSpecialty').disabled = !this.checked"}))
+    nSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
+    satphone = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_satnum').disabled = !this.checked"}))
+    satnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Phone #"}))
+    otherLang = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_lang').disabled = !this.checked"}))
+    lang = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Language"}))
+    dataEntry = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_software').disabled = !this.checked"}))
+    software = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Software"}))
+    functional = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_fneeds').disabled = !this.checked"}))
+    fneeds = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Description"}))
+    truck = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_tdescription').disabled = !this.checked"}))
+    tdescription = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Description"}))
+    van = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_vancap').disabled = !this.checked"}))
+    vancap = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
+    boat = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_btype').disabled = !this.checked"}))
+    btype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
+    rv = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_rvtype').disabled = !this.checked"}))
+    rvtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
+    cdl = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_cdlnum').disabled = !this.checked"}))
+    cdlnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Class and License #"}))
+    operate = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_eqtype').disabled = !this.checked"}))
+    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
     class Meta:
         model = Volunteer
         fields = '__all__'
         exclude = ['picture']
+        required = {'name':True}
     def disabled(_self):
         form = _self
         for field in form.fields:

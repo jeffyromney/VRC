@@ -149,7 +149,8 @@ def modifyVolunteer(request,dbID):
         if form.is_valid():
             cd = form.cleaned_data
             new_Volunteer = form.save()
-            return HttpResponse("Form Valid" + str(cd) + str(new_Volunteer))
+            #return HttpResponse("Form Valid" + str(cd) + str(new_Volunteer))
+            return viewVolunteer(request,dbID) #render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':False, 'viewOnly':True})
         else:
             return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
             #return HttpResponse("Form not Valid")
@@ -174,12 +175,17 @@ def viewNewVolunteer(request,dbID):
     #printVolunteer(dbID)
     return viewVolunteer(request,dbID,viewNew=True)
 
+@permission_required('VRC.delete_Volunteer')
 def deleteVolunteer(request, dbID):
     runCleanup()
-    volunteer = Volunteer.objects.get(id=dbID)
-    name = volunteer.name
-    volunteer.delete()
-    return render(request, 'deleted.html', {'name':name})
+    if request.method == 'POST':
+        volunteer = Volunteer.objects.get(id=dbID)
+        name = volunteer.name
+        volunteer.delete()
+        return render(request, 'deleted.html', {'name':name})
+    else:
+        prevUrl = request.REQUEST.get('next', '')
+        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Volunteer/delete/'+str(dbID)+'/'})
     
     
 
@@ -194,7 +200,7 @@ def modifyJob(request,dbID):
         if form.is_valid():
             cd = form.cleaned_data
             new_Job = form.save()
-            return HttpResponse("Form Valid" + str(cd) + str(new_Job))
+            return viewJob(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Job))
         else:
             return render(request, 'addJob.html', {'job':job, 'form': form})
             #return HttpResponse("Form not Valid")
@@ -213,6 +219,19 @@ def viewJob(request,dbID,viewNew=False):
 def viewNewJob(request,dbID):
     runCleanup()
     return viewJob(request,dbID,viewNew=True)
+
+@permission_required('VRC.delete_Volunteer')
+def deleteJob(request, dbID):
+    runCleanup()
+    if request.method == 'POST':
+        job = Job.objects.get(id=dbID)
+        title = job.title
+        job.delete()
+        return render(request, 'deleted.html', {'title':title})
+    else:
+        prevUrl = request.REQUEST.get('next', '')
+        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Job/delete/'+str(dbID)$
+
 
 def deleteJob(request, dbID):
     runCleanup()
@@ -234,7 +253,7 @@ def modifyOrganization(request,dbID):
         if form.is_valid():
             cd = form.cleaned_data
             new_Organization = form.save()
-            return HttpResponse("Form Valid" + str(cd) + str(new_Organization))
+            return viewOrganization(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Organization))
         else:
             return render(request, 'addOrganization.html', {'organization':organization, 'form': form})
             #return HttpResponse("Form not Valid")
@@ -245,6 +264,7 @@ def modifyOrganization(request,dbID):
 @permission_required('VRC.View_data')
 def viewOrganization(request,dbID,viewNew=False):
     runCleanup()
+    organization = Organization.objects.get(id=dbID)
     form = OrganizationForm(instance=organization).disabled()
     return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
     
