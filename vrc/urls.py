@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', 'vrc.views.loginSuccess'),
     url(r'^accounts/loggedOut/$', 'vrc.views.loggedOut'),
 #    url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+#    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
     
