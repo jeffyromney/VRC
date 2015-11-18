@@ -1,10 +1,12 @@
 Jefferson
-*  If job end date has passed, set to full.
+-  If job end date has passed, set to full.
 *  If volunteer has not been to data validation after 24 hours, delete record
 -  show volunteers on job page
 -  show jobs on organization page
-*  update closed on date appropriately
-*  update reason closed
+-  update closed on date appropriately
+-  update reason closed
+*  Fix permissions on every view, page and case - Always check for permission!
+-  create db Dump of generic groups/users
 
 
 Michael

@@ -340,11 +340,14 @@ def help(request):
         
 def runCleanup():
     start = datetime.datetime.now()
-    #volunteers = Volunteer.objects.all()
+    volunteers = Volunteer.objects.all()
     jobs = Job.objects.all()
-    #for volunteer in volunteers:
-    #    if False:
-    #        pass
+    currentTime = datetime.datetime.now()
+    currentTime = currentTime.replace(tzinfo=None)
+    for volunteer in volunteers:
+        naive = volunteer.created.replace(tzinfo=None)
+        if (currentTime - naive).days >=1 and not volunteer.dataValidation:
+            print('Deleting ' + volunteer.name) 
             #volunteer.delete()
     for job in jobs:
         debug1 = datetime.datetime.now().date()
@@ -353,19 +356,24 @@ def runCleanup():
         if job.volunteer_set.count() >= job.number:
             job.full = True
             reason = 'Request Fulfilled'
+            job.reasonClosed = 0
+            job.closedOn = datetime.datetime.now()
         elif job.edate is not None:
             if job.edate < datetime.datetime.now().date():
                 job.full = True
                 reason = 'Expired'
+                job.reasonClosed = 1
+                job.closedOn = datetime.datetime.now()
             else:
                 job.full = False
                 reason = 'No Longer Full'
+                job.reasonClosed = None
         else:
             job.full = False
             reason = 'No Longer Full'
+            job.reasonClosed = None
         if job.full != initialFull:
-            pass
-            job.save(update_fields=['full'])
+            job.save(update_fields=['full','reasonClosed'])
             print('CLEANUP - CHANGED STATUS OF JOB: ' + job.title + '. Reason: ' + reason)
 
 

@@ -29,7 +29,9 @@ class Job(models.Model):
     age = models.IntegerField(blank=True, null=True, max_length=2)
     skills = models.CharField(blank=True, null=True, max_length=200)
     other = models.CharField(blank=True, null=True, max_length=500)
+    reasonClosed = models.IntegerField(blank=True,null=True)
     full = models.BooleanField(default=False)
+    closedOn = models.DateTimeField(blank=True,null=True)
     
     def __unicode__(self):
         return self.title
