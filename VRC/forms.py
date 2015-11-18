@@ -17,7 +17,7 @@ class VolunteerForm(ModelForm):
         self.fields['vancap'].widget.attrs['placeholder'] = "Capacity & Type"
 
 
-    birthday = DateField(required=False, widget=SelectDateWidget(years=range(2017,1900,-1)))
+    birthday = DateField(required=False, widget=SelectDateWidget(years=range(datetime.date.today().year,1900,-1)))
     job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)#queryset=Job.objects.filter(full=False).order_by('id'), 
     doctor = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_dSpecialty').disabled = !this.checked"}))
     dSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
@@ -76,8 +76,8 @@ class OrganizationForm(ModelForm):
         return form
         
 class JobForm(ModelForm):
-    sdate = DateField(required=False, initial=datetime.date.today, widget=SelectDateWidget(years=range(2017,1900,-1)))
-    edate = DateField(required=False, widget=SelectDateWidget(years=range(2017,1900,-1)))
+    sdate = DateField(required=False, initial=datetime.date.today, widget=SelectDateWidget(years=range(datetime.date.today().year+2,datetime.date.today().year-2,-1)))
+    edate = DateField(required=False, initial=datetime.date.today, widget=SelectDateWidget(years=range(datetime.date.today().year+2,datetime.date.today().year-2,-1)))
     class Meta:
         model = Job
         #fields = '__all__'
