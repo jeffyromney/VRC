@@ -175,6 +175,14 @@ def viewNewVolunteer(request,dbID):
     #printVolunteer(dbID)
     return viewVolunteer(request,dbID,viewNew=True)
 
+def printVolunteer(request,dbID):
+    volunteer = Volunteer.objects.get(id=dbID)
+    autoPrint = True
+    if volunteer.job:
+        job = volunteer.job
+        org = volunteer.job.agency
+    return render(request, 'printVolunteer.html', locals())
+
 @permission_required('VRC.delete_Volunteer')
 def deleteVolunteer(request, dbID):
     runCleanup()
@@ -202,7 +210,6 @@ def modifyJob(request,dbID):
             return viewJob(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Job))
         else:
             return render(request, 'addJob.html', {'job':job, 'form': form})
-            #return HttpResponse("Form not Valid")
     else:
         return render(request, 'addJob.html', {'job':job, 'form': form})
 
@@ -247,7 +254,6 @@ def modifyOrganization(request,dbID):
             return viewOrganization(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Organization))
         else:
             return render(request, 'addOrganization.html', {'organization':organization, 'form': form})
-            #return HttpResponse("Form not Valid")
     else:
         return render(request, 'addOrganization.html', {'organization':organization, 'form': form})
 
@@ -293,23 +299,20 @@ def Stations(request, dbID):
             form.fields[field].widget.attrs['readonly'] = True
             
     if request.method == 'POST':
-        if form.is_valid():
-            cd = form.cleaned_data
-            if(request.user.has_perm('VRC.IDCheck')):
-                volunteer.save(update_fields=['idCheck'])
-            if(request.user.has_perm('VRC.Data_Validation')):
-                volunteer.save(update_fields=['dataValidation'])
-            if(request.user.has_perm('VRC.Interview')):
-                volunteer.save(update_fields=['job','interview'])
-            if(request.user.has_perm('VRC.Safety')):
-                volunteer.save(update_fields=['safety'])
-            if(request.user.has_perm('VRC.IDBadge')):
-                volunteer.save(update_fields=['idbadge'])
-            if(request.user.has_perm('VRC.Maps')):
-                volunteer.save(update_fields=['maps'])
-            return HttpResponse("Form Valid" + str(cd) + "\n" + 'f')
-        else:
-            return HttpResponse("Form not Valid")
+        form.is_valid()
+        if(request.user.has_perm('VRC.IDCheck')):
+            volunteer.save(update_fields=['idCheck'])
+        if(request.user.has_perm('VRC.Data_Validation')):
+            volunteer.save(update_fields=['dataValidation'])
+        if(request.user.has_perm('VRC.Interview')):
+            volunteer.save(update_fields=['job','interview'])
+        if(request.user.has_perm('VRC.Safety')):
+            volunteer.save(update_fields=['safety'])
+        if(request.user.has_perm('VRC.IDBadge')):
+            volunteer.save(update_fields=['idbadge'])
+        if(request.user.has_perm('VRC.Maps')):
+            volunteer.save(update_fields=['maps'])
+        return viewVolunteer(request,dbID)
     else:
         return render(request, 'stations.html', {'volunteer':volunteer, 'form': form})
     

@@ -6,8 +6,10 @@
 </head>
 
 <body>
-<button onClick="window.location='/'">Home</button>&nbsp;
-<button onClick="window.location='/addVolunteer'">Add Volunteer</button>&nbsp;
+{% block NavBar %}
+<div class="no-print">
+<button onClick="window.location='/'">Home</button>
+<button onClick="window.location='/addVolunteer'">Add Volunteer</button>
 {% if perms.VRC.add_organization %}<button onClick="window.location='/addOrganization'">Add Organization</button>&nbsp;{% endif %}
 {% if perms.VRC.add_job %} <button onClick="window.location='/addJob'">Add Job</button>&nbsp; {% endif %}
 {% if perms.VRC.View_data %} <button onClick="window.location='/search'">Search</button>&nbsp; {% endif %}
@@ -15,7 +17,9 @@
 {% if user.is_authenticated %} <button onClick="window.location='/accounts/logout'">Logout</button>&nbsp; 
 {% else %} <button onClick="window.location='/accounts/login'">Login</button>&nbsp; {% endif %}
 <button onClick="window.location='/help'">Help</button>&nbsp;
-<h1>VRC Administration</h1>
+</div>
+{% endblock %}
+{% block pageTitle %}<h1>VRC Administration</h1>{% endblock %}
     {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.
     {% endblock %}
     {% if loggedOut %}

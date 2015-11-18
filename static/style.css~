@@ -25,9 +25,21 @@ input:disabled
 
 button
 {
-    background:url(./redButton.png) no-repeat;
+    background:url(redButton.png) no-repeat;
     background-size:cover;
     height:21px;
     border: 0;
 }
 
+input:disabled::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #2277aa;
+}
+input:disabled:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #2277aa;
+}
+input:disabled::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #2277aa;
+}
+input:disabled:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #2277aa;
+}

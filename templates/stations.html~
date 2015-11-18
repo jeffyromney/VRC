@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title%}Add {{type}}{% endblock %}
+{% block title%}Station{% endblock %}
 
 {% block content %}
         <h3>{{ volunteer.name }}</h3>

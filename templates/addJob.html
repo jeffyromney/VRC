@@ -45,7 +45,7 @@
         {{ form.age }}<br>
         {{ form.number }}<br>
         {{ form.drive }}drive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        lift {{ form.weight }} lbs.
+        lift {% if viewOnly %}{{ form.weight.value }}{% else %}{{ form.weight }}{% endif %} lbs.
       </td></tr></table>
     <hr>
     <table><tr>
@@ -53,12 +53,10 @@
         Dates/hours needed<br>
         Needed skills<br>
         Other Notes<br>
-        Full
       </td><td align=left>
         {{ form.whenneeded }}<br>
         {{ form.skills }}<br>
         {{ form.other }}<br>
-        {{ form.full }}
       </td></tr></table>
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}

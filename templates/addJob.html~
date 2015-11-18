@@ -20,22 +20,9 @@
         <h2> **Successfully Added {{ job.name }}**</h2>
     {% endif %}
     <form action="" method="post">
-  <!--  Start date {{ form.sdate }}<br>
-    End date {{ form.edate }}<br>
-    Event name {{ form.event }}<br>
-    Agency Name {{ form.agency }}<br>
-    Title of Volunteer position {{ form.title }}<br>
-    Duties {{ form.duties }}<br>
-    Volunteer must be able to lift {{ form.weight }} lbs.<br>
-    Volunteer must be able to drive {{ form.drive }}<br>
-    Number of volunteers needed {{ form.number }}<br>
-    Dates/hours needed {{ form.whenneeded }}<br>
-    Minimum age {{ form.age }}<br>
-    Needed skills{{ form.skills }}<br>
-    Other Notes {{ form.other }}<br>-->
 
     <table><tr>
-      <td width=180 align=right style="line-height: 1.3;">
+      <td width=250 align=right style="line-height: 1.3;">
         Event name<br>
         Agency Name<br>
         Title of Volunteer position<br>
@@ -43,12 +30,12 @@
       </td><td align=left>
         {{ form.event }}<br>
         {% if viewOnly %}{{ job.agency.name }} {% else%} {{ form.agency }} {% endif %}<br>
-        {{ form.title }}<br><br>
+        {{ form.title }}<br>
         {{ form.sdate }} End date {{ form.edate }}
       </td></tr></table>
     <hr>
     <table><tr>
-      <td width=180 align=right style="line-height: 1.3;">
+      <td width=250 align=right style="line-height: 1.3;">
         Duties<br>
         Minimum age<br>
         Number of volunteers needed<br>
@@ -57,21 +44,19 @@
         {{ form.duties }}<br>
         {{ form.age }}<br>
         {{ form.number }}<br>
-        {{ form.drive }}drive<br>
-        lift {{ form.weight }} lbs.
+        {{ form.drive }}drive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        lift {{ form.weight.value }} lbs.
       </td></tr></table>
     <hr>
     <table><tr>
-      <td align=right width=180 style="line-height: 1.3;">
+      <td align=right width=250 style="line-height: 1.3;">
         Dates/hours needed<br>
         Needed skills<br>
         Other Notes<br>
-        Full
       </td><td align=left>
         {{ form.whenneeded }}<br>
         {{ form.skills }}<br>
         {{ form.other }}<br>
-        {{ form.full }}
       </td></tr></table>
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}

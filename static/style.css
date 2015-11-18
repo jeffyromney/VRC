@@ -43,3 +43,11 @@ input:disabled::-moz-placeholder { /* Mozilla Firefox 19+ */
 input:disabled:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #2277aa;
 }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
