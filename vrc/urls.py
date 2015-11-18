@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^Job/viewNew/(\d{1,2})/$', 'vrc.views.viewNewJob', name='Job Added'),
     url(r'^Job/modify/(\d{1,2})/$', 'vrc.views.modifyJob', name='Modify Job'),
     url(r'^Job/delete/(\d{1,2})/$', 'vrc.views.deleteJob', name='Delete Job'),
+    url(r'^Job/print/(\d{1,2})/$', 'vrc.views.printJob', name='Print Job'),
     
     url(r'^Organization/view/(\d{1,2})/$', 'vrc.views.viewOrganization', name='View Organization'),
     url(r'^Organization/viewNew/(\d{1,2})/$', 'vrc.views.viewNewOrganization', name='Organization Added'),

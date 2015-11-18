@@ -183,6 +183,16 @@ def printVolunteer(request,dbID):
         job = volunteer.job
         org = volunteer.job.agency
     return render(request, 'printVolunteer.html', locals())
+    
+    
+def printJob(request,dbID):
+    job = Job.objects.get(id=dbID)
+    autoPrint = True
+    if job.agency:
+        agency = job.agency
+    vols = job.volunteer_set.all()
+    viewOnly = True
+    return render(request, 'printJob.html', locals())
 
 @permission_required('VRC.delete_Volunteer')
 def deleteVolunteer(request, dbID):

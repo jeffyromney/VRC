@@ -31,7 +31,7 @@
                     {% if perms.VRC.Safety or perms.VRC.IDBadge or perms.VRC.IDCheck or perms.VRC.Data_Validation or perms.VRC.Maps or perms.VRC.Interview %}
                         <td><button onClick="window.location='/Stations/{{ vol.id }}'">Stations</button></td>
                     {% endif %}
-                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ vol.id }}'">Print</button></td>
+                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ vol.id }}'">Print</button></td>{% endif %}
                 </tr>
             {% endfor %}
             </table>

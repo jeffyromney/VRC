@@ -154,7 +154,7 @@ def modifyVolunteer(request,dbID):
             #return HttpResponse("Form Valid" + str(cd) + str(new_Volunteer))
             return viewVolunteer(request,dbID) #render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':False, 'viewOnly':True})
         else:
-            return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
+            return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
     else:
         #form = VolunteerForm(instance=volunteer)
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
@@ -183,6 +183,16 @@ def printVolunteer(request,dbID):
         job = volunteer.job
         org = volunteer.job.agency
     return render(request, 'printVolunteer.html', locals())
+    
+    
+def printJob(request,dbID):
+    job = Job.objects.get(id=dbID)
+    autoPrint = True
+    if job.agency:
+        agency = job.agency
+    vols = job.volunteer_set.all()
+    viewOnly = True
+    return render(request, 'addJob.html', locals())
 
 @permission_required('VRC.delete_Volunteer')
 def deleteVolunteer(request, dbID):

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^Volunteer/viewNew/(\d{1,2})/$', 'vrc.views.viewNewVolunteer', name='Volunteer Added'),
     url(r'^Volunteer/modify/(\d{1,2})/$', 'vrc.views.modifyVolunteer', name='Modify Volunteer'),
     url(r'^Volunteer/delete/(\d{1,2})/$', 'vrc.views.deleteVolunteer', name='Delete Volunteer'),
+    url(r'^Volunteer/print/(\d{1,2})/$', 'vrc.views.printVolunteer', name='Print Volunteer'),
     
     url(r'^Job/view/(\d{1,2})/$', 'vrc.views.viewJob', name='View Job'),
     url(r'^Job/viewNew/(\d{1,2})/$', 'vrc.views.viewNewJob', name='Job Added'),
@@ -34,8 +35,10 @@ urlpatterns = patterns('',
     url(r'^accounts/logout/$', logout, {'next_page': '/accounts/loggedOut/'}),
     url(r'^accounts/profile/$', 'vrc.views.loginSuccess'),
     url(r'^accounts/loggedOut/$', 'vrc.views.loggedOut'),
-    url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+
+
+#    url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
+#    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
     

@@ -1,5 +1,5 @@
 Jefferson
-*  If job end date has passed, set to full.
+-  If job end date has passed, set to full.
 *  If volunteer has not been to data validation after 24 hours, delete record
 -  show volunteers on job page
 -  show jobs on organization page

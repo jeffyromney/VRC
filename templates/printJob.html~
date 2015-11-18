@@ -65,7 +65,7 @@
     <h3>Assigned Volunteers</h3>
     <table class="has_borders">
         <tr><td/><td>Name</td><td>Phone Number</td><td class="no-print">More Info</td></tr>
-        {% for vol in vols.all %}
+        {% for vol in vols %}
             <tr>
                 <td>{{ forloop.counter }}</td><td>{{ vol.name }}</td><td>{%if vol.cellPhone %}{{ vol.cellPhone }}{% else %}{{ vol.dayPhone }}{% endif %}</td><td class="no-print"><button onClick="window.location='/Volunteer/view/{{ vol.id }}'" style="width:100%;">View</button></td>
             </tr>
