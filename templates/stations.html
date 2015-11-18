@@ -70,7 +70,7 @@
         {% else %}
             {{ form.job.value }}
         {% endif %}<br>
-        <input type="submit" value="Submit">
+        <button type="submit">Submit</button>
         {% if perms.VRC.Interview %}
             <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>

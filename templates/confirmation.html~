@@ -1,6 +1,6 @@
 
 {% extends 'base.html' %}
-{% block pageTitle %}{% endblock %}
+
 {% block content %}
 
     <div class="confirmation-box">

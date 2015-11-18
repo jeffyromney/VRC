@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title%}Add Organization{% endblock %}
+{% block title%}Organization{% endblock %}
+{% block pageTitle%}<h1>Organization Profile</h1>{% endblock %}
 
 {% block content %}{% if form.errors %}
     {% for field in form %}
@@ -24,7 +25,7 @@
             {{ form.as_table }}
         </table>
         {% csrf_token %}
-        {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}
+        {% if not viewOnly %}<button type="submit">Submit</button> {% endif %}
     </form>
     {% if jobs %}
     <h3>Requested Jobs</h3>

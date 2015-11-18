@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
-{% block title%}Add {{type}}{% endblock %}
-
-{% block content %}
+{% block title%}Help - VRC{% endblock %}
+{% block pageTitle %}
     <h1>VRC Help</h1>
+{% endblock %}
+{% block content %}
         {% if user.is_authenticated %}
         {% if perms.VRC.IDCheck %}
         <p>Help for Id Check</p>

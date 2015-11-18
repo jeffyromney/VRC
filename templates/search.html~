@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block title%}Search{% endblock %}
+{% block pageTitle %}<h1>Search</h1>{% endblock %}
 
 {% block content %}
         <form method="get" action="/search/">
-            Search:<input type="text" name="q" id="id_q" value="{{ query }}"/>
-            <input type="submit" value="Search" />
+            <   input type="text" name="q" id="id_q" value="{{ query }}"/>
+            <button type="submit">Search</button>
         </form>
     {% if perms.VRC.View_data %}
     {% if vols %}
@@ -53,11 +54,14 @@
                     <td>{{ job.agency.city }}</td>
                     <td>{{ job.full}}</td>
                     <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
-                    {% if perms.VRC.change_volunteer %}
+                    {% if perms.VRC.change_job %}
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_volunteer %}
+                    {% if perms.VRC.delete_job %}
                         <td><button onClick="window.location='/Job/delete/{{ job.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
+                    {% endif %}
+                    {% if perms.VRC.change_job %}
+                        <td><button onClick="window.location='/Job/print/{{ job.id }}'">Print</button></td>
                     {% endif %}
                 </tr>
             {% endfor %}

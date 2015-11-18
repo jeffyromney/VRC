@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title%}Add Volunteer{% endblock %}
+{% block title%}Add {{type}}{% endblock %}
 
 {% block content %}
     <form action="" method="post">

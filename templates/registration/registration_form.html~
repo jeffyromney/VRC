@@ -14,7 +14,7 @@
     {{ form.as_table }}
     </table>
     <input type="submit" value="Create User" />
-    <input type="hidden" name="next" value="{{ next|escape }}" />
+    <input type="hidden" name="next" value="/accounts/login" />
   </form>
 
 {% endblock %}
