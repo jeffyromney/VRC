@@ -4,6 +4,7 @@ from .models import *
 from django.forms import CheckboxInput
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
+import datetime
 
 
 class VolunteerForm(ModelForm):
@@ -75,6 +76,8 @@ class OrganizationForm(ModelForm):
         return form
         
 class JobForm(ModelForm):
+    sdate = DateField(required=False, initial=datetime.date.today, widget=SelectDateWidget(years=range(2017,1900,-1)))
+    edate = DateField(required=False, widget=SelectDateWidget(years=range(2017,1900,-1)))
     class Meta:
         model = Job
         #fields = '__all__'
