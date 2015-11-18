@@ -56,7 +56,7 @@ def addJob(request):
             new_Job = form.save()
             return HttpResponseRedirect('/Job/viewNew/' + str(new_Job.id))
         else:
-            return render(request, 'addJob.html', {'form': form})#return HttpResponse("Form not Valid")
+            return render(request, 'addJob.html', {'form': form})
     else:
         form = JobForm()
         return render(request, 'addJob.html', {'form': form})
@@ -153,7 +153,6 @@ def modifyVolunteer(request,dbID):
             return viewVolunteer(request,dbID) #render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':False, 'viewOnly':True})
         else:
             return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
-            #return HttpResponse("Form not Valid")
     else:
         form = VolunteerForm(instance=volunteer)
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})

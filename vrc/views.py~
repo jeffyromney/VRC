@@ -177,6 +177,7 @@ def viewNewVolunteer(request,dbID):
 
 def printVolunteer(request,dbID):
     volunteer = Volunteer.objects.get(id=dbID)
+    autoPrint = True
     if volunteer.job:
         job = volunteer.job
         org = volunteer.job.agency
