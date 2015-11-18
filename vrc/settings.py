@@ -30,7 +30,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIRS = (
-    'templates',
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 STATICFILES_DIRS = (
