@@ -25,19 +25,17 @@
   {% if not form.name.value %}*ID and BACKGROUND CHECK WILL BE PERFORMED{% endif %}
       <table><tr><td align=right>
         <p style="line-height: 1.3;">
-        {% if viewOnly or form.job.value%}Job<br>{% endif %}
-        Name<br>
+        {% if viewOnly or form.job.value or modify%}Job<br>{% endif %}
+        <br>Name<br>
         Birthday<br><br>
         Home Address<br>
         City<br>
         State<br>
         ZIP<br><br>
         Occupation<br>
-        Employer<br>
+        Employer
         </td><td align=left>
-        </p>
-        </td><td align=left style="BORDER-LEFT: black solid;">
-        {% if viewOnly %}{{ volunteer.job.title }} {% elif form.job.value %} {{ form.job }} {% endif %}<br>
+        {% if viewOnly %}{{ volunteer.job.title }} {% elif form.job.value or modify %} {{ form.job }} {% endif %}<br>
         {{ form.name }}<br>
         {{ form.birthday }}<br><br>
         {{ form.address }}<br>
@@ -72,35 +70,35 @@
       <hr>
       <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
-        Do you have any limitations? {{ form.limitations }} <br>
+        Do you have any limitations? {{ form.limitations }} <br><br>
         I am willing to volunteer in:<br>
-        This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br><br>
         Are you currently affiliated with a disaster relief agency? {{ form.affiliatedAgency }}<br>
         Special skills and/or vocational/disaster training: {{ form.skillsTraining }}<br>
         <hr>
         <h3>Skills: Please check all that apply</h3>
         <u>Medical</u><br>
         <table>
-        <tr><td>{{ form.doctor }}Doctor - Specialty {{ form.dSpecialty }}<br>{{ form.nurse }}Nurse - Specialty {{ form.dSpecialty }}<br>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.mental }}Mental Health Counseling<br>{{ form.vet }}Veterinarian<br>{{ form.vetTech }}Veterinary Technician</td></tr>
+        <tr><td width=445>{{ form.doctor }}Doctor&nbsp; {{ form.dSpecialty }}<br>{{ form.nurse }}Nurse&nbsp; {{ form.nSpecialty }}<br>{{ form.emt }}Emergency Medical Certification</td><td>{{ form.mental }}Mental Health Counseling<br>{{ form.vet }}Veterinarian<br>{{ form.vetTech }}Veterinary Technician</td></tr>
         <tr><td></td><td></td></tr>
         <tr><td></td><td></td></tr>
         </table>
         <br>
         <u>Communication</u><br>
         <table>
-        <tr><td width=170>{{ form.cbHam }}CB/ham operator</td><td width=170>{{ form.hotline }}Hotline operator</td><td width=340>{{ form.satphone }}Satellite Phone - #{{ form.satnum }}</td></tr>
+        <tr><td width=220>{{ form.cbHam }}CB/ham operator</td><td width=220>{{ form.hotline }}Hotline operator</td><td width=340>{{ form.satphone }}Satellite Phone&nbsp; {{ form.satnum }}</td></tr>
         <tr><td>{{ form.publicRelations }}Public Relations</td><td>{{ form.webpage }}Web page design</td><td>{{ form.publicSpeaker }}Public Speaker</td></tr>
         </table>
         <br>
         <u>Languages</u><br>
-        <table><tr><td width=83>{{ form.french }}French</td><td width=83>{{ form.german }}German</td><td width=83>{{ form.italian }}Italian</td><td width=83>{{ form.spanish }}Spanish</td><td width=83>{{ form.russian }}Russian</td><td width=83>{{ form.creole }}Creole</td><td>{{ form.otherLang }}Other:{{ form.lang }}</td></tr></table>
+        <table><tr><td width=108>{{ form.french }}French</td><td width=108>{{ form.german }}German</td><td width=108>{{ form.italian }}Italian</td><td width=108>{{ form.spanish }}Spanish</td><td width=91>{{ form.russian }}Russian</td><td width=77>{{ form.creole }}Creole</td><td>{{ form.otherLang }}Other&nbsp;{{ form.lang }}</td></tr></table>
         <br>
         <u>Office Support</u><br>
-        <table><tr><td width=170>{{ form.clerical }}Clerical - filing</td><td width=170>{{ form.receptionist }}Phone Receptionist</td><td width=340>{{ form.dataEntry }}Data Entry - Software:{{ form.software }}</td></tr></table>
+        <table><tr><td width=220>{{ form.clerical }}Clerical - filing</td><td width=220>{{ form.receptionist }}Phone Receptionist</td><td width=440>{{ form.dataEntry }}Data Entry&nbsp; {{ form.software }}</td></tr></table>
         <br>
         <u>Services</u><br>
         <table>
-        <tr><td width=170>{{ form.food }}Food</td><td width=170>{{ form.elderly }}Assistance to elderly</td><td width=170>{{ form.childCare }}Child Care</td><td width=170>{{ form.spiritual }}Spiritual Counseling</td></tr>
+        <tr><td width=220>{{ form.food }}Food</td><td width=220>{{ form.elderly }}Assistance to elderly</td><td width=170>{{ form.childCare }}Child Care</td><td width=190>{{ form.spiritual }}Spiritual Counseling</td></tr>
         <tr><td>{{ form.social }}Social Work</td><td>{{ form.searchRescue }}Search and Rescue</td><td>{{ form.autoRepair }}Auto repair/towing</td><td>{{ form.traffic }}Traffic control</td></tr>
         <tr><td>{{ form.crimeWatch }}Crime Watch</td><td>{{ form.animalRescue }}Animal Rescue</td><td>{{ form.animalCare }}Animal Care</td><td>{{ form.runner }}Runner</td></tr>
         <tr><td>{{ form.functional }}Functional Needs Support</td><td>{{ form.fneeds }}</td><td></td><td></td></tr>
@@ -108,27 +106,27 @@
         <br>
         <u>Structural</u>
         <table>
-        <tr><td width=170>{{ form.damage }}Damage assesment&nbsp;&nbsp;&nbsp;<br>{{ form.metal }}Metal construction</td>
-        <td width=170>{{ form.wood }}Wood construction&nbsp;&nbsp;&nbsp;<br>{{ form.block }}Block construction</td>
+        <tr><td width=220>{{ form.damage }}Damage assesment&nbsp;&nbsp;&nbsp;<br>{{ form.metal }}Metal construction</td>
+        <td width=220>{{ form.wood }}Wood construction&nbsp;&nbsp;&nbsp;<br>{{ form.block }}Block construction</td>
         <td width=170>{{ form.plumbing }}Plumbing&nbsp;&nbsp;&nbsp;<br>{{ form.electric }}Electrical</td>
         <td>{{ form.roofing }}Roofing<br>&nbsp;</td></tr>
         </table>
         <br>
         <u>Transportation</u>
         <table>
-        <tr><td width=170>{{ form.car }}Car<br>{{ form.minivan }}Minivan<br>{{ form.atv }}ATV<br>{{ form.offRoad }}Off-road vehicle/4WD<br>{{ form.wheelchair }}Wheelchair Transport</td>
-        <td>{{ form.truck }}Truck - Description {{ form.tdescription }}<br>{{ form.van }}Van - Capacity{{ form.vancap }}<br>{{ form.boat }}Boat - Capacity{{ form.btype }}<br>{{ form.rv }}Camper/RV - Capacity{{ form.rvtype }}<br>{{ form.cdl }}Commercial driver - Class and license #{{ form.cdlnum }}</td></tr>
+        <tr><td width=220>{{ form.car }}Car<br>{{ form.minivan }}Minivan<br>{{ form.atv }}ATV<br>{{ form.offRoad }}Off-road vehicle/4WD<br>{{ form.wheelchair }}Wheelchair Transport</td>
+        <td>{{ form.truck }}Truck&nbsp; {{ form.tdescription }}<br>{{ form.van }}Van&nbsp; {{ form.vancap }}<br>{{ form.boat }}Boat&nbsp; {{ form.btype }}<br>{{ form.rv }}Camper/RV&nbsp; {{ form.rvtype }}<br>{{ form.cdl }}Commercial driver&nbsp; {{ form.cdlnum }}</td></tr>
         </table>
         <br>
         <u>Labor</u>
         <table>
-         <tr><td width=170>{{ form.loading }}Loading/Shipping<br>{{ form.sorting }}Sorting/Packing</td>
-         <td width=170>{{ form.cleanup }}Clean-up<br>{{ form.supervising }}Supervising experience</td>
-         <td>{{ form.operate }}Operate equipment<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Types{{ form.eqtype }}</td></tr>
+         <tr><td width=220>{{ form.loading }}Loading/Shipping<br>{{ form.sorting }}Sorting/Packing</td>
+         <td width=220>{{ form.cleanup }}Clean-up<br>{{ form.supervising }}Supervising experience</td>
+         <td>{{ form.operate }}Operate equipment<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ form.eqtype }}</td></tr>
         </table>
         <br>
         <u>Equipment</u><br>
-        {{ form.chainsaw }}Chainsaw&nbsp;&nbsp;&nbsp;{{ form.backhoe }}Backhoe&nbsp;&nbsp;&nbsp;{{ form.generator }}Generator&nbsp;&nbsp;&nbsp;Other{{ form.othereq }}<br>
+        <table><tr><td width=108>{{ form.chainsaw }}Chainsaw</td><td width=108>{{ form.backhoe }}Backhoe</td><td width=120>{{ form.generator }}Generator</td><td>Other{{ form.othereq }}</td></tr></table>
         <br>
         Other Notes: {{ form.notes }}<br>
 <!--     
@@ -239,12 +237,12 @@
          ID Station:    
          Map Station 
             {{ form.as_table }} -->
-{% if not form.name.value %}<        <hr>
+{% if not form.name.value %}        <hr>
 <!--        <h3>Volunteer Release of Liability</h3>
 <p>I, for myself and my heirs, executors, administrators and assigns, hereby release, indemnify, and hold harmless the Volusia COAD, directors, volunteers and workers in the Volunteer Reception Center, local governments, State of Florida, the organizers, sponsors and supervisors of all disaster preparedness, response and recovery from all liability for any and all risk of damage or bodily injury or death that may occur to me (including any injury caused by negligence), in connection with any volunteer disaster effort in which I participate. I likewise hold harmless from liability any person transporting me to or from any disaster relief activity. In addition, disaster relief officials have permission to utilize any photographs or videos taken of me for publicity or training purposes.</p>
 <p>I will abide by all safety instructions and information provided to me during disaster relief efforts. Further, I expressly agree that this release, waiver, and indemnity agreement is intended to be as broad and inclusive as permitted by the State of Florida, and that if any portion thereof is held invalid, it is agreed that the balance shall, notwithstanding, continue in full legal force and effect.</p>
 <p>I have no known physical or mental condition that would impair my capability to participate fully, as intended or expected of me. I have carefully read the foregoing release and indemnification and understand the contents thereof and sign this release as my own free act.</p> -->
-p>This form is not a complete registration. To complete your registration, you must go to the Volunteer Resource Center and verify your registration and follow the instructions given there. You will be required to show ID, sign a waiver of liability and complete a short safety briefing as part of that registration. Depending on your specific assignment, you may also undergo a background check. If your registration is not verified within 72 hours (3 days), it will be removed from the system and you will need to fill out this form again. After pushing the "Submit" button, your data will be saved and you will be given an ID number. We suggest you write this number down for convenience in verification of your registration.</p>
+<p>This form is not a complete registration. To complete your registration, you must go to the Volunteer Resource Center and verify your registration and follow the instructions given there. You will be required to show ID, sign a waiver of liability and complete a short safety briefing as part of that registration. Depending on your specific assignment, you may also undergo a background check. If your registration is not verified within 72 hours (3 days), it will be removed from the system and you will need to fill out this form again. After pushing the "Submit" button, your data will be saved and you will be given an ID number. We suggest you write this number down for convenience in verification of your registration.</p>
 <p>{{ form.waiver }} I have read and agree to the above conditions<!--By selecting, you agree to the Volunteer Release of Liability--></p>{% endif %}
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}

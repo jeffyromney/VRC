@@ -144,8 +144,10 @@ def search(request):
 def modifyVolunteer(request,dbID):
     runCleanup()
     volunteer = Volunteer.objects.get(id=dbID)
+    form = VolunteerForm(request.POST or None, instance=volunteer, initial = {'job': volunteer.job })
+    if volunteer.job is not None and volunteer.job.full:
+        form.fields['job'].queryset=Job.objects.filter(id=volunteer.job.id) | Job.objects.filter(full=False)
     if request.method == 'POST':
-        form = VolunteerForm(request.POST, request.FILES, instance=volunteer)
         if form.is_valid():
             cd = form.cleaned_data
             new_Volunteer = form.save()
@@ -154,8 +156,8 @@ def modifyVolunteer(request,dbID):
         else:
             return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
     else:
-        form = VolunteerForm(instance=volunteer)
-        return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form})
+        #form = VolunteerForm(instance=volunteer)
+        return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
 
 
 #@permission_required('VRC.View_data')
@@ -263,7 +265,8 @@ def viewOrganization(request,dbID,viewNew=False):
     runCleanup()
     organization = Organization.objects.get(id=dbID)
     form = OrganizationForm(instance=organization).disabled()
-    return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
+    jobs = organization.job_set
+    return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True,'jobs':jobs})
     
     
 def viewNewOrganization(request,dbID):
@@ -334,15 +337,26 @@ def runCleanup():
     #        pass
             #volunteer.delete()
     for job in jobs:
+        debug1 = datetime.datetime.now().date()
+        debug2 = job.edate
         initialFull = job.full
         if job.volunteer_set.count() >= job.number:
             job.full = True
+            reason = 'Request Fulfilled'
+        elif job.edate is not None:
+            if job.edate < datetime.datetime.now().date():
+                job.full = True
+                reason = 'Expired'
+            else:
+                job.full = False
+                reason = 'No Longer Full'
         else:
             job.full = False
+            reason = 'No Longer Full'
         if job.full != initialFull:
             pass
             job.save(update_fields=['full'])
-            print('CLEANUP - CHANGED STATUS OF JOB: ' + job.title)
+            print('CLEANUP - CHANGED STATUS OF JOB: ' + job.title + '. Reason: ' + reason)
 
 
 
