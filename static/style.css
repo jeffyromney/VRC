@@ -44,6 +44,17 @@ input:disabled:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #2277aa;
 }
 
+table.has_borders
+{
+    border-collapse: collapse;
+}
+
+table.has_borders td
+{
+    border:1px solid black;
+    padding:0px 8px 0px 8px;
+}
+
 @media print
 {    
     .no-print, .no-print *
@@ -51,3 +62,8 @@ input:disabled:-ms-input-placeholder { /* Internet Explorer 10+ */
         display: none !important;
     }
 }
+
+
+
+
+

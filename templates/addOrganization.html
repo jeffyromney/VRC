@@ -26,4 +26,15 @@
         {% csrf_token %}
         {% if not viewOnly %}<input type="submit" value="Submit"> {% endif %}
     </form>
+    {% if jobs %}
+    <h3>Requested Jobs</h3>
+    <table class="has_borders">
+        <tr><td/><td>Title</td><td>Duties</td><td>More Info</td></tr>
+        {% for job in jobs.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td><td>{{ job.title }}</td><td>{{ job.duties }}</td><td><button onClick="window.location='/Job/view/{{ job.id }}'" style="width:100%;">View</button></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 {% endblock %}

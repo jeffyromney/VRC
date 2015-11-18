@@ -218,7 +218,8 @@ def viewJob(request,dbID,viewNew=False):
     runCleanup()
     job = Job.objects.get(id=dbID)
     form = JobForm(instance=job).disabled()
-    return render(request, 'addJob.html', {'job':job, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
+    vols = job.volunteer_set
+    return render(request, 'addJob.html', {'job':job, 'form': form, 'viewNew':viewNew, 'viewOnly':True, 'vols':vols})
     
     
 def viewNewJob(request,dbID):
@@ -262,7 +263,8 @@ def viewOrganization(request,dbID,viewNew=False):
     runCleanup()
     organization = Organization.objects.get(id=dbID)
     form = OrganizationForm(instance=organization).disabled()
-    return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
+    jobs = organization.job_set
+    return render(request, 'addOrganization.html', {'organization':organization, 'form': form, 'viewNew':viewNew, 'viewOnly':True,'jobs':jobs})
     
     
 def viewNewOrganization(request,dbID):
