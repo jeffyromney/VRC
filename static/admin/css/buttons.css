@@ -1,0 +1,31 @@
+
+
+
+.buttons body
+{
+	background:#2277aa;
+	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size: 100%; 
+	/*margin:8px 0 16px;*/
+}
+
+.buttons button
+{
+    background:url(../../redButton.png) no-repeat;
+    background-size:cover;
+    height:21px;
+    border: 0;
+}
+
+@media print
+{    
+    .buttons, .buttons *
+    {
+        display: none !important;
+    }
+}
+
+
+
+
+

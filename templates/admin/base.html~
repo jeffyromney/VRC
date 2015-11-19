@@ -2,6 +2,7 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% static "admin/css/buttons.css" %}" />
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 {% block extrastyle %}{% endblock %}
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
@@ -20,6 +21,16 @@
     {% if not is_popup %}
     <!-- Header -->
     <div id="header">
+        <div id="links">
+            <button onClick="window.location='/'">Home</button>&nbsp;
+            <button onClick="window.location='/addVolunteer'">Add Volunteer</button>&nbsp;
+            {% if perms.VRC.add_organization %}<button onClick="window.location='/addOrganization'">Add Organization</button>&nbsp;{% endif %}
+            {% if perms.VRC.add_job %} <button onClick="window.location='/addJob'">Add Job</button>&nbsp; {% endif %}
+            {% if perms.VRC.View_data %} <button onClick="window.location='/search'">Search</button>&nbsp; {% endif %}
+            {% if user.is_staff %} <button onClick="window.location='/admin'">Admin</button>&nbsp; {% endif %}
+            {% if user.is_authenticated %} <button onClick="window.location='/accounts/logout'">Logout</button>&nbsp; 
+            {% else %} <button onClick="window.location='/accounts/login'">Login</button>&nbsp; {% endif %}
+        </div>
         <div id="branding">
         {% block branding %}{% endblock %}
         </div>
