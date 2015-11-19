@@ -26,7 +26,7 @@
         ZIP</br>
         Occupation</br>
         Employer
-        </td><td align=left>
+        </td><td width=10></td><td align=left>
         {{ volunteer.name }}</br>
         {{ volunteer.birthday }}</br></br>
         {{ volunteer.address }}</br>
@@ -46,7 +46,7 @@
         Emergency Phone</br>
         Relationship</p>
         </br>
-        </td><td align=left>
+        </td><td width=10></td><td align=left>
         {{ volunteer.dayPhone }}</br>
         {{ volunteer.cellPhone }}</br>
         {{ volunteer.email }}</br>
@@ -60,7 +60,7 @@
       </tr></table>
       <hr>
       <table><tr>
-      <td><h4>Availability</h4></td><td><h4>Assignment{% if not job %}: None{% endif %}</h4></td></tr><tr style="font-size:80%;"><td>
+      <td><h4>Availability</h4></td><td width=10></td><td><h4>Assignment{% if not job %}: None{% endif %}</h4></td></tr><tr style="font-size:80%;"><td>
         Year-round resident: 
 {% if volunteer.resident %}Yes{% else %}No{% endif %}
 </br> Months Available: {{ volunteer.monthsAvailable }} </br>
@@ -77,7 +77,7 @@ Willing to volunteer:
 </br>
         Special skills and/or vocational/disaster training: {{ volunteer.skillsTraining }}
 {% if not volunteer.skillsTraining %}None{% endif %}
-</td>
+</td><td width=10></td>
 {% if job %}
 <td>
 Job: {{job.title}}</br>
