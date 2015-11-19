@@ -93,82 +93,101 @@ Other: {{job.other}}</br>
 {% endif %}
 </tr></table>
         <hr>
-        
+
+<h4>Skills</h4>
 <table style="font-size:80%;"><tr>
-<td><h4>Skills</h4>
-        <u style="line-height:1.2;">Medical</u></br>
-{% if volunteer.doctor %}Doctor - {{ volunteer.dSpecialty }}</br>{% endif %}
-{% if volunteer.nurse %}Nurse -  {{ volunteer.nSpecialty }}</br>{% endif %}
-{% if volunteer.emt %}Emergency Medical Certification</br>{% endif %}
-{% if volunteer.mental %}Mental Health Counseling</br>{% endif %}
-{% if volunteer.vet %}Veterinarian</br>{% endif %}
-{% if volunteer.vetTech %}Veterinary Technician</br>{% endif %}
-        <u style="line-height:1.2;">Communication</u></br>
-{% if volunteer.cbHam %}CB/ham operator</br>{% endif %}
-{% if volunteer.hotline %}Hotline operator</br>{% endif %}
-{% if volunteer.satphone %}Satellite Phone: {{ volunteer.satnum }}</br>{% endif %}
-{% if volunteer.publicRelations %}Public Relations</br>{% endif %}
-{% if volunteer.webpage %}Web page design</br>{% endif %}
-{% if volunteer.publicSpeaker %}Public Speaker</br>{% endif %}
-        <u style="line-height:1.2;">Languages</u></br>
-{% if volunteer.french %}French</br>{% endif %}
-{% if volunteer.german %}German</br>{% endif %}
-{% if volunteer.italian %}Italian</br>{% endif %}
-{% if volunteer.spanish %}Spanish</br>{% endif %}
-{% if volunteer.russian %}Russian</br>{% endif %}
-{% if volunteer.creole %}Creole</br>{% endif %}
-{% if volunteer.otherLang %}Other: {{ volunteer.lang }}</br>{% endif %}
-</td><td>
+<td valign=top>
+  {% if volunteer.doctor or volunteer.nurse or volunteer.emt or volunteer.mental or volunteer.vet or volunteer.vetTech %}
+    <u style="line-height:1.2;">Medical</u></br>
+  {% endif %}
+    {% if volunteer.doctor %}Doctor - {{ volunteer.dSpecialty }}</br>{% endif %}
+    {% if volunteer.nurse %}Nurse -  {{ volunteer.nSpecialty }}</br>{% endif %}
+    {% if volunteer.emt %}Emergency Medical Certification</br>{% endif %}
+    {% if volunteer.mental %}Mental Health Counseling</br>{% endif %}
+    {% if volunteer.vet %}Veterinarian</br>{% endif %}
+    {% if volunteer.vetTech %}Veterinary Technician</br>{% endif %}
+  {% if volunteer.cbHam or volunteer.hotline or volunteer.satphone or volunteer.publicRelations or volunteer.webpage or volunteer.publicSpeaker %}
+    <u style="line-height:1.2;">Communication</u></br>
+  {% endif %}
+    {% if volunteer.cbHam %}CB/ham operator</br>{% endif %}
+    {% if volunteer.hotline %}Hotline operator</br>{% endif %}
+    {% if volunteer.satphone %}Satellite Phone: {{ volunteer.satnum }}</br>{% endif %}
+    {% if volunteer.publicRelations %}Public Relations</br>{% endif %}
+    {% if volunteer.webpage %}Web page design</br>{% endif %}
+    {% if volunteer.publicSpeaker %}Public Speaker</br>{% endif %}
+  {% if volunteer.french or volunteer.german or volunteer.italian or volunteer.spanish or volunteer.russian or volunteer.creole or volunteer.otherLang %}
+    <u style="line-height:1.2;">Languages</u></br>
+  {% endif %}
+    {% if volunteer.french %}French</br>{% endif %}
+    {% if volunteer.german %}German</br>{% endif %}
+    {% if volunteer.italian %}Italian</br>{% endif %}
+    {% if volunteer.spanish %}Spanish</br>{% endif %}
+    {% if volunteer.russian %}Russian</br>{% endif %}
+    {% if volunteer.creole %}Creole</br>{% endif %}
+    {% if volunteer.otherLang %}Other: {{ volunteer.lang }}</br>{% endif %}
+</td><td valign=top>
+  {% if volunteer.clerical or volunteer.receptionist or volunteer.dataEntry %}
         <u style="line-height:1.2;">Office Support</u></br>
-{% if volunteer.clerical %}Clerical - filing</br>{% endif %}
-{% if volunteer.receptionist %}Phone Receptionist</br>{% endif %}
-{% if volunteer.dataEntry %}Data Entry: {{ volunteer.software }}</br>{% endif %}
+  {% endif %}
+    {% if volunteer.clerical %}Clerical - filing</br>{% endif %}
+    {% if volunteer.receptionist %}Phone Receptionist</br>{% endif %}
+    {% if volunteer.dataEntry %}Data Entry: {{ volunteer.software }}</br>{% endif %}
+  {% if volunteer.food or volunteer.elderly or volunteer.childCare or volunteer.spiritual or volunteer.social or volunteer.searchRescue or volunteer.autoRepair or volunteer.traffic or volunteer.crimeWatch or volunteer.animalRescue or volunteer.animalCare or volunteer.runner or volunteer.functional %}
         <u style="line-height:1.2;">Services</u></br>
-{% if volunteer.food %}Food</br>{% endif %}
-{% if volunteer.elderly %}Assistance to elderly</br>{% endif %}
-{% if volunteer.childCare %}Child Care</br>{% endif %}
-{% if volunteer.spiritual %}Spiritual Counseling</br>{% endif %}
-{% if volunteer.social %}Social Work</br>{% endif %}
-{% if volunteer.searchRescue %}Search and Rescue</br>{% endif %}
-{% if volunteer.autoRepair %}Auto repair/towing</br>{% endif %}
-{% if volunteer.traffic %}Traffic control</br>{% endif %}
-{% if volunteer.crimeWatch %}Crime Watch{% endif%}
-{% if volunteer.animalRescue %}Animal Rescue</br>{% endif %}
-{% if volunteer.animalCare %}Animal Care</br>{% endif %}
-{% if volunteer.runner %}Runner</br>{% endif %}
-{% if volunteer.functional %}Functional Needs Support:{{ volunteer.fneeds }}</br>{% endif %}
-        <u style="line-height:1.2;">Structural</u></br>
-{% if volunteer.damage %}Damage assesment</br>{% endif %}
-{% if volunteer.metal %}Metal construction</br>{% endif %}
-{% if volunteer.wood %}Wood construction</br>{% endif %}
-{% if volunteer.block %}Block construction</br>{% endif %}
-{% if volunteer.plumbing %}Plumbing</br>{% endif %}
-{% if volunteer.electric %}Electrical</br>{% endif %}
-{% if volunteer.roofing %}Roofing</br>{% endif %}
-</td><td>
-        <u style="line-height:1.2;">Transportation</u></br>
-{% if volunteer.car %}Car</br>{% endif %}
-{% if volunteer.minivan %}Minivan</br>{% endif %}
-{% if volunteer.atv %}ATV</br>{% endif %}
-{% if volunteer.offRoad %}Off-road vehicle/4WD</br>{% endif %}
-{% if volunteer.wheelchair %}Wheelchair Transport</br>{% endif %}
-{% if volunteer.truck %}Truck: {{ volunteer.tdescription }}</br>{% endif %}
-{% if volunteer.van %}Van - Capacity:  {{ volunteer.vancap }}</br>{% endif %}
-{% if volunteer.boat %}Boat: {{ volunteer.btype }}</br>{% endif %}
-{% if volunteer.rv %}Camper/RV:  {{ volunteer.rvtype }}</br>{% endif %}
-{% if volunteer.cdl %}Commercial driver: {{ volunteer.cdlnum }}</br>{% endif %}
+  {% endif %}
+    {% if volunteer.food %}Food</br>{% endif %}
+    {% if volunteer.elderly %}Assistance to elderly</br>{% endif %}
+    {% if volunteer.childCare %}Child Care</br>{% endif %}
+    {% if volunteer.spiritual %}Spiritual Counseling</br>{% endif %}
+    {% if volunteer.social %}Social Work</br>{% endif %}
+    {% if volunteer.searchRescue %}Search and Rescue</br>{% endif %}
+    {% if volunteer.autoRepair %}Auto repair/towing</br>{% endif %}
+    {% if volunteer.traffic %}Traffic control</br>{% endif %}
+    {% if volunteer.crimeWatch %}Crime Watch{% endif%}
+    {% if volunteer.animalRescue %}Animal Rescue</br>{% endif %}
+    {% if volunteer.animalCare %}Animal Care</br>{% endif %}
+    {% if volunteer.runner %}Runner</br>{% endif %}
+    {% if volunteer.functional %}Functional Needs Support:{{ volunteer.fneeds }}</br>{% endif %}
+  {% if volunteer.damage or volunteer.metal or volunteer.wood or volunteer.block or volunteer.plumbing or volunteer.electric or volunteer.roofing %}
+    <u style="line-height:1.2;">Structural</u></br>
+  {% endif %}
+    {% if volunteer.damage %}Damage assesment</br>{% endif %}
+    {% if volunteer.metal %}Metal construction</br>{% endif %}
+    {% if volunteer.wood %}Wood construction</br>{% endif %}
+    {% if volunteer.block %}Block construction</br>{% endif %}
+    {% if volunteer.plumbing %}Plumbing</br>{% endif %}
+    {% if volunteer.electric %}Electrical</br>{% endif %}
+    {% if volunteer.roofing %}Roofing</br>{% endif %}
+</td><td valign=top>
+  {% if volunteer.car or volunteer.minivan or volunteer.atv or volunteer.offRoad or volunteer.wheelchair or volunteer.truck or volunteer.van or volunteer.boat or volunteer.rv or volunteer.cdl %}
+    <u style="line-height:1.2;">Transportation</u></br> 
+  {% endif %}
+    {% if volunteer.car %}Car</br>{% endif %}
+    {% if volunteer.minivan %}Minivan</br>{% endif %}
+    {% if volunteer.atv %}ATV</br>{% endif %}
+    {% if volunteer.offRoad %}Off-road vehicle/4WD</br>{% endif %}
+    {% if volunteer.wheelchair %}Wheelchair Transport</br>{% endif %}
+    {% if volunteer.truck %}Truck: {{ volunteer.tdescription }}</br>{% endif %}
+    {% if volunteer.van %}Van - Capacity:  {{ volunteer.vancap }}</br>{% endif %}
+    {% if volunteer.boat %}Boat: {{ volunteer.btype }}</br>{% endif %}
+    {% if volunteer.rv %}Camper/RV:  {{ volunteer.rvtype }}</br>{% endif %}
+    {% if volunteer.cdl %}Commercial driver: {{ volunteer.cdlnum }}</br>{% endif %}
+  {% if volunteer.loading or volunteer.sorting or volunteer.cleanup or volunteer.supervising or volunteer.operate %}
         <u style="line-height:1.2;">Labor</u></br>
-{% if volunteer.loading %}Loading/Shipping</br>{% endif %}
-{% if volunteer.sorting %}Sorting/Packing</br>{% endif %}
-{% if volunteer.cleanup %}Clean-up</br>{% endif %}
-{% if volunteer.supervising %}Supervising experience</br>{% endif %}
-{% if volunteer.operate %}Operate equipment: {{ volunteer.eqtype }}</br>{% endif %}
+  {% endif %}
+    {% if volunteer.loading %}Loading/Shipping</br>{% endif %}
+    {% if volunteer.sorting %}Sorting/Packing</br>{% endif %}
+    {% if volunteer.cleanup %}Clean-up</br>{% endif %}
+    {% if volunteer.supervising %}Supervising experience</br>{% endif %}
+    {% if volunteer.operate %}Operate equipment: {{ volunteer.eqtype }}</br>{% endif %}
+  {% if volunteer.chainsaw or volunteer.backhoe or volunteer.generator or volunteer.othereq %}
         <u style="line-height:1.2;">Equipment</u></br>
-{% if volunteer.chainsaw %}Chainsaw</br>{% endif %}
-{% if volunteer.backhoe %}Backhoe</br>{% endif %}
-{% if volunteer.generator %}Generator</br>{% endif %}
-{% if volunteer.othereq %}Other Equipment:{{ volunteer.othereq }}</br>{% endif %}
-</td></table>
+  {% endif %}
+    {% if volunteer.chainsaw %}Chainsaw</br>{% endif %}
+    {% if volunteer.backhoe %}Backhoe</br>{% endif %}
+    {% if volunteer.generator %}Generator</br>{% endif %}
+    {% if volunteer.othereq %}Other Equipment:{{ volunteer.othereq }}</br>{% endif %}
+</td></tr></table><br>
 Other Notes: {{ volunteer.notes }}</br>
 {% endblock %}
 {% block footer %}{% endblock %}
