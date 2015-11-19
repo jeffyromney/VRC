@@ -12,6 +12,7 @@ class VolunteerForm(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields["job"].queryset = Job.objects.filter(full=False).order_by('id')
         self.fields['name'].required = True
+        self.fields['waiver'].required = True
         self.fields['vancap'].widget.attrs['required'] = False
         self.fields['vancap'].widget.attrs['disabled'] = True
         self.fields['vancap'].widget.attrs['placeholder'] = "Capacity & Type"
@@ -42,7 +43,7 @@ class VolunteerForm(ModelForm):
     cdl = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_cdlnum').disabled = !this.checked"}))
     cdlnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Class and License "}))
     operate = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_eqtype').disabled = !this.checked"}))
-#    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
+    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
     class Meta:
         model = Volunteer
         fields = '__all__'
