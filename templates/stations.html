@@ -1,8 +1,20 @@
 {% extends "base.html" %}
 
 {% block title%}Station{% endblock %}
+{% block pageTitle%}<h1>{{ volunteer.name }}</h1>{% endblock %}
 
 {% block content %}
+<table class="no-print"><tr>
+                        <td><button onClick="window.location='/Volunteer/view/{{ volunteer.id }}'">View Full</button></td>
+    {% if perms.VRC.change_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/modify/{{ volunteer.id }}'">Modify</button></td>
+                    {% endif %}
+                    {% if perms.VRC.delete_volunteer %}
+                        <td><button onClick="window.location='/Volunteer/delete/{{ volunteer.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
+                    {% endif %}
+                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ volunteer.id }}'">Print</button></td>{% endif %}
+</tr></table>
+
 {% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -17,7 +29,6 @@
         </div>
     {% endfor %}
 {% endif %}
-        <h3>{{ volunteer.name }}</h3>
     <form action="" method="post">
         <table>
             <tr>
@@ -27,7 +38,7 @@
                     Home Address<br>
                     City<br>
                     State<br>
-                    ZIP<br><br>
+                    ZIP<br>
                     Occupation<br>
                 </td>
                 <td align=left>
@@ -36,11 +47,12 @@
                     {{ form.address.value }}<br>
                     {{ form.city.value }}<br>
                     {{ form.state_province.value }}<br>
-                    {{ form.zip_code.value }}<br><br>
+                    {{ form.zip_code.value }}<br>
                     {{ form.occupation.value }}<br>
                 </td>
             </tr>
       </table>
+        <br>
         <table>
         {% if perms.VRC.IDCheck %} <tr><td> {{ form.idCheck }} </td><td> {{ form.idCheck.label_tag }} </td></tr>{% endif %}
         {% if perms.VRC.Data_Validation %} <tr><td> {{ form.dataValidation }} </td><td> {{ form.dataValidation.label_tag }} </td></tr>{% endif %}
@@ -50,9 +62,8 @@
         {% if perms.VRC.Maps %} <tr><td> {{ form.maps }} </td><td> {{ form.maps.label_tag }} </td></tr>{% endif %}
         {% csrf_token %}
         </table>
-        <br>
-        <h3>Available Jobs</h3>
         {% if perms.VRC.Interview %}
+        <h3>Available Jobs</h3>
             <div class="radio">
             <table><tr><td>Job</td><td>duties</td><td>weight</td><td>drive</td><td>age</td><td>skills</td><td>other</td></tr>
                 {% for choice in form.job.field.queryset %}
@@ -67,8 +78,6 @@
                 {% endfor %}
             </table>
             </div>
-        {% else %}
-            {{ form.job.value }}
         {% endif %}<br>
         <button type="submit">Submit</button>
         {% if perms.VRC.Interview %}

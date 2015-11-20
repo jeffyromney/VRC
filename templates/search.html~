@@ -5,7 +5,7 @@
 
 {% block content %}
         <form method="get" action="/search/">
-            <   input type="text" name="q" id="id_q" value="{{ query }}"/>
+            <input type="text" name="q" id="id_q" value="{{ query }}"/>
             <button type="submit">Search</button>
         </form>
     {% if perms.VRC.View_data %}
@@ -54,13 +54,13 @@
                     <td>{{ job.agency.city }}</td>
                     <td>{{ job.full}}</td>
                     <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
-                    {% if perms.VRC.change_job %}
+                    {% if perms.VRC.Phone_Bank %}
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_job %}
                         <td><button onClick="window.location='/Job/delete/{{ job.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
-                    {% if perms.VRC.change_job %}
+                    {% if perms.VRC.Phone_Bank %}
                         <td><button onClick="window.location='/Job/print/{{ job.id }}'">Print</button></td>
                     {% endif %}
                 </tr>

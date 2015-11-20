@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static "style.css" %}" />
 </head>
 
-<body>
+<body {% if autoPrint %}onload="window.print()"{% endif %}>
 {% block NavBar %}
 <div class="no-print">
 <button onClick="window.location='/'">Home</button>
@@ -17,14 +17,16 @@
 {% if user.is_authenticated %} <button onClick="window.location='/accounts/logout'">Logout</button>&nbsp; 
 {% else %} <button onClick="window.location='/accounts/login'">Login</button>&nbsp; {% endif %}
 <button onClick="window.location='/help'">Help</button>&nbsp;
+<div float=right>{{ user.username }}</div>
 </div>
 {% endblock %}
 {% block pageTitle %}<h1>VRC Administration</h1>{% endblock %}
-    {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.
-    {% endblock %}
     {% if loggedOut %}
         <h2>*Successfully Logged out</h2>
     {% endif %}
+    {% block content %}<p> Welcome to the VRC Administraion System. Please choose a link.</p>
+        {% if not user.is_authenticated %}<button onClick="window.location='/addVolunteer'", style="font-size:25;height:50px">Register Now</button>{% endif %}
+    {% endblock %}
     {% block footer %}
     <hr>
     <p>Thanks for Volunteering!.</p>
