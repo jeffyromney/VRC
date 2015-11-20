@@ -13,37 +13,32 @@ class VolunteerForm(ModelForm):
         self.fields["job"].queryset = Job.objects.filter(full=False).order_by('id')
         self.fields['name'].required = True
         self.fields['waiver'].required = True
-        self.fields['vancap'].widget.attrs['required'] = False
-        self.fields['vancap'].widget.attrs['disabled'] = True
-        self.fields['vancap'].widget.attrs['placeholder'] = "Capacity & Type"
+        #self.fields['vancap'].widget.attrs['required'] = False
+        #self.fields['vancap'].widget.attrs['disabled'] = True
+        #self.fields['vancap'].widget.attrs['placeholder'] = "Capacity & Type"
+        rel = {'doctor':('dSpecialty','Specialty'),
+                         'nurse':('nSpecialty','Specialty'),
+                         'satphone':('satnum','Phone #'),
+                         'otherLang':('lang','Language'),
+                         'dataEntry':('software','Software'),
+                         'functional':('fneeds','Description'),
+                         'van':('vancap','Capacity & Type'),
+                         'boat':('btype','Capacity & Type'),
+                         'rv':('rvtype','Capacity & Type'),
+                         'cdl':('cdlnum','Class and License'),
+                         'operate':('eqtype','Types'),
+                         'truck':('tdescription','Description'),
+                         'truck':('tdescription','Description'),
+                        }
+        
+        for field in rel:
+            self.fields[field].widget.attrs['onclick'] = "document.getElementById('id_" + rel[field][0] + "').disabled = !this.checked"
+            self.fields[rel[field][0]].widget.attrs['disabled'] = True
+            self.fields[rel[field][0]].widget.attrs['placeholder'] = rel[field][1]
 
 
     birthday = DateField(required=False, widget=SelectDateWidget(years=range(datetime.date.today().year,1900,-1)))
-    job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)#queryset=Job.objects.filter(full=False).order_by('id'), 
-    doctor = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_dSpecialty').disabled = !this.checked"}))
-    dSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
-    nurse = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_nSpecialty').disabled = !this.checked"}))
-    nSpecialty = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Specialty"}))
-    satphone = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_satnum').disabled = !this.checked"}))
-    satnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Phone #"}))
-    otherLang = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_lang').disabled = !this.checked"}))
-    lang = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Language"}))
-    dataEntry = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_software').disabled = !this.checked"}))
-    software = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Software"}))
-    functional = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_fneeds').disabled = !this.checked"}))
-    fneeds = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Description"}))
-    truck = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_tdescription').disabled = !this.checked"}))
-    tdescription = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Description"}))
-    van = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_vancap').disabled = !this.checked"}))
-#    vancap = CharField(required=False, widget = NumberInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
-    boat = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_btype').disabled = !this.checked"}))
-    btype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
-    rv = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_rvtype').disabled = !this.checked"}))
-    rvtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Capacity & Type"}))
-    cdl = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_cdlnum').disabled = !this.checked"}))
-    cdlnum = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Class and License "}))
-    operate = BooleanField(required=False, widget = CheckboxInput(attrs = {'onclick' : "document.getElementById('id_eqtype').disabled = !this.checked"}))
-    eqtype = CharField(required=False, widget = TextInput(attrs = {'disabled' : "True", 'placeholder' : "Types"}))
+    job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)
     class Meta:
         model = Volunteer
         fields = '__all__'
