@@ -12,14 +12,13 @@ from django.forms.models import model_to_dict
 from printing import *
 import datetime
 
-#@permission_required('VRC.add_volunteer')
 def addVolunteer(request):
     runCleanup()
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         form = VolunteerForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            new_Volunteer = form.save()
+            new_Volunteer = form.save() #save to database
             return HttpResponseRedirect('/Volunteer/viewNew/' + str(new_Volunteer.id))
         else:
             return render(request, 'addVolunteer.html', {'form': form})
@@ -27,36 +26,35 @@ def addVolunteer(request):
         form = VolunteerForm()
         return render(request, 'addVolunteer.html', {'form': form})
 
-
-@permission_required('VRC.add_organization')
+# Add an organization to the database
+@permission_required('VRC.Phone_Bank')
 def addOrganization(request):
     runCleanup()
-    if request.method == 'POST':
-        form = OrganizationForm(request.POST)
+    if request.method == 'POST':   #If form is being submitted
+        form = OrganizationForm(request.POST) 
         if form.is_valid():
             cd = form.cleaned_data
-            new_Organization = form.save()
-            #return render(request, 'addOrganization.html', {'form': form})
-            return HttpResponseRedirect('/Organization/viewNew/' + str(new_Organization.id))
+            new_Organization = form.save() #save to database
+            return HttpResponseRedirect('/Organization/viewNew/' + str(new_Organization.id)) 
         else:
-            return render(request, 'addOrganization.html', {'form': form})
-    else:
+            return render(request, 'addOrganization.html', {'form': form}) #form is not valid - return to form
+    else:  # new  blank form
         form = OrganizationForm()
-        print(form)
         return render(request, 'addOrganization.html', {'form': form})
 
-@permission_required('VRC.add_job')
+# Add a request for volunteers to the database
+@permission_required('VRC.Phone_Bank')
 def addJob(request):
     runCleanup()
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         form = JobForm(request.POST)
         print(request.POST['title'])
         if form.is_valid():
             cd = form.cleaned_data
-            new_Job = form.save()
+            new_Job = form.save() #save to database
             return HttpResponseRedirect('/Job/viewNew/' + str(new_Job.id))
         else:
-            return render(request, 'addJob.html', {'form': form})
+            return render(request, 'addJob.html', {'form': form})  #form is not valid - return to form
     else:
         form = JobForm()
         return render(request, 'addJob.html', {'form': form})
@@ -147,16 +145,14 @@ def modifyVolunteer(request,dbID):
     form = VolunteerForm(request.POST or None, instance=volunteer, initial = {'job': volunteer.job })
     if volunteer.job is not None and volunteer.job.full:
         form.fields['job'].queryset=Job.objects.filter(id=volunteer.job.id) | Job.objects.filter(full=False)
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         if form.is_valid():
             cd = form.cleaned_data
-            new_Volunteer = form.save()
-            #return HttpResponse("Form Valid" + str(cd) + str(new_Volunteer))
-            return viewVolunteer(request,dbID) #render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':False, 'viewOnly':True})
-        else:
-            return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
+            new_Volunteer = form.save() #save to database
+            return viewVolunteer(request,dbID) 
+        else:   #form is not valid - return to form
+            return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True}) 
     else:
-        #form = VolunteerForm(instance=volunteer)
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
 
 
@@ -197,14 +193,14 @@ def printJob(request,dbID):
 @permission_required('VRC.delete_Volunteer')
 def deleteVolunteer(request, dbID):
     runCleanup()
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         volunteer = Volunteer.objects.get(id=dbID)
         name = volunteer.name
-        volunteer.delete()
+        volunteer.delete()   #Delete volunteer from database
         return render(request, 'deleted.html', {'name':name})
     else:
         prevUrl = request.REQUEST.get('next', '')
-        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Volunteer/delete/'+str(dbID)+'/'})
+        return render(request, 'confirmation.html', {'message':'Are you sure?','prev_link':prevUrl,'action_link':'/Volunteer/delete/'+str(dbID)+'/'})  #  Send back to previous URL
     
     
 
@@ -214,10 +210,10 @@ def modifyJob(request,dbID):
     runCleanup()
     job = Job.objects.get(id=dbID)
     form = JobForm(request.POST or None,instance=job)
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         if form.is_valid():
             cd = form.cleaned_data
-            new_Job = form.save()
+            new_Job = form.save() #save to database
             return viewJob(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Job))
         else:
             return render(request, 'addJob.html', {'job':job, 'form': form})
@@ -241,7 +237,7 @@ def viewNewJob(request,dbID):
 @permission_required('VRC.delete_Volunteer')
 def deleteJob(request, dbID):
     runCleanup()
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         job = Job.objects.get(id=dbID)
         title = job.title
         job.delete()
@@ -259,10 +255,10 @@ def modifyOrganization(request,dbID):
     runCleanup()
     organization = Organization.objects.get(id=dbID)
     form = OrganizationForm(request.POST or None,instance=organization)
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         if form.is_valid():
             cd = form.cleaned_data
-            new_Organization = form.save()
+            new_Organization = form.save() #save to database
             return viewOrganization(request,dbID) #HttpResponse("Form Valid" + str(cd) + str(new_Organization))
         else:
             return render(request, 'addOrganization.html', {'organization':organization, 'form': form})
@@ -286,7 +282,7 @@ def viewNewOrganization(request,dbID):
 @permission_required('VRC.delete_Volunteer')
 def deleteOrganization(request, dbID):
     runCleanup()
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         organization = Organization.objects.get(id=dbID)
         name = organization.name
         organization.delete()
@@ -311,7 +307,7 @@ def Stations(request, dbID):
             form.fields[field].widget.attrs['disabled'] = True
             form.fields[field].widget.attrs['readonly'] = True
             
-    if request.method == 'POST':
+    if request.method == 'POST':   #If form is being submitted
         form.is_valid()
         if(request.user.has_perm('VRC.IDCheck')):
             volunteer.save(update_fields=['idCheck'])
