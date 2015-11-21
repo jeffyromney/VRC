@@ -7,6 +7,7 @@ Jefferson
 -  update reason closed
 *  Fix permissions on every view, page and case - Always check for permission!
 -  create db Dump of generic groups/users
+*  Add logo to the top of all pages
 
 
 Michael
