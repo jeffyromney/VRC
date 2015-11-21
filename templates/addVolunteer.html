@@ -35,7 +35,8 @@
 {% endif %}
     {% if viewNew %}
         <h2> **Successfully Added {{ volunteer.name }}**</h2>
-        <h3>**Your Volunteer ID number is ( {{ volunteer.id }} )**</h3>
+        <h3> **Your Volunteer ID number is ( {{ volunteer.id }} )**</h3>
+        {% if not user.is_authenticated %}<meta http-equiv="refresh" content="7;url='/'">{% endif %}
     {% endif %}
     <form action="" method="post">
       <hr>
