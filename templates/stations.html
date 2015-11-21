@@ -80,7 +80,7 @@
             </div>
         {% endif %}<br>
         <button type="submit">Submit</button>
-        {% if perms.VRC.Interview %}
+        {% if perms.VRC.Interview or perms.VRC.Data_Validation %}
             <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
         Do you have any limitations? {{ form.limitations }} <br>

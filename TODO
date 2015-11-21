@@ -19,3 +19,25 @@ X  Format forms to match paper forms
 addVolunteer.html
 X  Add waiver
 *  Field lengths (capacities, notes, etc.)
+
+
+Notes from Trial run on Nov 21, 2015
+ - Phone Bank: addJob - Required skills needs a larger text field
+ - Expand "Other Skills" box at bottom of addVolunteer
+ - Other skills to consider:
+    - Equipment you have with you right now:
+       - Axe
+       - Pick Axe
+       - Crow Bar
+       - Shovel (Round or Flat)
+       - Generator
+       - Power Inverter....
+ - HAM operator (needs license classification - dropdown menu)
+ - Job needed dates at interview station
+ - Notes box for user, available and viewable at all stations
+ - addVolunteer - Under availability or skills, add options for military or reserve (with branch selection)
+ - Better router
+ - WiFi printer
+ - Reject duplicates
+ - Search page - selection to order by name/phone number
+ 

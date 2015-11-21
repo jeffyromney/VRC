@@ -23,7 +23,7 @@
                     <td>{{ vol.city }}</td>
                     <td>{{ vol.job }}</td>
                     <td><button onClick="window.location='/Volunteer/view/{{ vol.id }}'">View</button></td>
-                    {% if perms.VRC.change_volunteer %}
+                    {% if perms.VRC.change_volunteer or perms.VRC.Data_Validation %}
                         <td><button onClick="window.location='/Volunteer/modify/{{ vol.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_volunteer %}
@@ -54,7 +54,7 @@
                     <td>{{ job.agency.city }}</td>
                     <td>{{ job.full}}</td>
                     <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
-                    {% if perms.VRC.Phone_Bank %}
+                    {% if perms.VRC.Phone_Bank or perms.VRC.Data_Validation %}
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
                     {% endif %}
                     {% if perms.VRC.delete_job %}
