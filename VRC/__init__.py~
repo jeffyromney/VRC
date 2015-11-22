@@ -1,3 +1,0 @@
-from subprocess import Popen
-
-Popen('python startDbDaemon.py', shell = True)
