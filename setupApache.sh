@@ -1,11 +1,10 @@
     
-sudo apt-get install apache2
-sudo apt-get install libapache2-mod-php5
-sudo apt-get install libapache2-mod-wsgi
-sudo apt-get install python2.7
-sudo apt-get install python-django
+echo "Installing Dependencies....."
 
+sudo apt-get install -y apache2 libapache2-mod-php5 libapache2-mod-wsgi python2.7 python-django
+echo "Done!"
 
+echo "Deploying to Apache..."
 path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apachePath="/etc/apache2"
 echo "
@@ -31,3 +30,18 @@ Require all granted
 
 sudo a2enconf vrc
 sudo service apache2 reload
+echo "Done!"
+
+
+echo "Setting Permissions..."
+sudo addgroup webmasters
+sudo adduser $USER webmasters
+sudo chown -R www-data:webmasters $path
+sudo chown -R www-data:webmasters ./db.sqlite3
+sudo chmod g+x ./setupApache.sh
+sudo find $path -type f -exec chmod 666 {} \;
+sudo find $path -type d -exec chmod 775 {} \;
+sudo find $path -type d -exec chmod g+s {} \;
+
+echo "Finished Installing VRC Server"
+
