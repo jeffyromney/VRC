@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Template, Context, RequestContext
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
-from VRC.forms import *
+from vrcAPP.forms import *
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -27,7 +27,7 @@ def addVolunteer(request):
         return render(request, 'addVolunteer.html', {'form': form})
 
 # Add an organization to the database
-@permission_required('VRC.Phone_Bank')
+@permission_required('vrcAPP.Phone_Bank')
 def addOrganization(request):
     runCleanup()
     if request.method == 'POST':   #If form is being submitted
@@ -43,7 +43,7 @@ def addOrganization(request):
         return render(request, 'addOrganization.html', {'form': form})
 
 # Add a request for volunteers to the database
-@permission_required('VRC.Phone_Bank')
+@permission_required('vrcAPP.Phone_Bank')
 def addJob(request):
     runCleanup()
     if request.method == 'POST':   #If form is being submitted
@@ -114,7 +114,7 @@ def get_query(query_string, search_fields):
 
 
 
-@permission_required('VRC.View_data')
+@permission_required('vrcAPP.View_data')
 def search(request):
     runCleanup()
     query_string = ''
@@ -138,7 +138,7 @@ def search(request):
     return render(request,'search.html', { 'query': query_string, 'vols': vols, 'jobs':jobs, 'orgs':orgs }, )#context_instance=RequestContext(request))
 
 
-@permission_required('VRC.change_volunteer')
+@permission_required('vrcAPP.change_volunteer')
 def modifyVolunteer(request,dbID):
     runCleanup()
     volunteer = Volunteer.objects.get(id=dbID)
@@ -156,10 +156,10 @@ def modifyVolunteer(request,dbID):
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'modify':True})
 
 
-#@permission_required('VRC.View_data')
+#@permission_required('vrcAPP.View_data')
 def viewVolunteer(request,dbID,viewNew=False):
     runCleanup()
-    if(request.user.has_perm('VRC.View_data') or viewNew):
+    if(request.user.has_perm('vrcAPP.View_data') or viewNew):
         volunteer = Volunteer.objects.get(id=dbID)
         form = VolunteerForm(instance=volunteer).disabled()
         return render(request, 'addVolunteer.html', {'volunteer':volunteer, 'form': form, 'viewNew':viewNew, 'viewOnly':True})
@@ -190,7 +190,7 @@ def printJob(request,dbID):
     viewOnly = True
     return render(request, 'printJob.html', locals())
 
-@permission_required('VRC.delete_Volunteer')
+@permission_required('vrcAPP.delete_Volunteer')
 def deleteVolunteer(request, dbID):
     runCleanup()
     if request.method == 'POST':   #If form is being submitted
@@ -205,7 +205,7 @@ def deleteVolunteer(request, dbID):
     
 
 
-#@permission_required('VRC.change_job')
+#@permission_required('vrcAPP.change_job')
 def modifyJob(request,dbID):
     runCleanup()
     job = Job.objects.get(id=dbID)
@@ -221,7 +221,7 @@ def modifyJob(request,dbID):
         return render(request, 'addJob.html', {'job':job, 'form': form})
 
 
-@permission_required('VRC.View_data')
+@permission_required('vrcAPP.View_data')
 def viewJob(request,dbID,viewNew=False):
     runCleanup()
     job = Job.objects.get(id=dbID)
@@ -234,7 +234,7 @@ def viewNewJob(request,dbID):
     runCleanup()
     return viewJob(request,dbID,viewNew=True)
 
-@permission_required('VRC.delete_Volunteer')
+@permission_required('vrcAPP.delete_Volunteer')
 def deleteJob(request, dbID):
     runCleanup()
     if request.method == 'POST':   #If form is being submitted
@@ -250,7 +250,7 @@ def deleteJob(request, dbID):
 
 
 
-#@permission_required('VRC.change_organization')
+#@permission_required('vrcAPP.change_organization')
 def modifyOrganization(request,dbID):
     runCleanup()
     organization = Organization.objects.get(id=dbID)
@@ -266,7 +266,7 @@ def modifyOrganization(request,dbID):
         return render(request, 'addOrganization.html', {'organization':organization, 'form': form})
 
 
-@permission_required('VRC.View_data')
+@permission_required('vrcAPP.View_data')
 def viewOrganization(request,dbID,viewNew=False):
     runCleanup()
     organization = Organization.objects.get(id=dbID)
@@ -279,7 +279,7 @@ def viewNewOrganization(request,dbID):
     runCleanup()
     return viewOrganization(request,dbID,viewNew=True)
 
-@permission_required('VRC.delete_Volunteer')
+@permission_required('vrcAPP.delete_Volunteer')
 def deleteOrganization(request, dbID):
     runCleanup()
     if request.method == 'POST':   #If form is being submitted
@@ -309,17 +309,17 @@ def Stations(request, dbID):
             
     if request.method == 'POST':   #If form is being submitted
         form.is_valid()
-        if(request.user.has_perm('VRC.IDCheck')):
+        if(request.user.has_perm('vrcAPP.IDCheck')):
             volunteer.save(update_fields=['idCheck'])
-        if(request.user.has_perm('VRC.Data_Validation')):
+        if(request.user.has_perm('vrcAPP.Data_Validation')):
             volunteer.save(update_fields=['dataValidation'])
-        if(request.user.has_perm('VRC.Interview')):
+        if(request.user.has_perm('vrcAPP.Interview')):
             volunteer.save(update_fields=['job','interview'])
-        if(request.user.has_perm('VRC.Safety')):
+        if(request.user.has_perm('vrcAPP.Safety')):
             volunteer.save(update_fields=['safety'])
-        if(request.user.has_perm('VRC.IDBadge')):
+        if(request.user.has_perm('vrcAPP.IDBadge')):
             volunteer.save(update_fields=['idbadge'])
-        if(request.user.has_perm('VRC.Maps')):
+        if(request.user.has_perm('vrcAPP.Maps')):
             volunteer.save(update_fields=['maps'])
         return viewVolunteer(request,dbID)
     else:

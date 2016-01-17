@@ -1,4 +1,4 @@
-#from VRC.models import *
+#from vrcAPP.models import *
 from django.db.models import Count
 import time
 

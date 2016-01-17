@@ -1,4 +1,4 @@
-from VRC.models import *
+from vrcAPP.models import *
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 

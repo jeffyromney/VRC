@@ -4,16 +4,16 @@
 
 {% block content %}
 <table class="no-print"><tr>
-    {% if perms.VRC.change_volunteer %}
+    {% if perms.vrcAPP.change_volunteer %}
                         <td><button onClick="window.location='/Volunteer/modify/{{ volunteer.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_volunteer %}
+                    {% if perms.vrcAPP.delete_volunteer %}
                         <td><button onClick="window.location='/Volunteer/delete/{{ volunteer.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
-                    {% if perms.VRC.Safety or perms.VRC.IDBadge or perms.VRC.IDCheck or perms.VRC.Data_Validation or perms.VRC.Maps or perms.VRC.Interview %}
+                    {% if perms.vrcAPP.Safety or perms.vrcAPP.IDBadge or perms.vrcAPP.IDCheck or perms.vrcAPP.Data_Validation or perms.vrcAPP.Maps or perms.vrcAPP.Interview %}
                         <td><button onClick="window.location='/Stations/{{ volunteer.id }}'">Stations</button></td>
                     {% endif %}
-                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ volunteer.id }}'">Print</button></td>{% endif %}
+                    {% if perms.vrcAPP.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ volunteer.id }}'">Print</button></td>{% endif %}
 </tr></table>
       <hr>
       <h3>Biographical Information</h3>

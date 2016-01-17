@@ -8,7 +8,7 @@
             <input type="text" name="q" id="id_q" value="{{ query }}"/>
             <button type="submit">Search</button>
         </form>
-    {% if perms.VRC.View_data %}
+    {% if perms.vrcAPP.View_data %}
     {% if vols %}
         <div>
         <h3>Volunteers</h3>
@@ -23,16 +23,16 @@
                     <td>{{ vol.city }}</td>
                     <td>{{ vol.job }}</td>
                     <td><button onClick="window.location='/Volunteer/view/{{ vol.id }}'">View</button></td>
-                    {% if perms.VRC.change_volunteer or perms.VRC.Data_Validation %}
+                    {% if perms.vrcAPP.change_volunteer or perms.vrcAPP.Data_Validation %}
                         <td><button onClick="window.location='/Volunteer/modify/{{ vol.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_volunteer %}
+                    {% if perms.vrcAPP.delete_volunteer %}
                         <td><button onClick="window.location='/Volunteer/delete/{{ vol.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
-                    {% if perms.VRC.Safety or perms.VRC.IDBadge or perms.VRC.IDCheck or perms.VRC.Data_Validation or perms.VRC.Maps or perms.VRC.Interview %}
+                    {% if perms.vrcAPP.Safety or perms.vrcAPP.IDBadge or perms.vrcAPP.IDCheck or perms.vrcAPP.Data_Validation or perms.vrcAPP.Maps or perms.vrcAPP.Interview %}
                         <td><button onClick="window.location='/Stations/{{ vol.id }}'">Stations</button></td>
                     {% endif %}
-                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ vol.id }}'">Print</button></td>{% endif %}
+                    {% if perms.vrcAPP.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ vol.id }}'">Print</button></td>{% endif %}
                 </tr>
             {% endfor %}
             </table>
@@ -54,13 +54,13 @@
                     <td>{{ job.agency.city }}</td>
                     <td>{{ job.full}}</td>
                     <td><button onClick="window.location='/Job/view/{{ job.id }}'">View</button></td>
-                    {% if perms.VRC.Phone_Bank or perms.VRC.Data_Validation %}
+                    {% if perms.vrcAPP.Phone_Bank or perms.vrcAPP.Data_Validation %}
                         <td><button onClick="window.location='/Job/modify/{{ job.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_job %}
+                    {% if perms.vrcAPP.delete_job %}
                         <td><button onClick="window.location='/Job/delete/{{ job.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
-                    {% if perms.VRC.Phone_Bank %}
+                    {% if perms.vrcAPP.Phone_Bank %}
                         <td><button onClick="window.location='/Job/print/{{ job.id }}'">Print</button></td>
                     {% endif %}
                 </tr>
@@ -83,10 +83,10 @@
                     <td>{{ org.address }}</td>
                     <td>{{ org.city }}</td>
                     <td><button onClick="window.location='/Organization/view/{{ org.id }}'">View</button></td>
-                    {% if perms.VRC.Phone_Bank %}
+                    {% if perms.vrcAPP.Phone_Bank %}
                         <td><button onClick="window.location='/Organization/modify/{{ org.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_volunteer %}
+                    {% if perms.vrcAPP.delete_volunteer %}
                         <td><button onClick="window.location='/Organization/delete/{{ org.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
                 </tr>

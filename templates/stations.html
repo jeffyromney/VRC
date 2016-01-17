@@ -6,13 +6,13 @@
 {% block content %}
 <table class="no-print"><tr>
                         <td><button onClick="window.location='/Volunteer/view/{{ volunteer.id }}'">View Full</button></td>
-    {% if perms.VRC.change_volunteer %}
+    {% if perms.vrcAPP.change_volunteer %}
                         <td><button onClick="window.location='/Volunteer/modify/{{ volunteer.id }}'">Modify</button></td>
                     {% endif %}
-                    {% if perms.VRC.delete_volunteer %}
+                    {% if perms.vrcAPP.delete_volunteer %}
                         <td><button onClick="window.location='/Volunteer/delete/{{ volunteer.id }}/?next={{ request.get_full_path }}'">Delete</button></td>
                     {% endif %}
-                    {% if perms.VRC.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ volunteer.id }}'">Print</button></td>{% endif %}
+                    {% if perms.vrcAPP.Data_Validation %}<td><button onClick="window.location='/Volunteer/print/{{ volunteer.id }}'">Print</button></td>{% endif %}
 </tr></table>
 
 {% if form.errors %}
@@ -54,15 +54,15 @@
       </table>
         <br>
         <table>
-        {% if perms.VRC.IDCheck %} <tr><td> {{ form.idCheck }} </td><td> {{ form.idCheck.label_tag }} </td></tr>{% endif %}
-        {% if perms.VRC.Data_Validation %} <tr><td> {{ form.dataValidation }} </td><td> {{ form.dataValidation.label_tag }} </td></tr>{% endif %}
-        {% if perms.VRC.Interview %} <tr><td> {{ form.interview }} </td><td> {{ form.interview.label_tag }} </td></tr>{% endif %}
-        {% if perms.VRC.Safety %} <tr><td> {{ form.safety }} </td><td> {{ form.safety.label_tag }} </td></tr>{% endif %}
-        {% if perms.VRC.IDBadge %} <tr><td> {{ form.idbadge }} </td><td> {{ form.idbadge.label_tag }} </td></tr>{% endif %}
-        {% if perms.VRC.Maps %} <tr><td> {{ form.maps }} </td><td> {{ form.maps.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.IDCheck %} <tr><td> {{ form.idCheck }} </td><td> {{ form.idCheck.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.Data_Validation %} <tr><td> {{ form.dataValidation }} </td><td> {{ form.dataValidation.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.Interview %} <tr><td> {{ form.interview }} </td><td> {{ form.interview.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.Safety %} <tr><td> {{ form.safety }} </td><td> {{ form.safety.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.IDBadge %} <tr><td> {{ form.idbadge }} </td><td> {{ form.idbadge.label_tag }} </td></tr>{% endif %}
+        {% if perms.vrcAPP.Maps %} <tr><td> {{ form.maps }} </td><td> {{ form.maps.label_tag }} </td></tr>{% endif %}
         {% csrf_token %}
         </table>
-        {% if perms.VRC.Interview %}
+        {% if perms.vrcAPP.Interview %}
         <h3>Available Jobs</h3>
             <div class="radio">
             <table><tr><td>Job</td><td>duties</td><td>weight</td><td>drive</td><td>age</td><td>skills</td><td>other</td></tr>
@@ -80,7 +80,7 @@
             </div>
         {% endif %}<br>
         <button type="submit">Submit</button>
-        {% if perms.VRC.Interview or perms.VRC.Data_Validation %}
+        {% if perms.vrcAPP.Interview or perms.vrcAPP.Data_Validation %}
             <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
         Do you have any limitations? {{ form.limitations }} <br>
