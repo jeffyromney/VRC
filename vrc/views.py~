@@ -18,10 +18,7 @@ def addVolunteer(request):
     if request.method == 'POST':   #If form is being submitted
     	if ('continue' in request.GET) and request.GET.get('continue') == '1':
     		form = VolunteerForm(request.session.get('formBackup'))
-    		try:
-    			del request.session['formBackup']
-    		except KeyError:
-     			pass
+    		del request.session['formBackup']
     		print(form)
     		print("Continue....")
     	else:

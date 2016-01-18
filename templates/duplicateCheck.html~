@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% block pageTitle %}Duplicate Entrie(s) found{% endblock %}
+{% block content %}
+
+    <div class="confirmation-box">
+        <p>At least one match was found in the database that matches the name and Birthdate you have entered. Please consider modifying this entry. If these are not duplicates, press continue.</p>
+        
+        <div>
+        <h3>Volunteers</h3>
+            <table>
+            <tr><td>ID</td><td>Name</td><td>Birthday</td><td>Address</td><td>City</td><td>Job</td>
+            {% for vol in duplicates %}
+                <tr>
+                
+                    <td>{{ vol.id }}</td>
+                    <td>{{ vol.name }}</td>
+                    <td>{{ vol.birthday }}</td>
+                    <td>{{ vol.address }}</td>
+                    <td>{{ vol.city }}</td>
+                    <td>{{ vol.job }}</td>
+                    <td><button onClick="window.location='/Volunteer/view/{{ vol.id }}'">View</button></td>
+            {% endfor %}
+            </table>
+        </div>
+        
+        
+        <div>
+            <table><tr>
+            <td valign=top><button onClick="window.location='{{ prev_link }}'">Cancel</button></td>
+            <td valign=top><form action="{{ action_link }}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ prev_link }}?continue=1" />
+                <button type="submit">Continue</button>
+            </form></td></tr></table>
+        </div>
+    </div>
+
+{% endblock %}

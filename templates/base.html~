@@ -17,7 +17,7 @@
 {% if user.is_authenticated %} <button onClick="window.location='/accounts/logout'">Logout</button>&nbsp; 
 {% else %} <button onClick="window.location='/accounts/login'">Login</button>&nbsp; {% endif %}
 <button onClick="window.location='/help'">Help</button>&nbsp;
-<div style="float:right;">Logged in as: {{ user.username }}</div>
+<div style="float:right;">{{ user.username }}</div>
 </div>
 {% endblock %}
 {% block pageTitle %}<h1>VRC Administration</h1>{% endblock %}

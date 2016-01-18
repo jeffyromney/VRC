@@ -192,10 +192,10 @@ Other: {{job.other}}</br>
 <td><h4>Stations</h4>
 <p style="font-size:80%;">
 [{% if volunteer.idCheck %}X{% else %}&nbsp;&nbsp;{% endif %}]  ID Check<br>
-[{% if volunteer.dataValidation %}X{% else %}&nbsp;&nbsp;{% endif %}]  Data Validation<br>
-[{% if volunteer.interview %}X{% else %}&nbsp;&nbsp;{% endif %}]  Interview<br>
-[{% if volunteer.safety %}X{% else %}&nbsp;&nbsp;{% endif %}]  Safety<br>
-[{% if volunteer.idbadge %}X{% else %}&nbsp;&nbsp;{% endif %}]  ID Badge<br>
+[{% if volunteer.dataValidation %}X{% else %} {% endif %}]  Data Validation<br>
+[{% if volunteer.interview %}X{% else %} {% endif %}]  Interview<br>
+[{% if volunteer.safety %}X{% else %} {% endif %}]  Safety<br>
+[{% if volunteer.idbadge %}X{% else %} {% endif %}]  ID Badge<br>
 [{% if volunteer.maps %}X{% else %}&nbsp;&nbsp;{% endif %}]  Maps<br></p>
 </td></tr>
 </table><br>
