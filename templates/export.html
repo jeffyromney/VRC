@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block pageTitle %}{% endblock %}
+
+{% block content %}
+
+{% if response %}
+
+<p>Export was a {{ response }}.</p>
+
+{% else %}
+
+    <div class="confirmation-box">
+        <p>Press "Backup" to proceed with full database backup using given IP and port</p>
+        <div>
+        	<form action="" method="post">
+                {% csrf_token %}
+                <label for="id_ip">IP Address: </label>
+                <input type="text" id="id_ip" name="ip" />
+                <label for="id_port">Port: </label>
+                <input type="text" id="id_port" name="port" />
+                <button type="submit">Backup</button>
+            </form>
+        </div>
+    </div>
+    
+{% endif %}
+{% endblock %}

@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     url(r'^addJob/$', 'vrc.views.addJob', name='Add Job'),
     url(r'^search/$', 'vrc.views.search', name='Search'),
     url(r'^help/$', 'vrc.views.help', name='VRC-Help'),
-    url(r'^export/$', 'vrc.views.export', name='Data Export'),
     
     url(r'^Volunteer/view/(\d{1,2})/$', 'vrc.views.viewVolunteer', name='View Volunteer'),
     url(r'^Volunteer/viewNew/(\d{1,2})/$', 'vrc.views.viewNewVolunteer', name='Volunteer Added'),
