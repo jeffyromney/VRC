@@ -37,7 +37,7 @@ def addVolunteer(request):
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Volunteer = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -51,7 +51,7 @@ def addVolunteer(request):
 			else:
 				new_Volunteer = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -86,7 +86,7 @@ def addOrganization(request):
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Organization = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -100,7 +100,7 @@ def addOrganization(request):
 			else:
 				new_Organization = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -134,7 +134,7 @@ def addJob(request):
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Job = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -144,11 +144,11 @@ def addJob(request):
 					return HttpResponseRedirect('/Job/viewNew/' + str(new_Job.id))
 				else:
 					request.session['formBackupOrg'] = request.POST
-					return render(request, 'duplicateCheck.html', {'form':form, 'duplicates':dups, 'type':'org'})
+					return render(request, 'duplicateCheck.html', {'form':form, 'duplicates':dups, 'type':'job'})
 			else:
 				new_Job = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -269,7 +269,7 @@ def modifyVolunteer(request,dbID):
 			cd = form.cleaned_data
 			new_Volunteer = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -325,7 +325,7 @@ def deleteVolunteer(request, dbID):
 		name = volunteer.name
 		volunteer.delete()   #Delete volunteer from database
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -350,7 +350,7 @@ def modifyJob(request,dbID):
 			cd = form.cleaned_data
 			new_Job = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -385,7 +385,7 @@ def deleteJob(request, dbID):
 		title = job.title
 		job.delete()
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 2,
 							object_id = job.id,
 							object_repr=job.title,
@@ -411,7 +411,7 @@ def modifyOrganization(request,dbID):
 			cd = form.cleaned_data
 			new_Organization = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -446,7 +446,7 @@ def deleteOrganization(request, dbID):
 		name = organization.name
 		organization.delete()
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 3,
 							object_id = organization.id,
 							object_repr=organization.name,
@@ -479,7 +479,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.IDCheck')):
 			volunteer.save(update_fields=['idCheck'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -489,7 +489,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.Data_Validation')):
 			volunteer.save(update_fields=['dataValidation'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -499,7 +499,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.Interview')):
 			volunteer.save(update_fields=['job','interview'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -509,7 +509,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.Safety')):
 			volunteer.save(update_fields=['safety'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -519,7 +519,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.IDBadge')):
 			volunteer.save(update_fields=['idbadge'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -529,7 +529,7 @@ def Stations(request, dbID):
 		if(request.user.has_perm('vrcAPP.Maps')):
 			volunteer.save(update_fields=['maps'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -586,7 +586,7 @@ def runCleanup():
 		if job.full != initialFull:
 			job.save(update_fields=['full','reasonClosed'])
 			LogEntry.objects.log_action(
-							user_id = 0,
+							user_id = 'Cleanup',
 							content_type_id = 2,
 							object_id = job.id,
 							object_repr=job.title,
@@ -626,7 +626,7 @@ def export(request):
 		else:
 			response = 'failure'
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.username or 'Guest',
 							content_type_id = 0,
 							object_id = 0,
 							object_repr='Database',

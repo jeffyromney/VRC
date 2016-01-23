@@ -21,6 +21,8 @@ from django.contrib.admin.models import LogEntry
 
 def addVolunteer(request):
 	runCleanup()
+	print 'User'
+	print(request.user.id)
 	if request.method == 'POST':   #If form is being submitted
 		if ('continue' in request.GET) and request.GET.get('continue') == '1':
 			form = VolunteerForm(request.session.get('formBackupVol'))
@@ -33,11 +35,12 @@ def addVolunteer(request):
 		if form.is_valid():
 			cd = form.cleaned_data
 			dups = getDuplicateVolunteers({'name':cd['name'], 'birthday':cd['birthday']})
+			print(dups)
 			if dups:
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Volunteer = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -51,7 +54,7 @@ def addVolunteer(request):
 			else:
 				new_Volunteer = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -86,7 +89,7 @@ def addOrganization(request):
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Organization = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -100,7 +103,7 @@ def addOrganization(request):
 			else:
 				new_Organization = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -134,7 +137,7 @@ def addJob(request):
 				if ('continue' in request.GET) and request.GET.get('continue') == '1':
 					new_Job = form.save() #save to database
 					LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -148,7 +151,7 @@ def addJob(request):
 			else:
 				new_Job = form.save() #save to database
 				LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -269,7 +272,7 @@ def modifyVolunteer(request,dbID):
 			cd = form.cleaned_data
 			new_Volunteer = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = new_Volunteer.id,
 							object_repr=new_Volunteer.name,
@@ -324,14 +327,17 @@ def deleteVolunteer(request, dbID):
 		volunteer = Volunteer.objects.get(id=dbID)
 		name = volunteer.name
 		volunteer.delete()   #Delete volunteer from database
-		LogEntry.objects.log_action(
-							user_id = request.user.username,
+		try:
+			LogEntry.objects.log_action(
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
 							change_message = 'Deleted Volunteer from Database',
 							action_flag = 3
 						   )
+		except:
+			pass
 		return render(request, 'deleted.html', {'name':name})
 	else:
 		prevUrl = request.REQUEST.get('next', '')
@@ -350,7 +356,7 @@ def modifyJob(request,dbID):
 			cd = form.cleaned_data
 			new_Job = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 2,
 							object_id = new_Job.id,
 							object_repr=new_Job.title,
@@ -385,7 +391,7 @@ def deleteJob(request, dbID):
 		title = job.title
 		job.delete()
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 2,
 							object_id = job.id,
 							object_repr=job.title,
@@ -411,7 +417,7 @@ def modifyOrganization(request,dbID):
 			cd = form.cleaned_data
 			new_Organization = form.save() #save to database
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 3,
 							object_id = new_Organization.id,
 							object_repr=new_Organization.name,
@@ -446,7 +452,7 @@ def deleteOrganization(request, dbID):
 		name = organization.name
 		organization.delete()
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 3,
 							object_id = organization.id,
 							object_repr=organization.name,
@@ -466,20 +472,21 @@ def Stations(request, dbID):
 	form = VolunteerForm(request.POST or None, instance=volunteer, initial = {'job': volunteer.job })
 	if volunteer.job is not None and volunteer.job.full:
 		form.fields['job'].queryset=Job.objects.filter(id=volunteer.job.id) | Job.objects.filter(full=False)
-	for field in form.fields:
-		if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
-			if field not in ['idCheck', 'dataValidation', 'interview', 'safety', 'idbadge', 'maps']:
+	if not request.user.has_perm('vrcAPP.Data_Validation'):
+		for field in form.fields:
+			if form.fields[field].widget.__class__.__name__ == CheckboxInput().__class__.__name__:
+				if field not in ['idCheck', 'dataValidation', 'interview', 'safety', 'idbadge', 'maps']:
+					form.fields[field].widget.attrs['disabled'] = True
+			elif field not in ['job','notes']:
 				form.fields[field].widget.attrs['disabled'] = True
-		elif field != 'job':
-			form.fields[field].widget.attrs['disabled'] = True
-			form.fields[field].widget.attrs['readonly'] = True
+				form.fields[field].widget.attrs['readonly'] = True
 			
 	if request.method == 'POST':   #If form is being submitted
 		form.is_valid()
 		if(request.user.has_perm('vrcAPP.IDCheck')):
-			volunteer.save(update_fields=['idCheck'])
+			volunteer.save(update_fields=['idCheck', 'notes'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -487,19 +494,22 @@ def Stations(request, dbID):
 							action_flag = 2
 						   )
 		if(request.user.has_perm('vrcAPP.Data_Validation')):
-			volunteer.save(update_fields=['dataValidation'])
+			fieldList = [field.name for field in form]
+			for thing in ['idCheck', 'interview', 'safety', 'idbadge', 'maps','job']:
+				if thing in fieldList: fieldList.remove(thing)
+			volunteer.save(update_fields=fieldList)
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
-							change_message = 'Updated Data Validation Station for Volunteer',
+							change_message = 'Updated Volunteer at Data Validation Station',
 							action_flag = 2
 						   )
 		if(request.user.has_perm('vrcAPP.Interview')):
-			volunteer.save(update_fields=['job','interview'])
+			volunteer.save(update_fields=['job','interview', 'notes'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -507,9 +517,9 @@ def Stations(request, dbID):
 							action_flag = 2
 						   )
 		if(request.user.has_perm('vrcAPP.Safety')):
-			volunteer.save(update_fields=['safety'])
+			volunteer.save(update_fields=['safety', 'notes'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -517,9 +527,9 @@ def Stations(request, dbID):
 							action_flag = 2
 						   )
 		if(request.user.has_perm('vrcAPP.IDBadge')):
-			volunteer.save(update_fields=['idbadge'])
+			volunteer.save(update_fields=['idbadge', 'notes'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -527,9 +537,9 @@ def Stations(request, dbID):
 							action_flag = 2
 						   )
 		if(request.user.has_perm('vrcAPP.Maps')):
-			volunteer.save(update_fields=['maps'])
+			volunteer.save(update_fields=['maps', 'notes'])
 			LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 1,
 							object_id = volunteer.id,
 							object_repr=volunteer.name,
@@ -558,8 +568,9 @@ def runCleanup():
 	for volunteer in volunteers:
 		naive = volunteer.created.replace(tzinfo=None)
 		if (currentTime - naive).days >=1 and not (volunteer.dataValidation):
-			print('Deleting ' + volunteer.name) 
+			#print('Deleting ' + volunteer.name) 
 			#volunteer.delete()
+			pass
 	for job in jobs:
 		debug1 = datetime.datetime.now().date()
 		debug2 = job.edate
@@ -586,7 +597,7 @@ def runCleanup():
 		if job.full != initialFull:
 			job.save(update_fields=['full','reasonClosed'])
 			LogEntry.objects.log_action(
-							user_id = 0,
+							user_id = 255,
 							content_type_id = 2,
 							object_id = job.id,
 							object_repr=job.title,
@@ -626,7 +637,7 @@ def export(request):
 		else:
 			response = 'failure'
 		LogEntry.objects.log_action(
-							user_id = request.user.username,
+							user_id = request.user.id or 0,
 							content_type_id = 0,
 							object_id = 0,
 							object_repr='Database',

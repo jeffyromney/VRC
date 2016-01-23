@@ -34,7 +34,7 @@
     <form action="" method="post">
         <table>
             <tr>
-                <td align=right>
+                <td align=right {% if  perms.vrcAPP.Data_Validation %} style="line-height: 1.34;" {% endif %}>
                     Name<br>
                     Birthday<br><br>
                     Home Address<br>
@@ -44,13 +44,23 @@
                     Occupation<br>
                 </td>
                 <td align=left>
-                    {{ form.name.value }}<br>
-                    {{ form.birthday.value }}<br><br>
-                    {{ form.address.value }}<br>
-                    {{ form.city.value }}<br>
-                    {{ form.state_province.value }}<br>
-                    {{ form.zip_code.value }}<br>
-                    {{ form.occupation.value }}<br>
+                    {% if not perms.vrcAPP.Data_Validation %}
+                        {{ form.name.value }}<br>
+                        {{ form.birthday.value }}<br><br>
+                        {{ form.address.value }}<br>
+                        {{ form.city.value }}<br>
+                        {{ form.state_province.value }}<br>
+                        {{ form.zip_code.value }}<br>
+                        {{ form.occupation.value }}<br>
+                    {% else %}
+                        {{ form.name }}<br>
+                        {{ form.birthday }}<br><br>
+                        {{ form.address }}<br>
+                        {{ form.city }}<br>
+                        {{ form.state_province }}<br>
+                        {{ form.zip_code }}<br>
+                        {{ form.occupation }}<br>
+                    {% endif %}
                 </td>
             </tr>
       </table>
@@ -67,20 +77,38 @@
         {% if perms.vrcAPP.Interview %}
         <h3>Available Jobs</h3>
             <div class="radio">
-            <table><tr><td>Job</td><td>duties</td><td>weight</td><td>drive</td><td>age</td><td>skills</td><td>other</td></tr>
+            <table class="assign">
+            <tr class="assign">
+                <th class="assign"/>
+                <th class="assign">Job Title</td>
+                <th class="assign">Duties</td>
+                <th class="assign">Must be able to lift</td>
+                <th class="assign">Need to Drive</td>
+                <th class="assign">Min Age</td>
+                <th class="assign">Required Skills</td>
+                <th class="assign">Other</td>
+            </tr class="assign">
                 {% for choice in form.job.field.queryset %}
-                <tr>
-                <td>
+                <tr class="assign" onclick="document.getElementById('job_{{ choice.id }}').checked = true;">
+                <td class="assign"> <input type="radio" name="job" id="job_{{ choice.id }}" value="{{ choice }}"{% if form.job.value == choice.title %} checked{% endif %}/> </td>
+                <td class="assign" onclick="document.getElementById('job_{{ choice.id }}').checked = true;">
                 <label for="{{ form.job.id }}_{{ forloop.counter }}" class="control-label">
-                    <input type="radio" name="job" id="job_{{ choice.id }}" value="{{ choice }}"{% if form.job.value == choice.title %} checked{% endif %}> {{ choice.title }}
+                     {{ choice.title }}
                 </label>
                 </td>
-                <td>{{ choice.duties }}</td><td>{{ choice.weight }}</td><td>{{ choice.drive }}</td><td>{{ choice.age }}</td><td>{{ choice.skills }}</td><td>{{ choice.other }}</td>
+                <td class="assign"><label>{{ choice.duties }}</label></td>
+                <td class="assign"><label>{% if choice.weight %}{{ choice.weight }}{% else %}0{% endif %} lbs</label></td>
+                <td class="assign"><label>{% if choice.drive %} Yes {% else %} No {% endif %}</label></td>
+                <td class="assign"><label>{{ choice.age }}</label></td>
+                <td class="assign"><label>{{ choice.skills }}</label></td>
+                <td class="assign"><label>{{ choice.other }}</label></td>
                 </tr>
                 {% endfor %}
             </table>
             </div>
         {% endif %}<br>
+        Other Notes: {{ form.notes }}<br>
+        <br>
         <button type="submit">Submit</button>
         {% if perms.vrcAPP.Interview or perms.vrcAPP.Data_Validation %}
             <h3>Availability</h3>
@@ -142,8 +170,6 @@
         <br>
         <u>Equipment</u><br>
         {{ form.chainsaw }}Chainsaw&nbsp;&nbsp;&nbsp;{{ form.backhoe }}Backhoe&nbsp;&nbsp;&nbsp;{{ form.generator }}Generator&nbsp;&nbsp;&nbsp;Other{{ form.othereq }}<br>
-        <br>
-        Other Notes: {{ form.notes }}<br>
         
         {% endif %}
     </form>
