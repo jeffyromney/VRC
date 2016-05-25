@@ -39,6 +39,7 @@ class VolunteerForm(ModelForm):
 
     birthday = DateField(required=False, widget=SelectDateWidget(years=range(datetime.date.today().year,1900,-1)))
     job = ModelChoiceField(queryset=Job.objects.none(), to_field_name="title", required=False)
+    distance = IntegerField(widget=NumberInput(attrs={'type':'range', 'step': '10', 'min': '5', 'max':'2000'}))
     class Meta:
         model = Volunteer
         fields = '__all__'

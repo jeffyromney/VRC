@@ -65,13 +65,14 @@
 {% if volunteer.resident %}Yes{% else %}No{% endif %}
 </br> Months Available: {{ volunteer.monthsAvailable }} </br>
 Limitations: {{ volunteer.limitations }}{% if not volunteer.limitations %}None{% endif %}</br>
-Willing to volunteer:
+Willing to travel {% if volunteer.distance < 50 %}Less than 50{% else %}{{volunteer.distance}}{% endif %} miles to volunteer<br>
+<!--Willing to volunteer:
 {% if volunteer.us %}Anywhere in the US
 {% elif volunteer.instate %}Anywhere in the state
 {% elif volunteer.neighbor %}In Neighboring County
 {% elif volunteer.county %}In This County
 {% else %}No{% endif %}
-</br>
+</br>-->
         Affiliated disaster relief agency: {{ volunteer.affiliatedAgency }}
 {% if not volunteer.affiliatedAgency %}None{% endif %}
 </br>

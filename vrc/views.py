@@ -21,8 +21,6 @@ from django.contrib.admin.models import LogEntry
 
 def addVolunteer(request):
 	runCleanup()
-	print 'User'
-	print(request.user.id)
 	if request.method == 'POST':   #If form is being submitted
 		if ('continue' in request.GET) and request.GET.get('continue') == '1':
 			form = VolunteerForm(request.session.get('formBackupVol'))

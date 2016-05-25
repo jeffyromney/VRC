@@ -1,4 +1,8 @@
-    
+case $1 in
+	-u)	echo "Purging previous Installations...."
+		sudo apt-get -y purge apache2 libapache2-mod-php5 libapache2-mod-php5 libapache2-mod-wsgi
+		echo "Done!";;
+esac
 echo "Installing Dependencies....."
 
 sudo apt-get install -y apache2 libapache2-mod-php5 libapache2-mod-wsgi python2.7 python-django

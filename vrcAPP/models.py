@@ -63,6 +63,7 @@ class Volunteer(models.Model):
     resident = models.BooleanField(blank=True, verbose_name="Year-round Resident")
     monthsAvailable = models.CharField(blank=True, null=True, max_length=50, verbose_name="Months Available")
     limitations = models.CharField(blank=True, null=True, max_length=30, verbose_name="Limitations")
+    distance = models.PositiveIntegerField(blank=True, null=True, verbose_name="Distance willing to travel (miles)")
     county = models.BooleanField(blank=True, verbose_name="This County")
     neighbor = models.BooleanField(blank=True, verbose_name="A Neighboring County")
     instate = models.BooleanField(blank=True, verbose_name="Anywhere in the State")

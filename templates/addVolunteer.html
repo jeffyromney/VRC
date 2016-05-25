@@ -122,8 +122,10 @@
       <h3>Availability</h3>
         Year-round resident? {{ form.resident }} Months Available: {{ form.monthsAvailable }} <br>
         Do you have any limitations? {{ form.limitations }} <br><br>
-        I am willing to volunteer in:<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br><br>
+        Up to how many miles are you willing to travel to volunteer?<br>
+        <input {% if viewOnly %}disabled="True" readOnly="True" {% endif %} id="id_distance" max="1000" min="0" name="distance" step="50" type="range" value="{% if form.distance.value %}{{ form.distance.value }}{% else %}0{% endif %}" onchange="distancevalue.value=((value < 50) ? 'Less than 50' : value);"><output id="distancevalue">{% if form.distance.value %}{{ form.distance.value }}{% else %}Less than 50{% endif %}</output><br><br>
+        <!--I am willing to volunteer in:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This County:{{ form.county }} &nbsp;&nbsp;&nbsp;A Neighboring County:{{ form.neighbor }} &nbsp;&nbsp;&nbsp;Anywhere in this state:{{ form.instate }} &nbsp;&nbsp;&nbsp;Anywhere in the U.S.:{{ form.us }}<br><br>-->
         Are you currently affiliated with a disaster relief agency? {{ form.affiliatedAgency }}<br>
         Special skills and/or vocational/disaster training: {{ form.skillsTraining }}<br>
         <hr>
