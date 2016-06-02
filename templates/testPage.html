@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block pageTitle %}{% endblock %}
+
+{% block content %}
+
+{% if response %}
+
+<p>Export was a {{ response }}.</p>
+
+{% else %}
+
+    <div class="confirmation-box">
+        <p>Press "Send Test Sync Request" to spoof a sync request using the current database</p>
+        <div>
+        	<form action="" method="post">
+                {% csrf_token %}
+                <label for="random">Hello</label>
+                <input type="text" id="random" name="arndom" />
+                <button type="submit">Send Test Sync Request</button>
+            </form>
+        </div>
+    </div>
+    
+{% endif %}
+{% endblock %}

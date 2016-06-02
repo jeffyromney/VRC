@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url, static
 from vrc import views
+from utils import views
 from django.contrib import admin
 admin.autodiscover()
 from django.contrib.auth.views import login, logout
@@ -38,7 +39,9 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', 'vrc.views.loginSuccess'),
     url(r'^accounts/loggedOut/$', 'vrc.views.loggedOut'),
 
-
+    url(r'^api/sync_vrc/$', 'utils.views.sync_vrc'),
+    url(r'^api/sync_mobile/$', 'utils.views.sync_mobile'),
+    url(r'^api/spoof/$', 'utils.views.spoofSync'),
 #    url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
 #    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),
