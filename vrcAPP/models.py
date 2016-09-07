@@ -1,16 +1,32 @@
 from django.db import models
 #from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import User
+from vrcAPP.middleware import get_current_user
 
 # Create your models here.
+
+class CurrentUserOnly(models.Manager):
+    def get_queryset(self):
+        user = get_current_user()
+        tmp = super(CurrentUserOnly, self).get_queryset()
+        pks = [obj.pk for obj in tmp if ((obj.owner is not None and obj.owner.user == user) or (user.is_staff and user.is_superuser))]
+        return super(CurrentUserOnly, self).get_queryset().filter(pk__in=pks)
     
+class ReceptionCenter(models.Model):
+    name = models.CharField(blank=True, null=True, max_length=50)
+    user = models.ForeignKey(User, unique=True)
+    def __unicode__(self):
+        return self.name
+
 class Organization(models.Model):
     name = models.CharField(blank=True, null=True, max_length=50)
     contact = models.CharField(blank=True, null=True, max_length=40)
     address = models.CharField(blank=True, null=True, max_length=80)
     phone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+?\d{1,2}[\s.,-\/\\*]?)?\(?\d{3}\)?[\s.,-\/\\*]?\d{3}[\s.,-\/\\*]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     ext = models.IntegerField(blank=True, null=True, max_length=3)
-    
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)   
+    objects = CurrentUserOnly() 
     def __unicode__(self):
         return self.name
 
@@ -32,6 +48,9 @@ class Job(models.Model):
     reasonClosed = models.IntegerField(blank=True,null=True)
     full = models.BooleanField(default=False)
     closedOn = models.DateTimeField(blank=True,null=True)
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)    
+
+    objects = CurrentUserOnly()
     
     def __unicode__(self):
         return self.title
@@ -155,7 +174,10 @@ class Volunteer(models.Model):
     safety = models.BooleanField(blank=True, verbose_name="Safety Station")
     idbadge = models.BooleanField(blank=True, verbose_name="ID Station")
     maps = models.BooleanField(blank=True, verbose_name="Map Station")
-    picture = models.ImageField(upload_to='volunteers')
+#    picture = models.ImageField(upload_to='volunteers')
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)    
+
+    objects = CurrentUserOnly()
     
     def __unicode__(self):
         return self.name
