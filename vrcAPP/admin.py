@@ -3,6 +3,9 @@ from .models import *
 from django.contrib.admin.models import LogEntry
 # Register your models here.
 
+class ReceptionCenterAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    pass
 class VolunteerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     pass
@@ -27,6 +30,7 @@ class LogAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+admin.site.register(ReceptionCenter, ReceptionCenterAdmin)
 admin.site.register(Volunteer, VolunteerAdmin)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Organization, OrganizationAdmin)
