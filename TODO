@@ -15,6 +15,7 @@ X  Format forms to match paper forms
 *  seperated day,mon,year fields in date fields
 *  add date selector
 *  Add CSS
+-  Change colors of pages to be easier to read
  
 addVolunteer.html
 X  Add waiver
@@ -41,3 +42,29 @@ Notes from Trial run on Nov 21, 2015
  - Reject duplicates
  - Search page - selection to order by name/phone number
  
+Notes from Trial run on Aug 2, 2016
+ Bugs
+ -  Register page, some formatting issues (minor)
+ -  When a form is modified, it sends people back to ID Check
+ Common Errors
+ -  Registration: Commas instead of periods in email address
+ Comments
+ -  Jobs that need are perpetual (will be needed every time). Extended end date vs. no end date
+ -  Tracking hours… how to not duplicate hour records
+ -  One corporation seeing hours spent by volunteer with another organization
+ -  Emergency Management should be able to see all volunteer hours and jobs
+ -  Maps and organizations could be switched so if people report to a present organization don’t have to stop by
+ -  Go through quickly, because volunteers come from miles around, and get upset when there aren’t any jobs available
+ -  What is the difference between Data Check and Interview stations?
+    -  Data Check is to draw out any information the volunteer missed
+    -  Interview matches the volunteer with the job (Rename to "Job Assignment"?)
+ -  Blue sheet is redundant on purpose
+ -  Getting people through in an efficient manner is critical
+ -  Size of facility...can we make a clarification of “No less than an area of…”
+    -  If you can do things in different rooms, it’s best to minimize noise
+ -  Colors of site make it hard to read
+ -  Interview station couldn’t modify or make notes on volunteer’s information
+    -  That task is meant for the Data Check station
+    -  If something needs to be corrected, they should be sent back to Data Check
+ -  Allow people to update information on their own computers so they don’t have to go back to a previous station
+
