@@ -23,13 +23,20 @@ input:disabled
     font-size: 100%; 
 }
 
-button
+/* button
 {
-    background:url(redButton.png) no-repeat;
     background-size:cover;
     height:21px;
     border: 0;
-}
+    background-color: #c4c4c4;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}*/
 
 input:disabled::-webkit-input-placeholder { /* WebKit browsers */
     color:    #2277aa;
