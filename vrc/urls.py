@@ -3,7 +3,7 @@ from vrc import views
 from utils import views
 from django.contrib import admin
 admin.autodiscover()
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 import settings
 
 urlpatterns = [
@@ -34,8 +34,8 @@ urlpatterns = [
     url(r'^Organization/delete/(\d{1,2})/$', 'vrc.views.deleteOrganization', name='Delete Organization'),
     
     url(r'^Stations/(\d{1,2})/$', 'vrc.views.Stations', name='Stations'),
-    url(r'^accounts/login/$',  login),
-    url(r'^accounts/logout/$', logout, {'next_page': '/accounts/loggedOut/'}),
+    url(r'^accounts/login/$',  LoginView),
+    url(r'^accounts/logout/$', LogoutView, {'next_page': '/accounts/loggedOut/'}),
     url(r'^accounts/profile/$', 'vrc.views.loginSuccess'),
     url(r'^accounts/loggedOut/$', 'vrc.views.loggedOut'),
 
