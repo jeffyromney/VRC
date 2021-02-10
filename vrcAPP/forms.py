@@ -1,5 +1,5 @@
 from django.forms import *
-from django.forms.extras.widgets import SelectDateWidget
+#from django.forms.extras.widgets import SelectDateWidget
 from .models import *
 from django.forms import CheckboxInput
 from django.contrib.auth.forms import UserChangeForm
