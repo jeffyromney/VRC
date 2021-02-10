@@ -4,7 +4,7 @@ from utils import views
 from django.contrib import admin
 admin.autodiscover()
 from django.contrib.auth.views import LoginView, LogoutView
-import settings
+import vrc.settings
 
 urlpatterns = [
     # Examples:
