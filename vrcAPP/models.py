@@ -10,7 +10,7 @@ class CurrentUserOnly(models.Manager):
     def get_queryset(self):
         user = get_current_user()
         tmp = super(CurrentUserOnly, self).get_queryset()
-        pks = [obj.pk for obj in tmp if ((obj.owner is not None and obj.owner.user == user) or (user.is_staff and user.is_superuser))]
+        pks = [obj.pk for obj in tmp if ((obj.owner is not None and obj.owner.user == user) or (user is not None and user.is_staff and user.is_superuser))]
         return super(CurrentUserOnly, self).get_queryset().filter(pk__in=pks)
     
 class ReceptionCenter(models.Model):
