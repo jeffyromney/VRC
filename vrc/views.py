@@ -9,9 +9,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import UserChangeForm
 from django.forms import CheckboxInput
 from django.forms.models import model_to_dict
-from printing import *
+from vrc.printing import *
 import datetime
-import vrcLogging
+import vrc.vrcLogging
 from django.core import serializers
 import socket
 from django.contrib.admin.models import LogEntry
