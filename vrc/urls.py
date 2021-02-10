@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url, static
+from django.conf.urls import include, url, static
 from vrc import views
 from utils import views
 from django.contrib import admin
@@ -6,7 +6,7 @@ admin.autodiscover()
 from django.contrib.auth.views import login, logout
 import settings
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     url(r'^$', 'vrc.views.welcome', name='Welcome to VRC'),
     url(r'^addVolunteer/$', 'vrc.views.addVolunteer', name='Add Volunteer'),
@@ -50,4 +50,4 @@ urlpatterns = patterns('',
     #url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 #    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
-)
+]
