@@ -1,6 +1,6 @@
 from django.conf.urls import include, url, static
 from vrc import views
-from utils import views
+import utils
 from django.contrib import admin
 admin.autodiscover()
 from django.contrib.auth.views import LoginView, LogoutView
