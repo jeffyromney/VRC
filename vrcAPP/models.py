@@ -15,7 +15,7 @@ class CurrentUserOnly(models.Manager):
     
 class ReceptionCenter(models.Model):
     name = models.CharField(blank=True, null=True, max_length=50)
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(User, unique=True, on_delete=models.DO_NOTHING)
     def __unicode__(self):
         return self.name
 
@@ -25,7 +25,7 @@ class Organization(models.Model):
     address = models.CharField(blank=True, null=True, max_length=80)
     phone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+?\d{1,2}[\s.,-\/\\*]?)?\(?\d{3}\)?[\s.,-\/\\*]?\d{3}[\s.,-\/\\*]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     ext = models.IntegerField(blank=True, null=True, max_length=3)
-    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)   
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True, on_delete=models.DO_NOTHING)   
     objects = CurrentUserOnly() 
     def __unicode__(self):
         return self.name
@@ -48,7 +48,7 @@ class Job(models.Model):
     reasonClosed = models.IntegerField(blank=True,null=True)
     full = models.BooleanField(default=False)
     closedOn = models.DateTimeField(blank=True,null=True)
-    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)    
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True, on_delete=models.DO_NOTHING)    
 
     objects = CurrentUserOnly()
     
@@ -71,7 +71,7 @@ class Volunteer(models.Model):
     country = models.CharField(blank=True, null=True, max_length=50, verbose_name="Country")
     email = models.EmailField(blank=True, null=True, verbose_name="Email Address")
     birthday = models.DateField(blank=True, null=True, verbose_name="Birth Date")
-    job = models.ForeignKey(Job,blank=True, null=True, verbose_name="Assigned Job")
+    job = models.ForeignKey(Job,blank=True, null=True, verbose_name="Assigned Job", on_delete=models.DO_NOTHING)
     dayPhone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+?\d{1,2}[\s.,-\/\\*]?)?\(?\d{3}\)?[\s.,-\/\\*]?\d{3}[\s.,-\/\\*]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     cellPhone = models.CharField(blank=True, null=True, max_length=18, validators=[RegexValidator(r'^(\+?\d{1,2}[\s.,-\/\\*]?)?\(?\d{3}\)?[\s.,-\/\\*]?\d{3}[\s.,-\/\\*]?\d{4}$','Enter a valid Phone Number','Invalid Phone Number')], )
     emergencyContact =  models.CharField(blank=True, null=True, max_length=30, verbose_name="Emergency Contact")
@@ -175,7 +175,7 @@ class Volunteer(models.Model):
     idbadge = models.BooleanField(blank=True, verbose_name="ID Station")
     maps = models.BooleanField(blank=True, verbose_name="Map Station")
 #    picture = models.ImageField(upload_to='volunteers')
-    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True)    
+    owner = models.ForeignKey(ReceptionCenter, blank=True, null=True, on_delete=models.DO_NOTHING)    
 
     objects = CurrentUserOnly()
     
